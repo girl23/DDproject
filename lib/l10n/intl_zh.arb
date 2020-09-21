@@ -1,0 +1,5 @@
+{
+  "viewStateMessageError": "加载失败",
+  "viewStateMessageNetworkError": "网络连接异常,请检查网络或稍后重试",
+  "viewStateMessageEmpty": "暂时没有数据"
+}

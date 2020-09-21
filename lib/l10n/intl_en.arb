@@ -1,0 +1,5 @@
+{
+  "viewStateMessageError": "Load Failed",
+  "viewStateMessageNetworkError": "Load Failed,Check network ",
+  "viewStateMessageEmpty": "Nothing Found"
+}

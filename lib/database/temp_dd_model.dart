@@ -1,0 +1,99 @@
+import 'package:flutter/material.dart';
+class TempDDDbModel{
+
+  int id;
+  String userId;
+  String createDate;
+  String updateDate;
+  String ddNumber;
+  String ddPlaneNo;
+  String ddReportDate;
+  String ddReportPlace;
+  String ddKeepPerson;
+  String ddPhoneNumber;
+  String ddFax;
+  String ddKeepMeasure;
+  String ddName;
+  String ddJno;
+  String ddFaultNum;
+  String ddInstallNum;
+  String ddReleaseNum;
+  String ddChapter1;
+  String ddChapter2;
+  String ddChapter3;
+  String ddFaultCategory;
+  String ddInfluence;
+  int ddo;
+  int ddOther;
+  String ddOtherDescribe;
+  int ddOI;
+  int ddLS;
+  int ddSG;
+  int ddSP;
+  String ddDay;
+  String ddHour;
+  String ddCycle;
+  String ddKeepDescribe;
+  String ddParkingTime;
+  String ddWorkHour;
+  String ddPlanOperator;
+  int ddNeedM;
+  int ddNeedRun;
+  int ddNeedAmc;
+  String ddEvidence;
+  String ddChapterNo1;
+  String ddChapterNo2;
+  String ddChapterNo3;
+  String ddChapterNo4;
+  String ddChapterNo5;
+
+  TempDDDbModel parseDataMap(Map<String, dynamic> dataMap){
+   id =dataMap['id'];
+   userId=dataMap['userId'];
+   ddNumber= dataMap['dd_number'];
+   ddPlaneNo= dataMap['dd_planeNo'];
+   ddReportDate= dataMap['dd_reportDate'];
+   ddReportPlace= dataMap['dd_reportPlace'];
+   ddKeepPerson= dataMap['dd_keepPerson'];
+   ddPhoneNumber= dataMap['dd_phoneNumber'];
+   ddFax= dataMap['dd_fax'];
+   ddKeepMeasure= dataMap['dd_keepMeasure'];
+   ddName= dataMap['dd_name'];
+   ddJno= dataMap['dd_jno'];
+   ddFaultNum= dataMap['dd_faultNum'];
+   ddInstallNum= dataMap['dd_installNum'];
+   ddReleaseNum= dataMap['dd_releaseNum'];
+   ddChapter1= dataMap['dd_chapter1'];
+   ddChapter2= dataMap['dd_chapter2'];
+   ddChapter3= dataMap['dd_chapter3'];
+   ddFaultCategory= dataMap['dd_keep_faultCategory'];
+   ddInfluence= dataMap['dd_influence'];
+
+   ddo= dataMap['dd_o'];
+   ddOther= dataMap['dd_other'];
+   ddOtherDescribe= dataMap['dd_other_describe'];
+   ddOI= dataMap['dd_oi'];
+   ddLS= dataMap['dd_ls'];
+   ddSG= dataMap['dd_sg'];
+   ddSP= dataMap['dd_sp'];
+   ddDay= dataMap['dd_plan_keep_time1'];
+   ddHour= dataMap['dd_plan_keep_time2'];
+   ddCycle= dataMap['dd_plan_keep_time3'];
+   ddKeepDescribe= dataMap['dd_plan_keep_describe'];
+   ddParkingTime= dataMap['dd_need_parking_time'];
+   ddWorkHour= dataMap['dd_need_work_time'];
+   ddPlanOperator= dataMap['dd_plan_operator'];
+   ddNeedM= dataMap['dd_need_m'];
+   ddNeedRun= dataMap['dd_need_run_limit'];
+   ddNeedAmc= dataMap['dd_need_amc'];
+   ddEvidence= dataMap['dd_evidence_type'];
+   ddChapterNo1= dataMap['dd_chapter_no1'];
+   ddChapterNo2= dataMap['dd_chapter_no2'];
+   ddChapterNo3= dataMap['dd_chapter_no3'];
+   ddChapterNo4= dataMap['dd_chapter_no4'];
+   ddChapterNo5= dataMap['dd_chapter_no5'];
+
+    return this;
+  }
+
+}

@@ -1,0 +1,4 @@
+class TitleModel{
+
+  String title;
+}

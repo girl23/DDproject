@@ -1,0 +1,211 @@
+int MILLIS_IN_MINUTE = 1000 * 60
+int minutesSinceEpoch = System.currentTimeMillis() / MILLIS_IN_MINUTE
+
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader('UTF-8') { reader ->
+        localProperties.load(reader)
+    }
+}
+def keystorePropertiesFile = rootProject.file("key.properties")
+def keystoreProperties = new Properties()
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+def flutterRoot = localProperties.getProperty('flutter.sdk')
+if (flutterRoot == null) {
+    throw new Exception("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
+}
+
+def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
+if (flutterVersionCode == null) {
+    flutterVersionCode = '1'
+}
+
+def flutterVersionName = localProperties.getProperty('flutter.versionName')
+if (flutterVersionName == null) {
+    flutterVersionName = '1.0'
+}
+import com.android.build.OutputFile
+apply plugin: 'com.android.application'
+//apply plugin: 'kotlin-android'
+apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
+def enableSeparateBuildPerCPUArchitecture = false
+android {
+    compileSdkVersion 28
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/java'
+        main {
+            jniLibs.srcDir 'libs'
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+        checkReleaseBuilds false
+    }
+
+    defaultConfig {
+        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
+        applicationId "com.ameco.lop"
+        minSdkVersion 18
+        targetSdkVersion 26
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+        flavorDimensions "versionCode"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        manifestPlaceholders = [
+                JPUSH_PKGNAME : applicationId,
+                JPUSH_APPKEY : "9f41eb18b40563635c7d1152", // NOTE: JPush 上注册的包名对应的 Appkey.
+                JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+        ]
+    }
+    signingConfigs {
+        release {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+        }
+    }
+    buildTypes {
+        release {
+            // TODO: Add your own signing config for the release build.
+            // Signing with the debug keys for now, so `flutter run --release` works.
+            signingConfig signingConfigs.release
+            minifyEnabled true//是否启动混淆
+            zipAlignEnabled true//是否启动zipAlign
+            shrinkResources true//是否移除无用的resource文件
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            ndk {
+                abiFilters "armeabi-v7a", "x86"
+            }
+            splits {
+                abi {
+                    reset()
+                    enable enableSeparateBuildPerCPUArchitecture
+                    universalApk false  // If true, also generate a universal APK
+                    include "armeabi-v7a", "x86"
+                }
+            }
+        }
+        debug{
+            // TODO: Add your own signing config for the release build.
+            // Signing with the debug keys for now, so `flutter run --release` works.
+            signingConfig signingConfigs.release
+            minifyEnabled false//是否启动混淆
+            zipAlignEnabled false//是否启动zipAlign
+            shrinkResources false//是否移除无用的resource文件
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            resValue("string", "cId", "loptest1")
+        }
+        profile{
+            // TODO: Add your own signing config for the release build.
+            // Signing with the debug keys for now, so `flutter run --release` works.
+            signingConfig signingConfigs.release
+            minifyEnabled false//是否启动混淆
+            zipAlignEnabled false//是否启动zipAlign
+            shrinkResources false//是否移除无用的resource文件
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            resValue("string", "cId", "loptest1")
+        }
+    }
+
+    productFlavors {//多渠道配置
+        loptest1 {
+            //下面代码将在String文件中新增cId字段
+            resValue("string", "cId", "loptest1")
+            resValue("string", "app_name", "Ameco Test")
+        }
+        loptest2 {
+            //下面代码将在String文件中新增cId字段
+            resValue("string", "cId", "loptest2")
+            resValue("string", "app_name", "Ameco Test")
+        }
+        lop1 {
+            //下面代码将在String文件中新增cId字段
+            resValue("string", "cId", "lop1")
+            resValue("string", "app_name", "Ameco LOP")
+        }
+        lop2 {
+            //下面代码将在String文件中新增cId字段
+            resValue("string", "cId", "lop2")
+            resValue("string", "app_name", "Ameco LOP")
+        }
+        guiyang {
+            //下面代码将在String文件中新增cId字段
+            resValue("string", "cId", "guiyang")
+            resValue("string", "app_name", "Ameco LOP")
+        }
+    }
+
+    applicationVariants.all { variant ->
+        if (variant.buildType.name.equals('release')) {
+            variant.outputs.each { output ->
+                // For each separate APK per architecture, set a unique version code as described here:
+                // http://tools.android.com/tech-docs/new-build-system/user-guide/apk-splits
+                def versionCodes = ["armeabi-v7a": 1, "x86": 2]
+                def abi = output.getFilter(OutputFile.ABI)
+                if (abi != null) {  // null for the universal-debug, universal-release variants
+                    output.versionCodeOverride =
+                            versionCodes.get(abi) * 1048576 + defaultConfig.versionCode
+                }
+            }
+        }
+    }
+    //修改debug模式下apk路径
+    //对生成的apk文件的名字和路径改到其他地方
+    applicationVariants.all { variant ->
+        if (variant.buildType.name.equals('debug')) {
+            variant.outputs.all {
+                //variant.getPackageApplication().outputDirectory = new File('../../build/app/outputs/apk/debug')
+                def outputPath = "../build/app/outputs/apk/debug"
+                variant.getPackageApplication().outputDirectory = new File(outputPath)
+                outputFileName = "app-debug.apk"
+            }
+        }else if(variant.buildType.name.equals('profile')){
+            variant.outputs.all {
+                //variant.getPackageApplication().outputDirectory = new File('../../build/app/outputs/apk/debug')
+                def outputPath = "../build/app/outputs/apk/profile"
+                variant.getPackageApplication().outputDirectory = new File(outputPath)
+                outputFileName = "app-profile.apk"
+            }
+        }
+    }
+    // 自定义apk的名称
+    applicationVariants.all { variant ->
+        if (variant.buildType.name.equals('release')) {
+            variant.outputs.all {
+                outputFileName = "lop_${variant.flavorName}_${defaultConfig.versionName}.${defaultConfig.versionCode}.apk"
+                // outputFileName = "lop_${defaultConfig.versionName}.apk"
+            }
+        }
+    }
+}
+
+flutter {
+    source '../..'
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    //implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.11.0'
+    implementation files('libs/gson-2.2.2.jar')
+    implementation files('libs/wsecx_android_package_v1.4.jar')
+    implementation files('libs/AnySignR3V2.4.2.jar')
+    implementation files('libs/AnySignMiniCoreV2.4.2.jar')
+    implementation files('libs/AnySignPluginV1.0.4.jar')
+//    implementation 'com.king.app:app-updater:1.0.8-androidx'
+    implementation project(':app-updater')
+
+}
+
+/*task copyDownloadableDepsToLibs(type: Copy) {
+    from configurations.compile
+    into 'libs'
+}*/

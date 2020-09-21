@@ -1,0 +1,167 @@
+name: lop
+description: A new Flutter application.
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+# followed by an optional build number separated by a +.
+# Both the version and the builder number may be overridden in flutter
+# build by specifying --build-name and --build-number, respectively.
+# In Android, build-name is used as versionName while build-number used as versionCode.
+# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+# In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
+# Read more about iOS versioning at
+# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+version: 1.0.5+20
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^0.1.2
+  #http请求
+  dio: 3.0.9
+  #屏幕自适应
+  flutter_screenutil: 1.0.2
+  #svg组件
+  flutter_svg: 0.17.3+1
+  #状态管理
+  provider: 4.0.4
+  #提示组件
+  fluttertoast: 4.0.1
+  #刷新加载数据
+  flutter_easyrefresh: 2.1.1
+  progress_dialog: 1.2.1
+  #企业级路由
+  fluro: 1.6.3
+  #加载html
+  flutter_html: 0.11.1
+  #本地少量变量存储
+  shared_preferences: 0.5.6+3
+  #dio cookie管理
+  dio_cookie_manager: 1.0.0
+  cookie_jar: 1.0.1
+  #官方 webview
+  webview_flutter: ^0.3.17
+  #三方 webview
+  flutter_webview_plugin: 0.3.10+1
+  #wifi信息
+  wifi_info_plugin: 1.0.6
+  #极光推送
+  jpush_flutter: 0.5.5
+  #图片选择器
+  #image_picker: 0.6.4
+  image_pickers: 1.0.7+1
+  #图片查看器
+  photo_view: 0.9.2
+  #图片压缩
+  flutter_native_image: 0.0.5+2
+  #获取版本号
+  package_info: 0.4.0+16
+  #更新插件
+  #ota_update: 2.2.1
+  #网页打开工具，适用于iOS版本更新，可以打开应用地址，跳转AppStore更新
+  url_launcher: 5.4.2
+  #权限检查
+  permission_handler: 4.0.0
+  device_info: ^0.4.2+2
+  connectivity: 0.4.9
+  zlmacaddress:
+    git:
+      url: https://github.com/girl23/zlMacAddress.git
+  flutter_localizations:
+    sdk: flutter
+  sqflite: ^1.3.0+2
+  path: any
+  common_utils: ^1.2.1
+#  结构化工卡功能新增插件
+  xml: 3.5.0
+  xml2json: 4.2.0
+  path_provider: 1.1.2
+  http_client_helper: 0.2.0
+  flutter_fullpdfview: 1.0.12
+  #支持各种自定义效果的富文本
+  #extended_text: 3.0.1
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter.
+flutter:
+
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    - locale/i18n_en.json
+    - locale/i18n_zh.json
+    - assets/fonts/TIMES.TTF
+    - assets/fonts/Wingdings.ttf
+    - assets/images/amecolog.png
+    - assets/images/caaclog.png
+    - assets/double_ring_loading_io.gif
+    - assets/images/account.png
+    - assets/images/app_name_cn.png
+    - assets/images/app_name_en.png
+    - assets/images/bg_login.jpg
+    - assets/images/password.png
+    - assets/images/ss1.png
+    - assets/images/ss2.png
+    - assets/images/ss3.png
+    - assets/images/yh.png
+    - assets/images/dh.png
+    - assets/images/cz.png
+    - assets/images/dd.png
+    - assets/images/dw.png
+    - assets/images/gz.png
+    - assets/images/zl.png
+    - assets/images/no.png
+    - assets/images/fdj.png
+    - assets/images/sou.png
+    - assets/images/xinjian.png
+    - assets/testxml/
+
+
+
+  #  - images/a_dot_ham.jpeg
+
+  # An image asset can refer to one or more resolution-specific "variants", see
+  # https://flutter.dev/assets-and-images/#resolution-aware.
+
+  # For details regarding adding assets from package dependencies, see
+  # https://flutter.dev/assets-and-images/#from-packages
+
+  # To add custom fonts to your application, add a fonts section here,
+  # in this "flutter" section. Each entry in this list should have a
+  # "family" key with the font family name, and a "fonts" key with a
+  # list giving the asset and other descriptors for the font. For
+  # example:
+  fonts:
+     - family: wingdings
+       fonts:
+         - asset: assets/fonts/Wingdings.ttf
+
+  #   - family: Trajan Pro
+  #     fonts:
+  #       - asset: fonts/TrajanPro.ttf
+  #       - asset: fonts/TrajanPro_Bold.ttf
+  #         weight: 700
+  #
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.dev/custom-fonts/#from-packages
+flutter_intl:
+  enabled: true
