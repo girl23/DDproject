@@ -463,7 +463,7 @@ class _AddTemporaryDDState extends State<AddTemporaryDD> {
      tempDDDbModel = await TempDDTools().queryTempDD('2222');
 
     if (tempDDDbModel != null) {
-        _numberController.text = tempDDDbModel.ddNumber.toString()??"";
+        _numberController.text = tempDDDbModel.ddNumber??"";
         _planeNoController.text = tempDDDbModel.ddPlaneNo;
         _reportDateController.text =tempDDDbModel.ddReportDate;
         _reportPlaceController.text =tempDDDbModel.ddReportPlace;

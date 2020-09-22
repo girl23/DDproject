@@ -1,0 +1,1053 @@
+<jobcard>
+	<header acreg="B-5946" flightno="CA9831" issuedate="2019-02-14" logo="caac.png" version="01">
+		<note>
+			<cn>
+				<para>
+					<text>本工作单适用于国航。注释：标有“*”的条目必须是国航授权的放行人员签署。</text>
+				</para>
+			</cn>
+			<en>
+				<para>
+					<text>NOTE: This job card is applicable to Air China Airline. “*” This task must be signed off by Air China authorized dispatch personal.</text>
+				</para>
+			</en>
+		</note>
+		<caution>
+			<cn>
+				<para>
+					<text>注意：当进行以下维修工作时，必须严格遵守维护手册及相关维修文件的安全注意事项。</text>
+				</para>
+			</cn>
+			<en>
+				<para>
+					<text>Caution: When you do the maintenance work, you must obey the safety caution of the AMM and maintenance </text>
+				</para>
+			</en>
+		</caution>
+		<explain titlecn='explain title cn'  titleen='explain title en'>
+			<item path='explainItemPath000001' no='1'>
+				<cn>
+					<para>
+						<text>参考AMM TASK 12-11-00-680-801对主油箱、通气油箱、中央翼油箱的沉淀槽放沉淀。</text>
+					</para>
+					<para>
+						<text>注：待燃油充分沉淀后执行此工作。</text>
+					</para>
+				</cn>
+				<en>
+					<para>
+						<text>Reference AMM TASK 12-11-00-680-801 to drain main tank, surge tank and center fuel tank sumps.</text>
+					</para>
+					<para>
+						<text>NOTE: Do this work after the fuel sump fully.</text>
+					</para>
+				</en>
+				<mix>
+					<para>
+						<text/>
+					</para>
+				</mix>
+			</item>
+			<item path='explainItemPath000002' no='2'>
+				<cn>
+					<para>
+						<text>参考AMM TASK 12-11-00-680-801对主油箱、通气油箱、中央翼油箱的沉淀槽放沉淀。</text>
+					</para>
+					<para>
+						<text>注：待燃油充分沉淀后执行此工作。</text>
+					</para>
+				</cn>
+				<en>
+					<para>
+						<text>Reference AMM TASK 12-11-00-680-801 to drain main tank, surge tank and center fuel tank sumps.</text>
+					</para>
+					<para>
+						<text>NOTE: Do this work after the fuel sump fully.</text>
+					</para>
+				</en>
+				<mix>
+					<para>
+						<text/>
+					</para>
+				</mix>
+			</item>
+		</explain>
+		<taiwan>
+			<para>
+				<text>检查执行台湾航班的飞机是否载旗</text>
+			</para>
+		</taiwan>
+	</header>
+	<body>
+
+		<model titlecn="接机工作" titleen="Pick Up Work" no="1" path="000001">
+		<pos titlecn="接机工作" titleen="Pick Up Work" no="1" path="000001000001">
+		<item appendix="false" available="true" no="1" photo="true" path="000001000001000001">
+			<cn>
+				<para align="0">
+					<text>接机工作内容。</text>
+				</para>
+				<checkbox path='cb000001000001000001001'>
+					<text>测量冷胎压力</text>
+				</checkbox>
+				<checkbox path='cb000001000001000001002'>
+					<text>测量测量热胎压力</text>
+				</checkbox>
+				<eff available="true">
+					<para>
+						<text>适用文本接机工作内容1。</text>
+						<text>适用文本接机工作内容2。</text>
+						<text>适用文本接机工作内容。适用文本接机工作内容。适用文本接机工作内容。适用文本接机工作内容。</text>
+					</para>
+				</eff>
+				<para>
+					<text>终测值 (Final value)</text>
+					<input path='input0000010001'></input>
+					<text>PSI</text>
+				</para>
+				<para>
+					<text>终测值 (Final value)</text>
+					<input path='input0000010002'></input>
+					<text>PSI</text>
+				</para>
+			</cn>
+			<en>
+				<para align="0">
+					<text>Pick up work content.</text>
+					<eff available="true">
+						<para>
+							<text>Pick up work content.1</text>
+							<text>Pick up work content.2</text>
+							<text>Pick up work content.Pick up work content.Pick up work content.Pick up work content.</text>
+						</para>
+					</eff>
+				</para>
+				<checkbox path='cb000001000001000001001'>
+					<text>测量冷胎压力</text>
+				</checkbox>
+				<checkbox path='cb000001000001000001002'>
+					<text>测量测量热胎压力</text>
+				</checkbox>
+			</en>
+			<mix/>
+		</item></pos></model>
+		<model titlecn="一般工作" titleen="General Work" no="2" path="000002">
+			<pos titlecn="一般工作工序" titleen="General Work Pos" no="1" path="000002000001">
+				<item appendix="true" available="true" no="1" path="000002000001000001">
+					<cn>
+						<para align="0">
+							<text>取下所有的空速管套。</text>
+						</para>
+						<checkbox path='cb000002000001000001001'>
+							<text>测量冷胎压力</text>
+						</checkbox>
+						<checkbox path='cb000002000001000001002'>
+							<text>测量测量热胎压力</text>
+						</checkbox>
+						<para>
+							<text>终测值 (Final value)</text>
+							<input path='input0000020001'></input>
+							<text>PSI</text>
+						</para>
+						<para>
+							<text>终测值 (Final value)</text>
+							<input path='input0000020002'></input>
+							<text>PSI</text>
+						</para>
+					</cn>
+					<en>
+						<para align="0">
+							<text>Remove all the pitot probe covers.</text>
+						</para>
+					</en>
+					<mix/>
+				</item>
+				<item photo="true" appendix="false" available="true" no="2" path="000002000001000002">
+					<cn>
+						<para>
+							<text>取下起落架安全销。</text>
+						</para>
+						<eff available="false">
+							<para>
+								<text>不适用取下起落架安全销1。</text>
+								<text>不适用取下起落架安全销2。</text>
+								<text>不适用取下起落架安全销。取下起落架安全销。取下起落架安全销。取下起落架安全销。</text>
+							</para>
+						</eff>
+					</cn>
+					<en>
+						<para>
+							<text>Remove the landing gear safety pins.</text>
+						</para>
+						<eff available="false">
+							<para>
+								<text>Remove the landing gear safety pins.1</text>
+								<text>Remove the landing gear safety pins.2</text>
+								<text>Remove the landing gear safety pins.Remove the landing gear safety pins.Remove the landing gear safety pins.Remove the landing gear safety pins.</text>
+							</para>
+						</eff>
+					</en>
+					<mix/>
+				</item>
+				<item photo="true" appendix="true" available="true" no="3" path="000002000001000003">
+					<cn>
+						<para>
+							<text>在冷胎条件下(落地后约3小时以后)，检查起落架轮胎气压，并按需进行充氮气勤务，记录轮胎压力(若无足够的轮胎冷却时间，可检查热胎气压并在下表中记录，若某一轮胎热胎压力低于同一起落架轮胎最高压力的90%，则将该轮胎充至该起落架轮胎已有的最高压力值)。</text>
+						</para>
+						<checkbox path='cb001'>
+							<text>测量冷胎压力</text>
+						</checkbox>
+						<checkbox path='cb002'>
+							<text>测量测量热胎压力</text>
+						</checkbox>
+						<para>
+							<text>注：</text>
+						</para>
+						<para>
+							<text>1）在测量胎压类别中划"✔️"。</text>
+						</para>
+						<para>
+							<text>2）如果没有充气，充气后压力内画" /️"。</text>
+						</para>
+						<para>
+							<text>3）如果充气钱前轮轮胎气压低于175PSI，参照AMM手册排故。(适用于A330-200)</text>
+						</para>
+						<para>
+							<text>4）如果充气钱前轮轮胎气压低于157PSI，参照AMM手册排故。(B6511，B6512，B6513)</text>
+						</para>
+						<para>
+							<text>5）如果充气钱前轮轮胎气压低于160PSI，参照AMM手册排故。(A330-300(除B6511，B6512，B6513之外))。</text>
+						</para>
+						<para>
+							<text>6）如果充气钱前主轮轮胎气压低于196PSI，参照AMM手册排故。(适用于B6511，B6512，B6513，A330-200)。</text>
+						</para>
+						<para>
+							<text>7）如果充气钱前主轮轮胎气压低于200PSI，参照AMM手册排故。(B6523，B6525，B6530，B6503，B5901，B5906，B5912，B5913，B5916，B5919，B5946-B5948，B5956-b5958)。</text>
+						</para>
+						<para>
+							<text>8）如果充气钱前主轮轮胎气压低于206PSI，参照AMM手册排故。(除上述之外的飞机)。</text>
+						</para>
+					</cn>
+					<en>
+						<para>
+							<text>In the cold tire condition (about 3 hours later after landing),check the landing gear tires for proper inflation, service with nitrogen and record the tire pressure.(If no enough times for tires could, you can check hot tire pressure and record. If the pressure of a tire is less than 90% of the highest tire pressure that on the same landing gear, inflate that tire to the highest recorded pressure).</text>
+						</para>
+						<checkbox path='cb001'>
+							<text>measure cold tire pressure</text>
+						</checkbox>
+						<checkbox path='cb002'>
+							<text>measure hot tire pressure</text>
+						</checkbox>
+						<para>
+							<text>Note：</text>
+						</para>
+						<para>
+							<text>1）Please sign the with"✔️".</text>
+						</para>
+						<para>
+							<text>2）If not inflate the tire, fill " /️" in Aft-charge Pressure.</text>
+						</para>
+						<para>
+							<text>3）If the NLG original pressure below 175PSI，dispose pre AMM。(Only for A330-200)</text>
+						</para>
+						<para>
+							<text>4）If the NLG original pressure below 157PSI，dispose pre AMM。(B6511，B6512，B6513)</text>
+						</para>
+						<para>
+							<text>5）If the NLG original pressure below 160PSI，dispose pre AMM。(A330-300 except for B6511，B6512，B6513)。</text>
+						</para>
+						<para>
+							<text>6）If the MLG original pressure below 196PSI，dispose pre AMM。(Only for B6511，B6512，B6513，A330-200)。</text>
+						</para>
+						<para>
+							<text>7）If the MLG original pressure below 200PSI，dispose pre AMM。(B6523，B6525，B6530，B6503，B5901，B5906，B5912，B5913，B5916，B5919，B5946-B5948，B5956-b5958)。</text>
+						</para>
+						<para>
+							<text>8）If the MLG original pressure below 206PSI，dispose pre AMM。(Except for above planes)。</text>
+						</para>
+					</en>
+					<mix>
+						<table name ="轮胎标准压力表/TIRE STANDARD PRESSURE TABLE" width="500">
+							<thead/>
+							<tbody>
+								<tr valign="0">
+									<td width="100">
+										<para>
+											<text>机轮位置/</text>
+										</para>
+										<para>
+											<text>Wheel NO.</text>
+										</para>
+									</td>
+									<td width="200">
+										<para>
+											<text>机号/</text>
+										</para>
+										<para>
+											<text>A/C NO.</text>
+										</para>
+									</td>
+									<td width="200">
+										<para>
+											<text>轮胎标准压力值/</text>
+										</para>
+										<para>
+											<text>Tire Standard Pressure Value</text>
+										</para>
+									</td>
+								</tr>
+								<tr>
+									<td width="100" rowspan="3">
+										<para>
+											<text>前轮/NLG</text>
+										</para>
+									</td>
+									<td width="200" halign="1">
+										<para>
+											<text>A330-200</text>
+										</para>
+									</td>
+									<td width="200">
+										<para>
+											<text>184-193 PSI</text>
+										</para>
+									</td>
+								</tr>
+								<tr>
+									<td width="200" halign="1">
+										<para>
+											<text>A330-300(除/except for B6511，B6512，B6513)</text>
+										</para>
+									</td>
+									<td width="200">
+										<para>
+											<text>168-177 PSI</text>
+										</para>
+									</td>
+								</tr>
+								<tr>
+									<td width="200" halign="1">
+										<para>
+											<text>B6511，B6512，B6513</text>
+										</para>
+									</td>
+									<td width="200">
+										<para>
+											<text>165-174 PSI</text>
+										</para>
+									</td>
+								</tr>
+								<tr>
+									<td width="100" rowspan="3">
+										<para>
+											<text>主轮/MLG</text>
+										</para>
+									</td>
+									<td width="200" halign="1">
+										<para>
+											<text>B6511，B6512，B6513，A330-200</text>
+										</para>
+									</td>
+									<td width="200">
+										<para>
+											<text>206-216 PSI</text>
+										</para>
+									</td>
+								</tr>
+								<tr>
+									<td width="200" halign="1">
+										<para>
+											<text>B6523，B6525，B6530，B6503，B5901，B5906，B5912，B5913，B5916，B5919，B5946-B5948 B5956-B5958</text>
+										</para>
+									</td>
+									<td width="200">
+										<para>
+											<text>210-220 PSI</text>
+										</para>
+									</td>
+								</tr>
+								<tr>
+									<td width="200" halign="1">
+										<para>
+											<text>除上述之外的飞机/Except for above planes</text>
+										</para>
+									</td>
+									<td width="200">
+										<para>
+											<text>216-226 PSI</text>
+										</para>
+									</td>
+								</tr>
+							</tbody>
+							<tfoot/>
+						</table>
+
+						<table name ="轮胎压力记录表/TIRE PRESSURE RECORDING TABLE" width="600">
+							<thead/>
+							<tbody>
+								<tr valign="0">
+									<td width="200">
+										<para>
+											<text>机轮位置/</text>
+										</para>
+										<para>
+											<text>Wheel NO.</text>
+										</para>
+									</td>
+									<td width="200">
+										<para>
+											<text>充气前压力/</text>
+										</para>
+										<para>
+											<text>Pre-charge Pressure(PSI)</text>
+										</para>
+									</td>
+									<td width="200">
+										<para>
+											<text>充气后压力/</text>
+										</para>
+										<para>
+											<text>Aft-charge Pressure(PSI)</text>
+										</para>
+									</td>
+								</tr>
+								<tr>
+									<td width="200">
+										<para>
+											<text>左前/NLG Left</text>
+										</para>
+									</td>
+									<td width="200">
+										<para>
+											<input path='input001001'></input>
+										</para>
+									</td>
+									<td width="200">
+										<para>
+											<input path='input001002'></input>
+										</para>
+									</td>
+								</tr>
+								<tr>
+									<td width="200">
+										<para>
+											<text>右前/NLG Right</text>
+										</para>
+									</td>
+									<td width="200">
+										<para>
+											<input path='input002001'></input>
+										</para>
+									</td>
+									<td width="200">
+										<para>
+											<input path='input002002'></input>
+										</para>
+									</td>
+								</tr>
+								<tr>
+									<td width="200">
+										<para>
+											<text>1#</text>
+										</para>
+									</td>
+									<td width="200">
+										<para>
+											<input path='input003001'></input>
+										</para>
+									</td>
+									<td width="200">
+										<para>
+											<input path='input003002'></input>
+										</para>
+									</td>
+								</tr>
+								<tr>
+									<td width="200">
+										<para>
+											<text>2#</text>
+										</para>
+									</td>
+									<td width="200">
+										<para>
+											<input path='input004001'></input>
+										</para>
+									</td>
+									<td width="200">
+										<para>
+											<input path='input004002'></input>
+										</para>
+									</td>
+								</tr>
+								<tr>
+									<td width="200">
+										<para>
+											<text>3#</text>
+										</para>
+									</td>
+									<td width="200">
+										<para>
+											<input path='input005001'></input>
+										</para>
+									</td>
+									<td width="200">
+										<para>
+											<input path='input005002'></input>
+										</para>
+									</td>
+								</tr>
+								<tr>
+									<td width="200">
+										<para>
+											<text>4#</text>
+										</para>
+									</td>
+									<td width="200">
+										<para>
+											<input path='input006001'></input>
+										</para>
+									</td>
+									<td width="200">
+										<para>
+											<input path='input006002'></input>
+										</para>
+									</td>
+								</tr>
+								<tr>
+									<td width="200">
+										<para>
+											<text>5#</text>
+										</para>
+									</td>
+									<td width="200">
+										<para>
+											<input path='input007001'></input>
+										</para>
+									</td>
+									<td width="200">
+										<para>
+											<input path='input007002'></input>
+										</para>
+									</td>
+								</tr>
+								<tr>
+									<td width="200">
+										<para>
+											<text>6#</text>
+										</para>
+									</td>
+									<td width="200">
+										<para>
+											<input path='input008001'></input>
+										</para>
+									</td>
+									<td width="200">
+										<para>
+											<input path='input008002'></input>
+										</para>
+									</td>
+								</tr>
+								<tr>
+									<td width="200">
+										<para>
+											<text>7#</text>
+										</para>
+									</td>
+									<td width="200">
+										<para>
+											<input path='input009001'></input>
+										</para>
+									</td>
+									<td width="200">
+										<para>
+											<input path='input009002'></input>
+										</para>
+									</td>
+								</tr>
+								<tr>
+									<td width="200">
+										<para>
+											<text>8#</text>
+										</para>
+									</td>
+									<td width="200">
+										<para>
+											<input path='input010001'></input>
+										</para>
+									</td>
+									<td width="200">
+										<para>
+											<input path='input010002'></input>
+										</para>
+									</td>
+								</tr>
+							</tbody>
+							<tfoot/>
+						</table>
+					</mix>
+				</item>
+			</pos>
+			<pos titlecn="左前机身和机头区域检查，尤其是" titleen="Left Front Fuselage and Nose Area Check,Especially In:" no="2" path="000001000002">
+				<item available="false" no="1" path="000001000002000001">
+					<cn>
+						<para>
+							<text>目视检查机身静压孔区域（红色标记方框区域内）和迎角传感器周围的机身蒙皮外部，检查应无裂纹、腐蚀、压坑、鼓包或其它损伤，检查该区域内的机身蒙皮上应无外贴补加强板修理，确认该区域清洁。目视检查全压管、静压口、全温探头、防冰探头、摄像头外罩及迎角传感器无明显堵塞、损伤现象。</text>
+						</para>>
+					</cn>
+					<en>
+						<para>
+							<text>Visually check static ports zone (in red mark areas) and AOA surrounding areas for no crack, corrosion, dent, bulge and other damage. Make sure no external doublers repair in fuselage skin of these areas, make sure they are clean. Visually check the pitot probers, static ports, TAT probe, ice detectors, window of the Video Camera and AOA sensor for no obvious obstruction,damage.</text>
+						</para>>
+					</en>
+					<mix/>
+				</item>
+				<item available="true" no="2" path="000001000002000002">
+					<cn>
+						<para>
+							<text>目测检查机身外表（包括外部灯光及外部天线）无明显损伤；雷达罩无明显损伤且锁扣正确锁好。</text>
+						</para>>
+					</cn>
+					<en>
+						<para>
+							<text>Visually check fuselage external surface (include exterior lights and external antennas) no obvious damage. Radome no obvious damage and latches properly locked.</text>
+						</para>>
+					</en>
+					<mix/>
+				</item>
+			</pos>
+
+			<pos titlecn="前起落架和轮舱区域检查，尤其是 " titleen="NLG and Wheel Well Area Check, Especially In:" no="3" path="000001000003">
+				<item available="true" no="1" path="000001000003000001">
+					<cn>
+						<para>
+							<text>目视检查起落架、舱门、轮舱、管路及课件不见无明显损伤和渗漏。</text>
+						</para>>
+					</cn>
+					<en>
+						<para>
+							<text>Visually check the landing gear, doors, wells, tubes and visible linkages for no obvious damage and leakage.</text>
+						</para>>
+					</en>
+					<mix/>
+				</item>
+				<item available="true" no="2" path="000001000003000002">
+					<cn>
+						<para>
+							<text>目视检查机轮和轮胎无明显损伤。</text>
+						</para>>
+					</cn>
+					<en>
+						<para>
+							<text>Visually check the wheels and tires no obvious damage.</text>
+						</para>>
+					</en>
+					<mix/>
+				</item>
+				<item available="true" no="3" path="000001000003000003">
+					<cn>
+						<para>
+							<text>目视检查起落架减震支柱，确信无明显的漏油漏气迹象。</text>
+						</para>>
+					</cn>
+					<en>
+						<para>
+							<text>Visually check the short strut, make sure that there is no evidence of leakage or deflated.</text>
+						</para>>
+					</en>
+					<mix/>
+				</item>
+			</pos>
+
+			<pos titlecn="右前机身区域检查，尤其是 " titleen="Right Front Fuselage Area Check, Especially In:" no="4" path="000002000004">
+				<item available="true" no="1" path="000002000004000001">
+					<cn>
+						<para>
+							<text>目视检查起机身静压孔区域(红色标记方框区域内)和迎角传感器周围的机身蒙皮外部，检查应无裂纹、腐蚀、压坑、鼓包或其它损伤，检查该区域内的机身蒙皮上应无外贴补加强板修理，确认该区域清洁。</text>
+						</para>>
+					</cn>
+					<en>
+						<para>
+							<text>Visually check static ports zone (in red mark areas) and AOA surrounding areas for no crack, corrosion, dent, bulge and other damage. Make sure no external doublers repair in fuselage skin of these areas, make sure they are clean.</text>
+						</para>>
+					</en>
+					<mix/>
+				</item>
+				<item available="true" no="2" path="000002000004000002">
+					<cn>
+						<para>
+							<text>目视检查起机身(包括外部灯光以及外部天线)无明显损伤。</text>
+						</para>>
+					</cn>
+					<en>
+						<para>
+							<text>Visually check fuselage (include exterior lights and external antennas) no obvious damage.</text>
+						</para>>
+					</en>
+					<mix/>
+				</item>
+			</pos>
+
+			<pos titlecn="右发动机和吊架区域检查，尤其是 " titleen="Right Engine and Pylon Area Check, Especially In:" no="5" path="000002000005">
+				<item available="true" no="1" path="000002000005000001">
+					<cn>
+						<para>
+							<text>目视检查发动机整流罩、进气整流罩、进气整流锥和风扇叶片无明显损伤</text>
+						</para>>
+					</cn>
+					<en>
+						<para>
+							<text>Visually check static ports zone (in red mark areas) and AOA surrounding areas for no crack, corrosion, dent, bulge and other damage. Make sure no external doublers repair in fuselage skin of these areas, make sure they are clean.</text>
+						</para>>
+					</en>
+					<mix/>
+				</item>
+				<item available="true" no="2" path="000002000004000002">
+					<cn>
+						<para>
+							<text>目视检查发动机吊舱和吊架外表面无明显损伤和渗漏，包皮扣好，各盖板关闭。</text>
+						</para>>
+					</cn>
+					<en>
+						<para>
+							<text>Visually check fuselage (include exterior lights and external antennas) no obvious damage.</text>
+						</para>>
+					</en>
+					<mix/>
+				</item>
+			</pos>
+			<pos titlecn="右机翼区域检查，尤其是 " titleen="Right Wings Area Check, Especially In:" no="6" path="000002000006">
+				<item available="true" no="1" path="000002000006000001">
+					<cn>
+						<para>
+							<text>目视检查机翼和所有操纵面无明显损伤和渗漏现象。</text>
+						</para>
+					</cn>
+					<en>
+						<para>
+							<text>Visually check wing and flight control surface for no obvious damage and leakage.</text>
+						</para>
+					</en>
+					<mix/>
+				</item>
+			</pos>
+
+			<pos titlecn="右主起落架和轮舱区域检查，尤其是 " titleen="Right MLG and Wheel Well Area Check, Especially In:" no="7" path="000002000007">
+				<item available="true" no="1" path="000002000007000001">
+					<cn>
+						<para>
+							<text>目视检查起落架、舱门、轮舱、管路及可见部件无明显损伤和渗漏。</text>
+						</para>
+					</cn>
+					<en>
+						<para>
+							<text>Visually check the landing gear, doors, wells, tubes and visible linkage for no obvious damage and leakage.</text>
+						</para>
+					</en>
+					<mix/>
+				</item>
+				<item available="true" no="2" path="000002000007000002">
+					<cn>
+						<para>
+							<text>目视检查机轮和轮胎无明显损伤。检查主架刹车组件无渗漏痕迹。</text>
+						</para>
+					</cn>
+					<en>
+						<para>
+							<text>Visually check the wheels and tires no obvious damage. Check MLG brake units for no evidence of leakage.</text>
+						</para>
+					</en>
+					<mix/>
+				</item>
+				<item available="true" no="3" path="000002000007000003">
+					<cn>
+						<para>
+							<text>目视检查起落架减震支柱，确信无明显的漏气漏油迹象。</text>
+						</para>
+					</cn>
+					<en>
+						<para>
+							<text>Visually check the shock strut, make sure that there is no evidence of leakage or deflated.</text>
+						</para>
+					</en>
+					<mix/>
+				</item>
+			</pos>
+
+			<pos titlecn="机身后部与尾翼区域检查，尤其是 " titleen="Rear Fuselage and Empennage Area Check, Especially In:" no="8" path="000002000008">
+				<item available="true" no="1" path="000002000008000001">
+				<cn>
+					<para>
+						<text>目视检查机身(包括外部天线)无明显损伤。</text>
+					</para>
+				</cn>
+				<en>
+					<para>
+						<text>Visually check fuselage (include external antennas) no obvious damage.</text>
+					</para>
+				</en>
+				<mix/>
+				</item>
+				<item available="true" no="2" path="000002000008000002">
+					<cn>
+						<para>
+							<text>目视检查水平安定面和升降舵、垂直尾翼和方向舵无损坏和渗漏，工作盖板及接近门在位。</text>
+						</para>
+					</cn>
+					<en>
+						<para>
+							<text>Visually inspect vertical fin, rudder, horizontal stabilizer and elevator no damage and leakage, ensure access panels and door in position, no obvious damage.</text>
+						</para>
+					</en>
+					<mix/>
+				</item>
+			</pos>
+			<pos titlecn="左主起落架和轮舱区域检查，尤其是 " titleen="Left MLG and Wheel Well Area Check, Especially In:" no="9" path="000002000009">
+				<item available="true" no="1" path="000002000009000001">
+					<cn>
+						<para>
+							<text>目视检查起落架、舱门、轮舱、管路及可见部件无明显损伤和渗漏。</text>
+						</para>
+					</cn>
+					<en>
+						<para>
+							<text>Visually check the landing gear, doors, wells, tubes and visible linkages for no obvious change and leakage.</text>
+						</para>
+					</en>
+					<mix/>
+				</item>
+				<item available="true" no="2" path="000002000009000002">
+					<cn>
+						<para>
+							<text>目视检查机轮和轮胎无明显损伤。检查主架刹车组件无渗漏痕迹。</text>
+						</para>
+					</cn>
+					<en>
+						<para>
+							<text>Visually check the wheels and tires for no obvious damage. Check MLG brake units for no evidence of leakage.</text>
+						</para>
+					</en>
+					<mix/>
+				</item>
+				<item available="true" no="3" path="000002000009000003">
+					<cn>
+						<para>
+							<text>目视检查起落架减震支柱，确信无明显的漏油漏气迹象。</text>
+						</para>
+					</cn>
+					<en>
+						<para>
+							<text>Visually inspect the shock strut, make sure that there is no evidence of leakage or deflated.</text>
+						</para>
+					</en>
+					<mix/>
+				</item>
+			</pos>
+
+			<pos titlecn="左机翼区域检查，尤其是 " titleen="Left Wing Area Check, Especially In:" no="10" path="000002000010">
+				<item available="true" no="1" path="000002000010000001">
+					<cn>
+						<para>
+							<text>目视检查起落架、舱门、轮舱、管路及可见部件无明显损伤和渗漏。</text>
+						</para>
+					</cn>
+					<en>
+						<para>
+							<text>Visually check wing and flight control surface for no obvious damage and leakage.</text>
+						</para>
+					</en>
+					<mix/>
+				</item>
+			</pos>
+
+			<pos titlecn="左发动机和吊架区域检查，尤其是 " titleen="Left Wing Area Check, Especially In:" no="11" path="000002000011">
+				<item available="true" no="1" path="000002000011000001">
+					<cn>
+						<para>
+							<text>目视检查发动机整流罩、进气整流罩、进气整流锥和风扇叶片无明显损伤。</text>
+						</para>
+					</cn>
+					<en>
+						<para>
+							<text>Visually check engine cowlings, inlet cowls, nose domes and fan blades no obvious damage.</text>
+						</para>
+					</en>
+					<mix/>
+				</item>
+				<item available="true" no="2" path="000002000011000002">
+					<cn>
+						<para>
+							<text>目视检查发动机吊舱和吊架外表面无明显损伤和渗漏，包皮扣好，各盖板关闭。</text>
+						</para>
+					</cn>
+					<en>
+						<para>
+							<text>Visually check exterior surfaces of engine nacelle and pylon no obvious damage and leakage, cowlings and access panels are closed and locked.</text>
+						</para>
+					</en>
+					<mix/>
+				</item>
+			</pos>
+		</model>
+
+		<model titlecn="客舱工作" titleen="Passenger Cabin Work" no="3" path="000003">
+			<pos titlecn="驾驶舱和客舱区域检查，尤其是" titleen=" Cock pit and Cabin Area Check, Especially In:" no="1" path="000003000001">
+				<item no="1" path="000003000001000001">
+					<cn>
+						<para>
+							<text>检查飞机国籍登记证、电台许可证、航空器适航证，固定牢靠。</text>
+						</para>
+					</cn>
+					<en>
+						<para>
+							<text>Check National Registration Certificates, Radio Allowance, Aviation Airworthiness are in postion, and mounted securely.</text>
+						</para>
+					</en>
+					<mix/>
+				</item>
+				<item no="2" path="000003000001000002">
+					<cn>
+						<para>
+							<text>接通多功能控制显示组件(MCDU)和电子仪表系统(EIS)显示器，确信工作正常；检查处理电子中央监控系统(ECAM)上警告/维护信息和C/B页面，按需处理。</text>
+						</para>
+					</cn>
+					<en>
+						<para>
+							<text>Turn on the MCDU and EIS display units, ensure it operates normally; Check ECAM Warning/Cautions/Maintenance Messages and C/B page and take proper action as requires.</text>
+						</para>
+					</en>
+					<mix/>
+				</item>
+				<item no="3" path="000003000001000003">
+					<cn>
+						<para>
+							<text>检查旅客氧气压力，并记录终测值。（只适用于B6070，B6071，B6072，B6081，B6130，B6131，B6132，B6505，B6503，B5901，B5956，B5957，B5958）</text>
+						</para>
+						<para>
+							<text>注：执行高原机场和高原航线运行时不小于1650PSI，执行非高原航线时不小于1200PSI。</text>
+						</para>
+					</cn>
+					<en>
+						<para>
+							<text>Check the passenger oxygen pressure and record it.(only for B6070，B6071，B6072，B6081，B6130，B6131，B6132，B6505，B6503，B5901，B5956，B5957，B5958)</text>
+						</para>
+						<para>
+							<text>Note: Implementation of the plateau route is not less than 1650PSI，the implementation of non plateau route is not less than 1200PSI。</text>
+						</para>
+					</en>
+					<mix>
+						<para>
+							<text>终测值 (Final value)</text>
+							<input path='0000030001'></input>
+							<text>PSI</text>
+						</para>
+					</mix>
+				</item>
+			</pos>
+			<pos titlecn="除/防冰检查工作" titleen="D/A ICING Check" no="2" path="000003000002">
+				<item no="1" path="000003000002000001">
+					<cn>
+						<para>
+							<text>当具备结冰条件时，检查飞机机头、机翼表名及操纵面区域、尾翼、机身、发动机、起落架、大气数据探头、静压孔、迎角探测器等部位是否存在冰、雪、霜等污染物。</text>
+						</para>
+					</cn>
+					<en>
+						<para>
+							<text>When the existence of icing conditions, inspect whether there is any icing, snow, frost contaminants to the airecraft surfaces including nose area, wing surfaces and control surfaces, tail area. fuselage area, engine areas, gear areas. pitot areas, pitot probes, static ports, AOA and other parts.</text>
+						</para>
+					</en>
+					<mix>
+						<checkbox path='cb00000030000020001'>
+							<text>存在 YES</text>
+						</checkbox>
+						<checkbox path='cb00000030000020002'>
+							<text>不存在 NO</text>
+						</checkbox>
+					</mix>
+				</item>
+			</pos>
+		</model>
+
+		<model titlecn="放行工作" titleen="Dispatching Work" no="4" path="000004">
+			<pos titlecn="放行工作" titleen=" Dispatching Work:" no="1" path="000004000001">
+				<item no="1" path="000004000001000001">
+					<cn>
+						<para>
+							<text>打开轮舱门确信无外来物。</text>
+						</para>
+					</cn>
+					<en>
+						<para>
+							<text>Open the wheel wells check and make sure there is no foreign object.</text>
+						</para>
+					</en>
+					<mix/>
+				</item>
+				<item no="2" path="000004000001000002">
+					<cn>
+						<para>
+							<text>确认所有例行工作已完成并签署，飞机故障已排除或合法保留，且所有保留项目的" M"项已完成。</text>
+						</para>
+					</cn>
+					<en>
+						<para>
+							<text>Ensure all the routine work has been accomplished and signed off, all the faults have been disposed or deferred legally, and all "M" item has been accomplished.</text>
+						</para>
+					</en>
+					<mix/>
+				</item>
+				<item no="3" path="000004000001000003">
+					<cn>
+						<para>
+							<text>填写技术记录本并签署放行。</text>
+						</para>
+					</cn>
+					<en>
+						<para>
+							<text>Fill out the TLB and sign off for dispath.</text>
+						</para>
+					</en>
+					<mix/>
+				</item>
+			</pos>
+		</model>
+		<model titlecn="结尾工作" titleen="Final Work" no="5" path="000005">
+			<pos titlecn="结尾工作" titleen=" Final Work:" no="1" path="000005000001">
+				<item no="1" path="000005000001000001">
+					<cn>
+						<para>
+							<text>绕飞机一周，目视检查所有舱门、盖板在正确的位置。</text>
+						</para>
+						<para>
+							<text style="1">注1：</text>
+							<text>当跟机执行维修工作时，为了确保跟机人员能够完成此工作签署，此项工作中的主登机门检查由勤务工作单的执行人员完成并在勤务工作单上签署。</text>
+						</para>
+						<para>
+							<text style="1">注2：</text>
+							<text>此工作可以在放行工作完成后签署。</text>
+						</para>
+					</cn>
+					<en>
+						<para>
+							<text>Walk around A/C and visually check all the doors and service panels are in the right positions.</text>
+						</para>
+						<para>
+							<text style="1">Note1：</text>
+							<text>If the mechanic with flight performs this work, the passenger boarding doors check of this work can't be performed, so it is performed by service persons and signed in the service job card.</text>
+						</para>
+						<para>
+							<text style="1">Note2：</text>
+							<text>After the dispatching work has been accomplished, this work can be signed off.</text>
+						</para>
+					</en>
+					<mix/>
+				</item>
+
+			</pos>
+		</model>
+
+	</body>
+	<figure>
+		<image border="0" height="454" id="207323" src="tmp9030637291975725441205_-0.png" width="490"/>
+		<image border="0" height="454" id="207423" src="tmp9030637291975725441235_-0.png" width="490"/>
+	</figure>
+</jobcard>

@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<jobcard>
+  <header issuedate="" version="01" logo="caaclog.gif">
+    <note>
+      <cn>
+        <para>
+          <text style="1">注释：</text>
+          <text>标有“*”的条目必须是国航授权的放行人员签署。</text>
+        </para>
+      </cn>
+      <en>
+        <para>
+          <text style="1">NOTE:</text>
+          <text>“*”This task must be signed off by Air China authorized dispatch personal.</text>
+        </para>
+      </en>
+    </note>
+    <caution>
+      <cn>
+        <para>
+          <text style="1">注意：当进行以下维修工作时,必须严格遵守维护手册及相关维修文件的安全注意事项。</text>
+        </para>
+      </cn>
+      <en>
+        <para>
+          <text style="1">Caution: When you do the maintenance work, you must obey the safety caution of the AMM and maintenance documents.</text>
+        </para>
+      </en>
+    </caution>
+    <explain>
+      <item path="000030000001000001" no="1">
+        <cn>
+          <para>
+            <text>注:此工卡来源于CAMP条目28-CA-101,仅在外站执行此任务时可以使用此工卡。</text>
+          </para>
+        </cn>
+        <en>
+          <para>
+            <text>NOTE: This job card is derived from the CAMP item 28-CA-101，which is only used when the task
+has to be performed at outside station.</text>
+          </para>
+        </en>
+      </item>
+    </explain>
+    <explain>
+      <item path="000030000002000001" no="1">
+        <cn>
+          <para>
+            <text>参考AMM TASK 12-11-00-680-801对主油箱、通气油箱、中央翼油箱的沉淀槽放沉淀。
+</text>
+            <text style="1">注:</text>
+            <text>待燃油充分沉淀后执行此工作。</text>
+          </para>
+        </cn>
+        <en>
+          <para>
+            <text>Reference AMM TASK 12-11-00-680-801 to drain main tank, surge tank and center fuel tank sumps.
+</text>
+            <text style="1">NOTE:</text>
+            <text> Do this work after the fuel sump fully.</text>
+          </para>
+        </en>
+      </item>
+    </explain>
+  </header>
+  <body>
+    <model path="000026" no="2" titlecn="接机工作" titleen="Pick up work">
+      <pos path="000026000001" no="1" titlecn="对1号油箱和2号油箱放沉淀工作" titleen="Sumping Operation for the No. 1 Tank and the No. 2 Tank">
+        <item path="000026000001000009" no="1">
+          <cn>
+            <para>
+              <text>排放每个集水槽，直到燃油流入耐燃油容器中无水为止。</text>
+            </para>
+          </cn>
+          <en>
+            <para>
+              <text>Drain each sump until the fuel that flows into the fuel resistant container, has no water.</text>
+            </para>
+          </en>
+        </item>
+        <item path="000026000001000008" no="2">
+          <cn>
+            <para>
+              <text>目视检查容器中的燃油。如果发现燃油中有红色色素或发现其他污染物,按AMM 手册排故。</text>
+            </para>
+          </cn>
+          <en>
+            <para>
+              <text>Do a visual inspection of the fuel in the container.If you see red dye in the fuel or other contamination,dispose per AMM</text>
+            </para>
+          </en>
+          <mix>
+            <para>
+              <text>FINDING 检查结果:</text>
+              <input width="238" widthpercent="33.380084151472650771388499300%" location="fieldlocation_3499069" borderbottom="true" dbid="3499069">
+              </input>
+            </para>
+          </mix>
+        </item>
+      </pos>
+      <pos path="000026000002" no="2" titlecn="对通气油箱放沉淀工作" titleen="Sumping Operation for the Surge Tanks">
+        <item path="000026000002000001" no="1">
+          <cn>
+            <para>
+              <text color="000000">排放每个集水槽，直到所有的燃油或水流入耐燃油容器中。</text>
+            </para>
+          </cn>
+          <en>
+            <para>
+              <text>Drain each sump until all the fuel or water flows into the fuel tank.</text>
+            </para>
+          </en>
+        </item>
+        <item path="000026000002000002" no="2">
+          <cn>
+            <para>
+              <text color="000000">目视检查容器中的燃油。如果发现燃油中有红色色素或发现其他污染物,按AMM 手册排故。</text>
+            </para>
+          </cn>
+          <en>
+            <para>
+              <text color="000000">Do a visual inspection of the fuel in the container.If you see red dye in the fuel or other contamination,dispose per AMM.</text>
+            </para>
+          </en>
+          <mix>
+            <para>
+              <text>FINDING 检查结果:</text>
+              <input width="322" widthpercent="45.161290322580645161290322580%" location="fieldlocation_3499071" borderbottom="true" dbid="3499071">
+              </input>
+            </para>
+          </mix>
+        </item>
+      </pos>
+      <pos path="000026000003" no="3" titlecn="对中央油箱放沉淀工作" titleen="Sumping Operation for the Center Fuel Tank">
+        <item path="000026000003000001" no="1">
+          <cn>
+            <para>
+              <text> 排放每个集水槽，直到燃油流入耐燃油容器中无水为止。</text>
+            </para>
+          </cn>
+          <en>
+            <para>
+              <text>Drain each sump until the fuel that flows into the fuel resistant container, has no water.</text>
+            </para>
+          </en>
+        </item>
+        <item path="000026000003000002" no="2">
+          <cn>
+            <para>
+              <text>目视检查容器中的燃油。如果发现燃油中有红色色素或发现其他污染物,按AMM 手册排故。</text>
+            </para>
+          </cn>
+          <en>
+            <para>
+              <text>Do a visual inspection of the fuel in the container.If you see red dye in the fuel or other contamination,dispose per AMM.</text>
+            </para>
+          </en>
+          <mix>
+            <para>
+              <text>FINDING 检查结果:</text>
+              <input width="364" widthpercent="51.051893408134642356241234220%" location="fieldlocation_3499073" borderbottom="true" dbid="3499073">
+              </input>
+            </para>
+          </mix>
+        </item>
+      </pos>
+      <pos path="000026000004" no="4" titlecn="恢复" titleen="Close up">
+        <item path="000026000004000001" no="1">
+          <cn>
+            <para>
+              <text>将飞机恢复到初始状态。</text>
+            </para>
+          </cn>
+          <en>
+            <para>
+              <text>Put the aircraft back to its initial configuration.</text>
+            </para>
+          </en>
+        </item>
+      </pos>
+    </model>
+  </body>
+</jobcard>

@@ -189,6 +189,35 @@
   "reset_password_get_code_tip":"验证码短信已发送到手机号：",
   "reset_password_get_code_tip1":"密码已重置为：",
 
+  "//": "DD/临保新增状态",
+  "un_close": "未关闭",
+  "closed": "已关闭",
+  "deleted": "已删除",
+  "to_Audit": "待批准",
+  "forTroubleShooting": "待排故",
+  "for_inspection": "待检验",
+  "have_transfer": "已转办",
+  "has_delay": "已延期",
+  "delay_close": "已关闭",
+
+
+  "//": "新增归类信息",
+  "base_info": "基础信息",
+  "plane_info": "飞机信息",
+  "first_report_info": "飞机信息",
+  "report_info": "报告信息",
+  "plan_info": "计划保留信息",
+  "Maintenance_info": "维修信息",
+  "operation_limitation": "使用限制",
+  "other_limitation": "其它限制",
+  "reason_code": "保留代码原因",
+  "evidence_type": "依据类型",
+  "operation_info": "操作信息",
+
+
+
+
+
   "//": "DD/临保新增",
   "dd_number": "编号",
   "dd_planeNo": "飞机号",
