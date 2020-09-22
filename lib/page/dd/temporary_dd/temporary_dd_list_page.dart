@@ -26,7 +26,7 @@ class _TemporaryDDListPageState extends State<TemporaryDDListPage> {
   var _scaffoldkey = new GlobalKey<ScaffoldState>();
   //body
   Widget temporaryDDBody(){
-    List stateList=[Translations.of(context).text("un_close"),Translations.of(context).text("closed"),Translations.of(context).text("deleted")];
+    List stateList=["un_close","closed","deleted"];
   return Column(
     children: <Widget>[
       SizedBox(height: 15,),

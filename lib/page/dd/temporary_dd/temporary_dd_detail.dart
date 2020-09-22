@@ -38,12 +38,12 @@ class _TemporaryDDDetailState extends State<TemporaryDDDetail> {
                 ),
                 Container(
                   alignment: Alignment.centerRight,//Alignment.centerLeft,
-                  child:Text(widget.stateStr??'',style: TextStyle(fontSize: KFont.bigTitle,color: Colors.blue)),
+                  child:Text( Translations.of(context).text(widget.stateStr)??'',style: TextStyle(fontSize: KFont.bigTitle,color: Colors.blue)),
                 ),
               ],
             ) ,
           ),
-          DDComponent.zebraTitle('基本信息'),
+          DDComponent.zebraTitle('base_info'),
           //编号
           DDComponent.tagAndTextHorizon('dd_number', '1002',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
           //飞机号
@@ -55,13 +55,13 @@ class _TemporaryDDDetailState extends State<TemporaryDDDetail> {
           //传真
           DDComponent.tagAndTextHorizon('dd_fax', '1002',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
 
-          DDComponent.zebraTitle('报告信息'),
+          DDComponent.zebraTitle('report_info'),
           //报告日期
           DDComponent.tagAndTextHorizon('dd_reportDate', '1002',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
           //报告地点
           DDComponent.tagAndTextHorizon('dd_reportPlace', '1002', textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
 
-          DDComponent.zebraTitle('计划保留信息'),
+          DDComponent.zebraTitle('plan_info'),
           //计划保留天数/小时/循环
           DDComponent.tagAndTextHorizon('dd_plan_keep_time', '20233/34/44', textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
           //计划保留间隔描述
@@ -69,7 +69,7 @@ class _TemporaryDDDetailState extends State<TemporaryDDDetail> {
 
           //保留报告及临时措施
           DDComponent.tagAndTextVertical('dd_keepMeasure', '三角函数一般用于计算三角形中未知长度的边和未知的角度，在导航、工程学以及物理学方面都有广泛的用途。另外，以三角函数为模版，可以定义一类相似的函数，叫做双曲函数。',bgColor: KColor.zebraColor2),
-          DDComponent.zebraTitle('维修信息'),
+          DDComponent.zebraTitle('Maintenance_info'),
           //名称
           DDComponent.tagAndTextVertical('dd_name', '是现代一种用于高速计算的电子计算机器，可以进行数值计算，子设',bgColor: KColor.zebraColor2),
           //件号
@@ -89,7 +89,7 @@ class _TemporaryDDDetailState extends State<TemporaryDDDetail> {
           DDComponent.tagAndTextHorizon('dd_need_work_time', '3h',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
           //执管单位DD计划员
           DDComponent.tagAndTextHorizon('dd_plan_operator', '周周',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
-          DDComponent.zebraTitle('相关限制'),
+          DDComponent.zebraTitle('restrictions'),
           //使用限制
           DDComponent.tagAndTextHorizon('dd_use_limit', '其它',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
           //其它限制描述
@@ -103,9 +103,9 @@ class _TemporaryDDDetailState extends State<TemporaryDDDetail> {
           //需AMC处理标识
           DDComponent.tagAndTextHorizon('dd_need_amc', '是',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
 
-          DDComponent.zebraTitle('保留原因代码'),
+          DDComponent.zebraTitle('reason_code'),
           DDComponent.tagAndTextVertical('', 'OI：观察项目，LS：缺航材',bgColor: KColor.zebraColor2),
-          DDComponent.zebraTitle('依据类型'),
+          DDComponent.zebraTitle('evidence_type'),
           //依据类型
           DDComponent.tagAndTextHorizon('dd_evidence_type', 'MEL',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
           //MEL/CDL章节号1"
@@ -118,7 +118,7 @@ class _TemporaryDDDetailState extends State<TemporaryDDDetail> {
           DDComponent.tagAndTextVertical('dd_chapter_no4', '一种用于高速计算的电子计算机',bgColor: KColor.zebraColor2),
           //MEL/CDL章节号5
           DDComponent.tagAndTextVertical('dd_chapter_no5', '一种用于高速计算的电子计算机',bgColor: KColor.zebraColor3),
-          DDComponent.zebraTitle('性能分析结果'),
+          DDComponent.zebraTitle('analysis_results'),
           //性能分析结果
           DDComponent.tagAndTextVertical('', '这是性能分析结果性能分析结果性能分析结果性能分析结果性能分析结果性能分析结果性能分析结果性能分析结果性能分析结果性能分析结果性能分析结果一种用于高速计算的电子计算机',bgColor: KColor.zebraColor2),
 
@@ -127,7 +127,7 @@ class _TemporaryDDDetailState extends State<TemporaryDDDetail> {
   }
   Widget uiForUnClose(){
     return Column(children: <Widget>[
-      DDComponent.zebraTitle('操作信息'),
+      DDComponent.zebraTitle('operation_info'),
       //申请
       DDComponent.tagAndTextHorizon('dd_applicant', '周周',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
       DDComponent.tagAndTextHorizon('dd_applicationDate', '2020-12-03',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
@@ -174,7 +174,7 @@ class _TemporaryDDDetailState extends State<TemporaryDDDetail> {
   }
   Widget uiForClose(){
     return Column(children: <Widget>[
-      DDComponent.zebraTitle('操作信息'),
+      DDComponent.zebraTitle('operation_info'),
       //申请
       DDComponent.tagAndTextHorizon('dd_applicant', '周周',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
       DDComponent.tagAndTextHorizon('dd_applicationDate', '2020-12-03',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
@@ -202,13 +202,13 @@ class _TemporaryDDDetailState extends State<TemporaryDDDetail> {
   void stateStr(){
     if(widget.state==TemporaryDDState.unClose){
       //未关闭
-      widget.stateStr='未关闭';
+      widget.stateStr='un_close';
     }else if(widget.state==TemporaryDDState.closed){
       //已关闭
-      widget.stateStr='已关闭';
+      widget.stateStr='closed';
     }else{
       //已删除
-      widget.stateStr='已删除';
+      widget.stateStr='deleted';
     }
   }
   void dealTransfer(){

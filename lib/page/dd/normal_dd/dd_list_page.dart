@@ -31,15 +31,15 @@ class _DDListPageState extends State<DDListPage> {
   Widget temporaryDDBody(){
 //   List stateList=['待批准','未关闭','待排故','待检验','已转办','已延期','已关闭','已删除','延期关闭'];
    List stateList=[
-     Translations.of(context).text("to_Audit"),
-     Translations.of(context).text("un_close"),
-     Translations.of(context).text("forTroubleShooting"),
-     Translations.of(context).text("for_inspection"),
-     Translations.of(context).text("have_transfer"),
-     Translations.of(context).text("has_delay"),
-     Translations.of(context).text("closed"),
-     Translations.of(context).text("deleted"),
-     Translations.of(context).text("delay_close"),
+     "to_Audit",
+     "un_close",
+     "forTroubleShooting",
+     "for_inspection",
+     "have_transfer",
+     "has_delay",
+     "closed",
+     "deleted",
+     "delay_close",
    ];
   return Column(
     children: <Widget>[

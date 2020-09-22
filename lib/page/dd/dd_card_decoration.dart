@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lop/style/font.dart';
+import 'package:lop/utils/translations.dart';
 class DDCardDecoration extends StatefulWidget {
   final Widget childWidget;
   final String title;
@@ -38,11 +39,10 @@ class _DDCardDecorationState extends State<DDCardDecoration> {
                     child: Container(
                       padding: EdgeInsets.only(left: 15),
                       alignment: Alignment.centerLeft,
-                      child:Text(
-                      widget.title,style: TextStyle(fontSize: KFont.formTitle,color: Colors.white),
+                      child:Text(Translations.of(context).text(widget.title)
+                      ,style: TextStyle(fontSize: KFont.formTitle,color: Colors.white),
                     ),
                     ),
-
                   ),
                   widget.childWidget,
                   SizedBox(height: 15,),

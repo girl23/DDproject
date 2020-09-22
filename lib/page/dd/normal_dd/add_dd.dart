@@ -164,7 +164,7 @@ class _AddDDState extends State<AddDD> {
       children: <Widget>[
         SizedBox(height: 15,),
         DDCardDecoration(
-            title:'基本信息' ,
+            title:'base_info' ,
             childWidget: Column(
               children: <Widget>[
                 //临保转DD，增加转自临保单号
@@ -188,7 +188,7 @@ class _AddDDState extends State<AddDD> {
               ],
             )),
         DDCardDecoration(
-            title: '飞机信息',
+            title: 'plane_info',
             childWidget: Column(
               children: <Widget>[
                 //飞机号
@@ -206,7 +206,7 @@ class _AddDDState extends State<AddDD> {
               ],
             )),
         DDCardDecoration(
-        title: '首次报告信息',
+        title: 'first_report_info',
         childWidget: Column(
           children: <Widget>[
             //首次报告日期
@@ -219,7 +219,7 @@ class _AddDDState extends State<AddDD> {
           ],
         )),
         DDCardDecoration(
-        title: '计划保留信息',
+        title: 'plan_info',
          childWidget: Column(
          children: <Widget>[
            //起始日期/飞机总飞行小时/循环
@@ -250,7 +250,7 @@ class _AddDDState extends State<AddDD> {
          ],
          )),
         DDCardDecoration(
-                title: '维修信息',
+                title: 'Maintenance_info',
                 childWidget: Column(
                   children: <Widget>[
                     //名称
@@ -282,7 +282,7 @@ class _AddDDState extends State<AddDD> {
                   ],
                 )),
         DDCardDecoration(
-            title: '运行限制',
+            title: 'operation_limitation',
             childWidget: Column(
               children: <Widget>[
                 //使用限制
@@ -297,7 +297,7 @@ class _AddDDState extends State<AddDD> {
               ],
             )),
         DDCardDecoration(
-            title: '其它限制',
+            title: 'other_limitation',
             childWidget: Column(
               children: <Widget>[
             //标识（是否复选框）
@@ -316,7 +316,7 @@ class _AddDDState extends State<AddDD> {
               ],
             )),
         DDCardDecoration(
-            title: '保留代码原因',
+            title: 'reason_code',
             childWidget: Column(
               children: <Widget>[
                 //保留原因代码
@@ -333,7 +333,7 @@ class _AddDDState extends State<AddDD> {
               ],
             )),
         DDCardDecoration(
-            title: '依据类型',
+            title: 'evidence_type',
             childWidget: Column(
               children: <Widget>[
 //依据类型
@@ -354,7 +354,7 @@ class _AddDDState extends State<AddDD> {
               ],
             )),
         DDCardDecoration(
-            title: '保留代码原因',
+            title: 'operation_info',
             childWidget: Column(
               children: <Widget>[
                 //新增——申请日期、申请人，转办-转办日期、操作人，延期-延期日期、操作人

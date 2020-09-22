@@ -166,7 +166,7 @@ class DDComponent{
       color: KColor.zebraColor1,
       alignment: Alignment.centerLeft,
       padding: KSize.insets1,//EdgeInsets.fromLTRB(15, 10, 15, 10),
-      child: Text(titleName,
+      child: Text(Translations.of(context).text(titleName),//titleName,
         style: TextStyle(fontSize: KFont.formTitle,color: Colors.white),
       ),
     );

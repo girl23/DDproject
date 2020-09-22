@@ -203,6 +203,8 @@
   "reason_code": "REASON CODE",
   "evidence_type": "EVIDENCE TYPE",
   "operation_info": "OPERATION INFO",
+  "restrictions" : "RESTRICTION",
+  "analysis_results" : "PERFORMANCE ANALYSIS RESULT",
 
   "//": "DD/临保新增",
   "dd_number": "NO.",
@@ -226,6 +228,7 @@
   "dd_influence_level2": "COMMON",
   "dd_influence_level3": "NO",
   "dd_use_limit": "OPERATION LIMITATION",
+  "dd_use_limit_describe": "OPERATION LIMITATION DESCRIBE",
   "dd_o": "O ITEM",
   "dd_other": "OTHER",
   "dd_keep_reason": "REASON CODE",
@@ -268,9 +271,9 @@
   "dd_firstReportDate": "ISSUE DATE",
   "dd_firstReportPlace": "ISSUE LOCALITY",
   "dd_startDate": "A/C TOTAL FH/CYC",
-  "dd_endDate": "折算到期期限/保留至飞行小时/飞行循环",
+  "dd_endDate": "DUE DATE/HOLD TO HOUR/HOLD TO CYC",
   "dd_needKeepToFold": "REQUIRED ON A/C",
-  "dd_needRepeatInspection": "是否有重检要求",
+  "dd_needRepeatInspection": "NEED REPEAT INSPECTION",
   "dd_comeFrom": "转自临保单号",
 
 
@@ -314,12 +317,23 @@
   "//":"未关闭详情界面界面",
   "dd_applicant": "APPLICANT",
   "dd_applicationDate": "APPLICATION DATE",
-  "dd_dealResult": "RESULT",
+  "dd_auditPerson": "APPROVER",
+  "dd_auditDate": "APPROVAL DATE",
+  "dd_dealResult": "DEAL RESULT",
   "dd_dealDate": "DEAL DATE",
   "dd_dealPerson": "DEAL PERSON",
-  "temporary_dd_signButton": "SING",
+  "temporary_dd_signButton": "SIGNATURE",
   "temporary_dd_deleteButton": "DELETE",
   "temporary_dd_transferButton": "TRANSFER",
+
+  "dd_shootingDate": "TROUBLESHOOTING DATE",
+  "dd_shootingPerson": "TROUBLESHOOTING STAFF",
+  "dd_inspectionDate": "INSPECTION DATE",
+  "dd_inspectionPerson": "INSPECTION PERSONNEL",
+  "dd_delay_btn": "DELAY",
+  "dd_transfer_date_title": "TRANSFER DATE",
+  "dd_operator": "OPERATOR",
+  "dd_delay_date_title": "DELAY DATE",
 
   "//":"DD相关Title",
   "temporary_dd_list_page": "TEMPORARY",
@@ -333,6 +347,13 @@
   "dd_delay_page": "DELAY",
 
   "dd_add": "ADD",
-  "dd_ensure_transfer": "SURE",
-  "dd_ensure_delay": "SURE"
+  "dd_ensure_transfer": "SURE TRANSFER",
+  "dd_ensure_delay": "SURE DELAY",
+  "dd_ensure_shooting": "SURE TROUBLESHOOTING",
+  "dd_ensure_inspection": "SURE INSPECTION",
+  "dd_audit_btn": "APPROVAL",
+
+  "//":"bool字段",
+  "dd_true": "YES",
+  "dd_false": "NO"
 }

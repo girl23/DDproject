@@ -29,6 +29,7 @@ class _DDDetailState extends State<DDDetail> {
   TextEditingController _dateTextField=new TextEditingController();
   FocusNode _resultNode=new FocusNode();
   TextEditingController _resultTextField=new TextEditingController();
+  String stateStr;
   Widget createUI(BuildContext context){
     return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,12 +46,12 @@ class _DDDetailState extends State<DDDetail> {
                 ),
                 Container(
                   alignment: Alignment.centerRight,//Alignment.centerLeft,
-                  child:Text('dd状态',style: TextStyle(fontSize: KFont.bigTitle,color: Colors.blue)),
+                  child:Text(Translations.of(context).text(stateStr),style: TextStyle(fontSize: KFont.bigTitle,color: Colors.blue)),
                 ),
               ],
             ) ,
           ),
-          DDComponent.zebraTitle('基本信息'),
+          DDComponent.zebraTitle('base_info'),
           //维修单位代码
           DDComponent.tagAndTextHorizon('dd_MBCode', '成都分公司',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
           //保留故障编号
@@ -59,17 +60,17 @@ class _DDDetailState extends State<DDDetail> {
           DDComponent.tagAndTextHorizon('dd_WorkNO','A+=0241412411',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
           //转录自何文件
           DDComponent.tagAndTextHorizon('dd_from','300005252',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
-          DDComponent.zebraTitle('飞机信息'),
+          DDComponent.zebraTitle('plane_info'),
           //飞机号
           DDComponent.tagAndTextHorizon('dd_planeNo', '1002', textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
           //发动机/APU序号
           DDComponent.tagAndTextHorizon('dd_ENG','A00030498UF',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
-          DDComponent.zebraTitle('报告信息'),
+          DDComponent.zebraTitle('report_info'),
           //首次报告日期
           DDComponent.tagAndTextHorizon('dd_firstReportDate', '1002', textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
           //首次报告地点
           DDComponent.tagAndTextHorizon('dd_firstReportPlace', '1002',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
-          DDComponent.zebraTitle('计划保留信息'),
+          DDComponent.zebraTitle('plan_info'),
           //起始日期/飞机总飞行小时/循环
           DDComponent.tagAndTextHorizon('dd_startDate', '1002/33/533',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
           //计划保留天数/小时/循环
@@ -80,7 +81,7 @@ class _DDDetailState extends State<DDDetail> {
           DDComponent.tagAndTextVertical('dd_plan_keep_describe', '其它-——现代一种用于高速计算的电子计算机器，可以进行数值计算，其它-——现代一种用于高速计算的电子计算机器，可以进行数值计算，其它-——现代一种用于高速计算的电子计算机器，可以进行数值计算，',bgColor: KColor.zebraColor3),
           //保留报告及临时措施
           DDComponent.tagAndTextVertical('dd_keepMeasure', '三角函数一般用于计算三角形中未知长度的边和未知的角度，在导航、工程学以及物理学方面都有广泛的用途。另外，以三角函数为模版，可以定义一类相似的函数，叫做双曲函数。',bgColor: KColor.zebraColor2),
-          DDComponent.zebraTitle('维修信息'),
+          DDComponent.zebraTitle('Maintenance_info'),
           //名称
           DDComponent.tagAndTextVertical('dd_name', '是现代一种用于高速计算的电子计算机器，可以进行数值计算，子设',bgColor: KColor.zebraColor2),
           //件号
@@ -97,7 +98,7 @@ class _DDDetailState extends State<DDDetail> {
           DDComponent.tagAndTextHorizon('dd_need_parking_time', '2h',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
           //所需工时
           DDComponent.tagAndTextHorizon('dd_need_work_time', '3h', textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
-          DDComponent.zebraTitle('相关限制'),
+          DDComponent.zebraTitle('restrictions'),
           //使用限制
           DDComponent.tagAndTextHorizon('dd_use_limit', '其它',  textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
           //其它限制描述
@@ -113,11 +114,11 @@ class _DDDetailState extends State<DDDetail> {
           //是否有重检要求
           DDComponent.tagAndTextHorizon('dd_needRepeatInspection', '是', textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
 
-          DDComponent.zebraTitle('保留原因代码'),
+          DDComponent.zebraTitle('reason_code'),
           //保留原因代码
           DDComponent.tagAndTextVertical('', 'OI：观察项目，LS：缺航材',bgColor: KColor.zebraColor2),
 
-          DDComponent.zebraTitle('依据类型'),
+          DDComponent.zebraTitle('evidence_type'),
           //依据类型
           DDComponent.tagAndTextHorizon('dd_evidence_type', 'MEL',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
           //MEL/CDL章节号1"
@@ -130,7 +131,7 @@ class _DDDetailState extends State<DDDetail> {
           DDComponent.tagAndTextVertical('dd_chapter_no4', '一种用于高速计算的电子计算机', bgColor: KColor.zebraColor2),
           //MEL/CDL章节号
           DDComponent.tagAndTextVertical('dd_chapter_no5', '一种用于高速计算的电子计算机', bgColor: KColor.zebraColor3),
-          DDComponent.zebraTitle('性能分析结果'),
+          DDComponent.zebraTitle('analysis_results'),
           //性能分析结果
           DDComponent.tagAndTextVertical('', '这是性能分析结果性能分析结果性能分析结果性能分析结果性能分析结果性能分析结果性能分析结果性能分析结果性能分析结果性能分析结果性能分析结果一种用于高速计算的电子计算机',bgColor: KColor.zebraColor2),
 
@@ -141,7 +142,7 @@ class _DDDetailState extends State<DDDetail> {
   Widget uiForAudit(){
 
     return Column(children: <Widget>[
-      DDComponent.zebraTitle('操作信息'),
+      DDComponent.zebraTitle('operation_info'),
       DDComponent.tagAndTextHorizon('dd_applicant', '周周', textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
       DDComponent.tagAndTextHorizon('dd_applicationDate', '2020-12-03', textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
       //批准日期
@@ -194,7 +195,7 @@ class _DDDetailState extends State<DDDetail> {
   //未关闭
   Widget uiForUnClose(){
     return Column(children: <Widget>[
-      DDComponent.zebraTitle('操作信息'),
+      DDComponent.zebraTitle('operation_info'),
       //申请，
       DDComponent.tagAndTextHorizon('dd_applicant', '周周',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
       DDComponent.tagAndTextHorizon('dd_applicationDate', '2020-12-03',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
@@ -259,7 +260,7 @@ class _DDDetailState extends State<DDDetail> {
   //待排故
   Widget uiForTroubleshooting(){
     return Column(children: <Widget>[
-      DDComponent.zebraTitle('操作信息'),
+      DDComponent.zebraTitle('operation_info'),
       //申请，
       DDComponent.tagAndTextHorizon('dd_applicant', '周周',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
       DDComponent.tagAndTextHorizon('dd_applicationDate', '2020-12-03',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
@@ -337,7 +338,7 @@ class _DDDetailState extends State<DDDetail> {
   //待检验
   Widget uiForInspection(){
     return  Column(children: <Widget>[
-      DDComponent.zebraTitle('操作信息'),
+      DDComponent.zebraTitle('operation_info'),
       //申请
       DDComponent.tagAndTextHorizon('dd_applicant', '周周', textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
       DDComponent.tagAndTextHorizon('dd_applicationDate', '2020-12-03', textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
@@ -416,7 +417,7 @@ class _DDDetailState extends State<DDDetail> {
   //已转办
   Widget uiForDDTransfer(){
     return Column(children: <Widget>[
-      DDComponent.zebraTitle('操作信息'),
+      DDComponent.zebraTitle('operation_info'),
       //申请，
       DDComponent.tagAndTextHorizon('dd_applicant', '周周',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
       DDComponent.tagAndTextHorizon('dd_applicationDate', '2020-12-03',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
@@ -434,34 +435,87 @@ class _DDDetailState extends State<DDDetail> {
 
     if(widget.state==DDState.toAudit){
       //待批准
+      stateStr='to_Audit';
       return uiForAudit();
+
     }else if(widget.state==DDState.unClose){
       //未关闭
+      stateStr='un_close';
       return uiForUnClose();
+
     }else if(widget.state==DDState.forTroubleshooting){
       //待排故
+      stateStr='forTroubleShooting';
       return uiForTroubleshooting();
     } else if(widget.state==DDState.forInspection){
       //待检验
+      stateStr='for_inspection';
       return uiForInspection();
     }else if(widget.state==DDState.haveTransfer){
       //已转办
+      stateStr='have_transfer';
       return uiForDDTransfer();
     }else if(widget.state==DDState.hasDelay){
     //已延期
+      stateStr='has_delay';
     return uiForDDTransfer();
     }else if(widget.state==DDState.closed){
     //已关闭
+      stateStr='closed';
     return uiForDDTransfer();
     }else if(widget.state==DDState.deleted){
     //已删除
+      stateStr='deleted';
     return uiForDDTransfer();
     }else if(widget.state==DDState.delayClose){
     //延期关闭
+      stateStr='delay_close';
     return uiForDDTransfer();
     }
     else{
       return Container();
+    }
+  }
+  void stateString(){
+
+    if(widget.state==DDState.toAudit){
+      //待批准
+      stateStr='to_Audit';
+
+
+    }else if(widget.state==DDState.unClose){
+      //未关闭
+      stateStr='un_close';
+
+
+    }else if(widget.state==DDState.forTroubleshooting){
+      //待排故
+      stateStr='forTroubleShooting';
+
+    } else if(widget.state==DDState.forInspection){
+      //待检验
+      stateStr='for_inspection';
+
+    }else if(widget.state==DDState.haveTransfer){
+      //已转办
+      stateStr='have_transfer';
+
+    }else if(widget.state==DDState.hasDelay){
+      //已延期
+      stateStr='has_delay';
+
+    }else if(widget.state==DDState.closed){
+      //已关闭
+      stateStr='closed';
+
+    }else if(widget.state==DDState.deleted){
+      //已删除
+      stateStr='deleted';
+
+    }else if(widget.state==DDState.delayClose){
+      //延期关闭
+      stateStr='delay_close';
+
     }
   }
   void dealTransfer(){
@@ -480,6 +534,7 @@ class _DDDetailState extends State<DDDetail> {
   @override
   Widget build(BuildContext context) {
     dealTransfer();
+    stateString();
     return Scaffold(
       appBar: AppBar(
         title:Text(Translations.of(context).text('dd_detail_page'), style: TextThemeStore.textStyleAppBar,),

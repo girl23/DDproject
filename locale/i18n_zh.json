@@ -198,13 +198,13 @@
   "for_inspection": "待检验",
   "have_transfer": "已转办",
   "has_delay": "已延期",
-  "delay_close": "已关闭",
+  "delay_close": "已延期关闭",
 
 
   "//": "新增归类信息",
-  "base_info": "基础信息",
+  "base_info": "基本信息",
   "plane_info": "飞机信息",
-  "first_report_info": "飞机信息",
+  "first_report_info": "首次报告信息",
   "report_info": "报告信息",
   "plan_info": "计划保留信息",
   "Maintenance_info": "维修信息",
@@ -213,6 +213,9 @@
   "reason_code": "保留代码原因",
   "evidence_type": "依据类型",
   "operation_info": "操作信息",
+  "//": "临保/DD详情title",
+  "restrictions" : "相关限制",
+  "analysis_results" : "性能分析结果",
 
 
 
@@ -373,6 +376,9 @@
   "dd_ensure_delay": "确认延期",
   "dd_ensure_shooting": "确认排故",
   "dd_ensure_inspection": "确认检验",
-  "dd_audit_btn": "批准"
+  "dd_audit_btn": "批准",
 
+  "//":"bool字段",
+  "dd_true": "是",
+  "dd_false": "否"
 }

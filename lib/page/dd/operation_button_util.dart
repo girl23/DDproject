@@ -7,7 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 typedef ButtonClickCallback = void Function();
 class OperationButton{
   static BuildContext context=  Global.navigatorKey.currentState.context;
-  static Widget createButton(String name,ButtonClickCallback btnClick,{DDOperateButtonState state,Size size=const Size(240, 100)}){
+  static Widget createButton(String name,ButtonClickCallback btnClick,{DDOperateButtonState state,Size size=const Size(340, 100)}){
     return Container(
       padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
 //        color: Colors.red,

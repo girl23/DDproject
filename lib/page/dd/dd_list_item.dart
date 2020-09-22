@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lop/style/font.dart';
 import 'package:lop/style/color.dart';
+import 'package:lop/utils/translations.dart';
 typedef ItemClickCallback = void Function();
 ////列表项
 class DDListItem extends StatefulWidget {
@@ -14,10 +15,21 @@ class DDListItem extends StatefulWidget {
 }
 
 class _DDListItemState extends State<DDListItem> {
+
+
   var day1  = DateTime.parse("2020-09-19");
   var day2 = DateTime.now();
+  Color fontColor(){
+    if(widget.temporaryDDState=='un_close'||widget.temporaryDDState=='to_Audit'||widget.temporaryDDState=='forTroubleShooting'||widget.temporaryDDState=='for_inspection'){
+      return Colors.blue;
+    }else{
+      return KColor.textColor_66;
+    }
+
+  }
   @override
   Widget build(BuildContext context) {
+
   var second=day2.difference(day1).inSeconds;
 
     return
@@ -76,8 +88,9 @@ class _DDListItemState extends State<DDListItem> {
                                 Row(
                                   children: <Widget>[
                                     Text(
-                                      widget.temporaryDDState,
-                                      style: TextStyle(fontSize: KFont.fontSizeItem_2),
+                                     Translations.of(context).text(widget.temporaryDDState),
+                                     // widget.temporaryDDState,
+                                      style: TextStyle(fontSize: KFont.fontSizeItem_2,color:fontColor() ),
                                     ),
                                     Icon(Icons.arrow_forward_ios,size: 14,color:Colors.grey,),
                                   ],

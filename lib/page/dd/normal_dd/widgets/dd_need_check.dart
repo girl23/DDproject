@@ -46,21 +46,21 @@ class _NeedState extends State<Need> {
         alignment:WrapAlignment.start ,
         crossAxisAlignment: WrapCrossAlignment.start,
         children: <Widget>[
-          DDComponent.tagAndCheckBoxRight('dd_need_m', 510,mUpdate?mOption:widget.checkValueMOption,valueChanged: (value){
+          DDComponent.tagAndCheckBoxLeft('dd_need_m',100,mUpdate?mOption:widget.checkValueMOption,valueChanged: (value){
             mUpdate=true;
             mOption=value;
             widget.valueChangedForM(value);
             setState(() {
             });
           }),
-          DDComponent.tagAndCheckBoxRight('dd_need_run_limit', 510,runUpdate?runOption:widget.checkValueRunOption,valueChanged: (value){
+          DDComponent.tagAndCheckBoxLeft('dd_need_run_limit', 100,runUpdate?runOption:widget.checkValueRunOption,valueChanged: (value){
             runUpdate=true;
             runOption=value;
             widget.valueChangedForRun(value);
             setState(() {
             });
           }),
-          DDComponent.tagAndCheckBoxRight('dd_need_amc', 510,aMCUpdate?aMCOption:widget.checkValueAMCOption,valueChanged: (value){
+          DDComponent.tagAndCheckBoxLeft('dd_need_amc', 100,aMCUpdate?aMCOption:widget.checkValueAMCOption,valueChanged: (value){
             aMCUpdate=true;
             aMCOption=value;
             widget.valueChangedForAMC(value);
@@ -68,7 +68,7 @@ class _NeedState extends State<Need> {
             });
           }),
 
-          (widget.fromTempDD!=true)? DDComponent.tagAndCheckBoxRight('dd_needKeepToFold',800,keepFoldUpdate?keepFoldOption:widget.checkValueKeepFoldOption,valueChanged: (value){
+          (widget.fromTempDD!=true)? DDComponent.tagAndCheckBoxLeft('dd_needKeepToFold',100,keepFoldUpdate?keepFoldOption:widget.checkValueKeepFoldOption,valueChanged: (value){
             keepFoldUpdate=true;
             keepFoldOption=value;
             widget.valueChangedForKeepFold(value);
@@ -76,16 +76,64 @@ class _NeedState extends State<Need> {
             });
           }):Container(),
 
-          (widget.fromTempDD!=true)? DDComponent.tagAndCheckBoxRight('dd_needRepeatInspection', 510,repeatInspectionUpdate?repeatInspectionOption:widget.checkValueRepeatInspectionOption,valueChanged: (value){
-               repeatInspectionUpdate=true;
-                repeatInspectionOption=value;
-                widget.valueChangedForRepeatInspection(value);
-                setState(() {
-                });
-              }):Container(),
+          (widget.fromTempDD!=true)? DDComponent.tagAndCheckBoxLeft('dd_needRepeatInspection', 100,repeatInspectionUpdate?repeatInspectionOption:widget.checkValueRepeatInspectionOption,valueChanged: (value){
+            repeatInspectionUpdate=true;
+            repeatInspectionOption=value;
+            widget.valueChangedForRepeatInspection(value);
+            setState(() {
+            });
+          }):Container(),
 
         ],
       ),
     );
+//      Container(
+//      width: double.infinity,
+//      padding: EdgeInsets.fromLTRB(15, 10, 15, 0),
+//      child:Wrap(
+//        alignment:WrapAlignment.start ,
+//        crossAxisAlignment: WrapCrossAlignment.start,
+//        children: <Widget>[
+//          DDComponent.tagAndCheckBoxRight('dd_need_m', 510,mUpdate?mOption:widget.checkValueMOption,valueChanged: (value){
+//            mUpdate=true;
+//            mOption=value;
+//            widget.valueChangedForM(value);
+//            setState(() {
+//            });
+//          }),
+//          DDComponent.tagAndCheckBoxRight('dd_need_run_limit', 510,runUpdate?runOption:widget.checkValueRunOption,valueChanged: (value){
+//            runUpdate=true;
+//            runOption=value;
+//            widget.valueChangedForRun(value);
+//            setState(() {
+//            });
+//          }),
+//          DDComponent.tagAndCheckBoxRight('dd_need_amc', 510,aMCUpdate?aMCOption:widget.checkValueAMCOption,valueChanged: (value){
+//            aMCUpdate=true;
+//            aMCOption=value;
+//            widget.valueChangedForAMC(value);
+//            setState(() {
+//            });
+//          }),
+//
+//          (widget.fromTempDD!=true)? DDComponent.tagAndCheckBoxRight('dd_needKeepToFold',800,keepFoldUpdate?keepFoldOption:widget.checkValueKeepFoldOption,valueChanged: (value){
+//            keepFoldUpdate=true;
+//            keepFoldOption=value;
+//            widget.valueChangedForKeepFold(value);
+//            setState(() {
+//            });
+//          }):Container(),
+//
+//          (widget.fromTempDD!=true)? DDComponent.tagAndCheckBoxRight('dd_needRepeatInspection', 510,repeatInspectionUpdate?repeatInspectionOption:widget.checkValueRepeatInspectionOption,valueChanged: (value){
+//               repeatInspectionUpdate=true;
+//                repeatInspectionOption=value;
+//                widget.valueChangedForRepeatInspection(value);
+//                setState(() {
+//                });
+//              }):Container(),
+//
+//        ],
+//      ),
+//    );
   }
 }

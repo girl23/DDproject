@@ -28,6 +28,7 @@ import 'package:lop/page/dd/dd_cache_util.dart';
 import 'package:lop/page/dd/dd_card_decoration.dart';
 import 'package:lop/page/dd/dd_calculate_date_provide.dart';
 import 'package:provider/provider.dart';
+
 class AddTemporaryDD extends StatefulWidget {
   @override
   _AddTemporaryDDState createState() => _AddTemporaryDDState();
@@ -125,7 +126,7 @@ class _AddTemporaryDDState extends State<AddTemporaryDD> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         SizedBox(height: 15,),
-        DDCardDecoration(title:'基本信息',childWidget: Column(
+        DDCardDecoration(title:'base_info',childWidget: Column(
           children: <Widget>[
             //编号
             DDComponent.tagImageAndTextField('dd_number',_numberFocusNode,_numberController,_textFieldNodes,imgStr: 'assets/images/ss1.png'),
@@ -139,7 +140,7 @@ class _AddTemporaryDDState extends State<AddTemporaryDD> {
             DDComponent.tagImageAndTextFieldWithNa('dd_fax', _faxFocusNode,_faxController,_textFieldNodes,imgStr: 'assets/images/cz.png'),
 
           ],)),
-        DDCardDecoration(title:'报告信息',childWidget: Column(children: <Widget>[
+        DDCardDecoration(title:'report_info',childWidget: Column(children: <Widget>[
           //报告日期
           CalendarTextField(
             tagName:'dd_reportDate',
@@ -155,7 +156,7 @@ class _AddTemporaryDDState extends State<AddTemporaryDD> {
           DDComponent.tagImageAndTextField('dd_reportPlace', _reportPlaceFocusNode,_reportPlaceController,_textFieldNodes,imgStr: 'assets/images/dd.png'), SizedBox(height: 15,),
 
         ],)),
-        DDCardDecoration(title: '计划保留信息',childWidget:
+        DDCardDecoration(title: 'plan_info',childWidget:
           Column(children: <Widget>[
             //计划保留天数/小时/循环
             DDSpace(
@@ -174,7 +175,7 @@ class _AddTemporaryDDState extends State<AddTemporaryDD> {
             DescribeTextField(tagName:'dd_keepMeasure',node:_keepMeasureNode ,controller: _keepMeasureController,textFieldNodes: this._textFieldNodes,),
 
           ],),),
-        DDCardDecoration(title:'维修信息',childWidget:
+        DDCardDecoration(title:'Maintenance_info',childWidget:
            Column(
              children: <Widget>[
                //名称
@@ -208,7 +209,7 @@ class _AddTemporaryDDState extends State<AddTemporaryDD> {
              ],
            ),),
         DDCardDecoration(
-          title: '运行限制',
+          title: 'operation_limitation',
           //使用限制
           childWidget:
           UseLimit(
@@ -221,7 +222,7 @@ class _AddTemporaryDDState extends State<AddTemporaryDD> {
 
         ),
         DDCardDecoration(
-          title: '其它限制',
+          title: 'other_limitation',
           childWidget:Need(
             //标识（是否复选框）
             valueChangedForM:(val){_checkValueMOption=val;} ,
@@ -234,7 +235,7 @@ class _AddTemporaryDDState extends State<AddTemporaryDD> {
           ),
         ),
         DDCardDecoration(
-            title: '保留代码原因',
+            title: 'reason_code',
             childWidget: KeepReason(
               //保留原因代码
               valueChangedForOI: (val){_checkValueOIOption=val;},
@@ -248,7 +249,7 @@ class _AddTemporaryDDState extends State<AddTemporaryDD> {
             ),),
         DDCardDecoration(
           //依据类型
-            title: '依据类型',
+            title: 'evidence_type',
             childWidget: Column(
               children: <Widget>[
                 EvidenceDrop(valueChanged: (val){
