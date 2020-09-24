@@ -21,9 +21,9 @@ class AddDDServiceImpl extends BaseService implements AddDDService{
     params.addAll({Element.FAX:fax});
     params.addAll({Element.REPORT_DATE:reportDate});
     params.addAll({Element.REPORT_PLACE:reportPlace});
-    params.addAll({Element.SPACE_DAY:spaceDay});
-    params.addAll({Element.SPACE_HOUR:spaceHour});
-    params.addAll({Element.SPACE_CYC:spaceCycle});
+//    params.addAll({Element.SPACE_DAY:spaceDay});
+//    params.addAll({Element.SPACE_HOUR:spaceHour});
+//    params.addAll({Element.SPACE_CYC:spaceCycle});
     params.addAll({Element.DESCRIBE:describe});
     params.addAll({Element.KEEP_MEASURE:keepMeasure});
     params.addAll({Element.NAME:name});
@@ -51,7 +51,9 @@ class AddDDServiceImpl extends BaseService implements AddDDService{
     params.addAll({Element.CHAPTER_NO3:chapterNo3});
     params.addAll({Element.CHAPTER_NO4:chapterNo4});
     params.addAll({Element.CHAPTER_NO5:chapterNo5});
-    NetworkResponse networkResponse = await networkRequest.request<DDPublicModel>(NetworkRequest.networkMethod_POST, NetServicePath.ddListRequest,params: params);
+    print(params.toString());
+
+    NetworkResponse networkResponse = await networkRequest.request<DDPublicModel>(NetworkRequest.networkMethod_POST, NetServicePath. ddAddRequest,params: params);
     return networkResponse;
   }
 

@@ -210,7 +210,7 @@ class _DDListPageState extends State<DDListPage> {
         ],
       ),
       endDrawer:new Drawer(
-        child: DDDrawerWidget(textFieldNodes: this._textFieldNodes,numberFocusNode: _numberFocusNode,numberController: _numberController,
+        child: DDDrawerWidget('DD',textFieldNodes: this._textFieldNodes,numberFocusNode: _numberFocusNode,numberController: _numberController,
           planeNoFocusNode: _planeNoFocusNode,planeNoController: _planeNoController,valueChanged: (val){
             _dropValueForState=val;
           },)//temporaryDDDrawer(),

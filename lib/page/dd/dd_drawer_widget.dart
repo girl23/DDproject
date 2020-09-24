@@ -3,8 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lop/utils/translations.dart';
 import 'package:lop/page/dd/component/dd_component.dart';
 import 'package:lop/page/dd/operation_button_util.dart';
+import 'package:lop/viewmodel/dd/ddlist_viewmodel.dart';
 typedef ValueChanged<T> = void Function(T value);
 class DDDrawerWidget extends StatefulWidget {
+  final String type;
   final ValueChanged valueChanged;
   final List textFieldNodes;
   final FocusNode numberFocusNode;
@@ -12,14 +14,20 @@ class DDDrawerWidget extends StatefulWidget {
   final FocusNode planeNoFocusNode;
   final TextEditingController planeNoController;
 
-  DDDrawerWidget({this.valueChanged, this.textFieldNodes, this.numberFocusNode,
+  DDDrawerWidget(this.type,{this.valueChanged, this.textFieldNodes, this.numberFocusNode,
     this.numberController, this.planeNoFocusNode, this.planeNoController});
   @override
   _DDDrawerWidgetState createState() => _DDDrawerWidgetState();
 }
-
 class _DDDrawerWidgetState extends State<DDDrawerWidget> {
   String dropValue;
+  DDListViewModel _listVM;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+  }
   @override
   Widget build(BuildContext context) {
 
@@ -46,6 +54,7 @@ class _DDDrawerWidgetState extends State<DDDrawerWidget> {
           SizedBox(height: 20,),
             OperationButton.createButton('dd_sureButton', (){
               //确认搜索
+              _listVM.getList(widget.type,ddNo:widget.numberController.text,acReg: widget.planeNoController.text,state:dropValue);
               Navigator.pop(context);
             },size: Size(double.infinity,120)),
         ],

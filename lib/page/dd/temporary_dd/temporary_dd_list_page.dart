@@ -26,6 +26,7 @@ class _TemporaryDDListPageState extends State<TemporaryDDListPage> {
   String _dropValueForState;
   List _textFieldNodes;
   String ddState;
+  DDListViewModel _listVM;
   var _scaffoldkey = new GlobalKey<ScaffoldState>();
   //body
   Widget temporaryDDBody(){
@@ -130,18 +131,15 @@ class _TemporaryDDListPageState extends State<TemporaryDDListPage> {
     ],
   );
   }
-  DDListViewModel _listVM;
+
   @override
   void initState() {
     // TODO: implement initState
-
     super.initState();
     _textFieldNodes=[_numberFocusNode,_planeNoFocusNode,_stateNode];
     _listVM=Provider.of<DDListViewModel>(context,listen: false);
     _listVM.getList('LB');
-
   }
-
   @override
   Widget build(BuildContext context) {
     return
@@ -180,7 +178,7 @@ class _TemporaryDDListPageState extends State<TemporaryDDListPage> {
 
       ),
       endDrawer:new Drawer(
-        child: DDDrawerWidget(textFieldNodes: this._textFieldNodes,numberFocusNode: _numberFocusNode,numberController: _numberController,
+        child: DDDrawerWidget('LB',textFieldNodes: this._textFieldNodes,numberFocusNode: _numberFocusNode,numberController: _numberController,
         planeNoFocusNode: _planeNoFocusNode,planeNoController: _planeNoController,valueChanged: (val){
             _dropValueForState=val;
           },)//temporaryDDDrawer(),
