@@ -63,6 +63,8 @@
     //模块化工卡部分
     static const String getJcModuleInfo = 'AirlineTaskAction/getJcModuleInfo.do';//获取模块化工卡内容
     static const String getJcAssignModuleInfo = 'AirlineTaskAction/getJcAssignModuleInfo.do';//获取模块化工卡的签署信息
+    //dd
+    static const String ddListRequest = 'AcrDdlbAction/getAllDdListByApp.do';//dd列表
   }
 
 

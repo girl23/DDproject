@@ -145,21 +145,19 @@ class _MyMessagePageState extends State<MyMessagePage> {
           refreshedText: Translations.of(context).text("refresh_complected"),
           infoText: Translations.of(context).text("update_at"),
         ),
-        child:
-        ListView.separated(
-          itemCount:Provider.of<SearchMessageModel>(context).messageList.unReadData.length+Provider.of<SearchMessageModel>(context).messageList.readData.length,//_searchMessageModel.messageList.unReadData.length + _searchMessageModel.messageList.readData.length,
-          itemBuilder: (context, index) {
-            return _messageItemView(index);
-          },
-          separatorBuilder: (BuildContext context,int index){
-            return Divider(color: KColor.dividerColor,height: KSize.dividerSize,);
-          },
-        ),
+        child: ListView.separated(
+            itemCount:Provider.of<SearchMessageModel>(context).messageList.unReadData.length+Provider.of<SearchMessageModel>(context).messageList.readData.length,//_searchMessageModel.messageList.unReadData.length + _searchMessageModel.messageList.readData.length,
+            itemBuilder: (context, index) {
+              return _messageItemView(index);
+            },
+            separatorBuilder: (BuildContext context,int index){
+              return Divider(color: KColor.dividerColor,height: KSize.dividerSize,);
+            },
+          ),
         onRefresh: () async {
           _searchMessage(controller.text);
         },
         onLoad: null,
-
       ),
     );
   }

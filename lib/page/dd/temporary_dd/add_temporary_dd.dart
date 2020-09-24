@@ -28,6 +28,7 @@ import 'package:lop/page/dd/dd_cache_util.dart';
 import 'package:lop/page/dd/dd_card_decoration.dart';
 import 'package:lop/page/dd/dd_calculate_date_provide.dart';
 import 'package:provider/provider.dart';
+import 'package:lop/viewmodel/dd/add_dd_viewmodel.dart';
 
 class AddTemporaryDD extends StatefulWidget {
   @override
@@ -120,6 +121,7 @@ class _AddTemporaryDDState extends State<AddTemporaryDD> {
   FocusNode lastNode;
 
   TempDDDbModel tempDDDbModel;
+  AddDDViewModel addModel;
 
  Widget createUI(BuildContext context){
     return Column(
@@ -276,9 +278,53 @@ class _AddTemporaryDDState extends State<AddTemporaryDD> {
                 //校验
 //                _checkInput();
                 //清除本地数据库
-                bool success= await TempDDTools().deleteTempDD('2222');
+//                bool success= await TempDDTools().deleteTempDD('2222');
                 //清除Provider
-                Provider.of<DDCalculateProvide>(context,listen: false).clearTempData();
+//                Provider.of<DDCalculateProvide>(context,listen: false).clearTempData();
+                //新增提交数据到后台；
+
+                String keepReason='';
+                if(_checkValueOIOption)keepReason+='${Translations.of(context).text('dd_oi')}; ';
+                if(_checkValueLSOption)keepReason+='${Translations.of(context).text('dd_ls')}; ';
+                if(_checkValueSGOption)keepReason+='${Translations.of(context).text('dd_sg')}; ';
+                if(_checkValueSPOption)keepReason+='${Translations.of(context).text('dd_sp')}; ';
+                addModel.addDD('LB',number:_numberController.text,
+                    planeNo: _planeNoController.text,
+                    keepPerson: _keepPersonController.text,
+                    phone: _phoneNumberController.text,
+                    fax: _faxController.text,
+                    reportDate: _reportDateController.text,
+                    reportPlace: _reportPlaceController.text,
+                    spaceDay:int.parse(_dayController.text),
+                    spaceHour:_hourController.text,
+                    spaceCycle: _cycleController.text,
+                    describe: _describeController.text,
+                    keepMeasure:_keepMeasureController.text,
+                    name: _nameController.text,
+                    jno: _jnoController.text,
+                    faultNum: _faultNumController.text,
+                    releaseNum: _releaseNumController.text,
+                    inStallNum: _installNumController.text,
+                    chapter1: _chapter1Controller.text,
+                    chapter2: _chapter2Controller.text,
+                    chapter3: _chapter3Controller.text,
+                    faultCategory: _dropValueForFaultCategory,
+                    influence:_dropValueForInfluence,
+                    parkingTime: _needParkingTimeController.text,
+                    workHour:_needWorkHourController.text ,
+                    o:_checkValueOOption.toString(),
+                    other: _checkValueOtherOption.toString(),
+                    otherDescribe: _otherController.text,
+                    m: _checkValueMOption.toString(),
+                    aMC: _checkValueAMCOption.toString(),
+                    runLimit: _checkValueRunOption.toString(),
+                    keepReason:keepReason,
+                    evidenceType: _dropValueForEvidence,
+                    chapterNo1: _chapterNo1Controller.text,
+                    chapterNo2: _chapterNo2Controller.text,
+                    chapterNo3: _chapterNo3Controller.text,
+                    chapterNo4: _chapterNo4Controller.text,
+                    chapterNo5: _chapterNo5Controller.text);
               }, size: Size(double.infinity,120),),
         )
       ],
@@ -389,6 +435,7 @@ class _AddTemporaryDDState extends State<AddTemporaryDD> {
   }
   @override
   void initState() {
+   addModel= new AddDDViewModel();
    setUIFor();
     // TODO: implement initState
     super.initState();
@@ -489,9 +536,15 @@ class _AddTemporaryDDState extends State<AddTemporaryDD> {
         _checkValueLSOption=tempDDDbModel.ddLS==1?true:false;
         _checkValueSGOption=tempDDDbModel.ddSG==1?true:false;
         _checkValueSPOption=tempDDDbModel.ddSP==1?true:false;
-        _dayController.text =tempDDDbModel.ddDay;
-        _hourController.text =tempDDDbModel.ddHour;
-        _cycleController.text =tempDDDbModel.ddCycle;
+
+//        _dayController.text =tempDDDbModel.ddDay;
+//        _hourController.text =tempDDDbModel.ddHour;
+//        _cycleController.text =tempDDDbModel.ddCycle;
+
+        Provider.of<DDCalculateProvide>(context,listen: false).setDay(tempDDDbModel.ddDay);
+        Provider.of<DDCalculateProvide>(context,listen: false).setHour(tempDDDbModel.ddHour);
+        Provider.of<DDCalculateProvide>(context,listen: false).setCycle(tempDDDbModel.ddCycle);
+
         _describeController.text =tempDDDbModel.ddKeepDescribe;
         _needParkingTimeController.text =tempDDDbModel.ddParkingTime;
         _needWorkHourController.text =tempDDDbModel.ddWorkHour;

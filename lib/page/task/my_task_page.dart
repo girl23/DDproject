@@ -264,12 +264,19 @@ class _MyTaskPageState extends State<MyTaskPage>
                     onTap: (index) {
                       if (index == 0) {
                         Application.router.navigateTo(
-                            context, Routes.changePasswordPage,
+                            context, Routes.temporaryDDListPage,
                             transition: TransitionType.fadeIn);
+//                        Application.router.navigateTo(
+//                            context, Routes.changePasswordPage,
+//                            transition: TransitionType.fadeIn);
                       } else if (index == 1) {
-                        ThemeProvider themeProvider =
-                        Provider.of<ThemeProvider>(context, listen: false);
-                        themeProvider.setTheme(AppTheme.themeValue_default);
+
+                        Application.router.navigateTo(
+                            context, Routes.dDListPage,
+                            transition: TransitionType.fadeIn);
+//                        ThemeProvider themeProvider =
+//                        Provider.of<ThemeProvider>(context, listen: false);
+//                        themeProvider.setTheme(AppTheme.themeValue_default);
                       } else if (index == 2) {
                         ThemeProvider themeProvider =
                         Provider.of<ThemeProvider>(context, listen: false);

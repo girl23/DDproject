@@ -231,46 +231,46 @@ class LoginPage extends BaseStfulPage<UserViewModel> {
             r'^(?=.*\d)(?=.*[a-zA-Z])(?=.*[`·+=⟪⟫«»‘’‛‟,‚„′″´˝❛❜｜\\\/\[\]\{\}<　《》>。¡¿⸘‽“”‘’‛‟.„"′″´˝^°¸˛¨`˙˚ªº…:;&_¯­–‑—§#⁊†¶‡@‰‱¦|/\ˉˆ❛❜❝❞€¥¢£₽₩₹฿₵₤₺₮₱₭₴₦₹₲₪₡₫៛₢₸₤₳₥₣₰₧₯₶₷~,!@#\$%\^&\.\?\*\(\)`-]).{8,}$');
         bool matched = exp.hasMatch(_password);
         //跳转登录成功页面
-        if(matched||matched1|| Global.channel == 'loptest1' || Global.channel == 'loptest2'){
+//        if(matched||matched1|| Global.channel == 'loptest1' || Global.channel == 'loptest2'){
           //强度够跳转首页
           Application.router
               .navigateTo(context, "/task", transition: TransitionType.fadeIn);
-        }else{
-//            强度不够跳转到密码修改界面
-          showDialog(
-            context: context,
-            barrierDismissible: true, // user must tap button!
-            builder: (BuildContext context) {
-              return
-                AlertDialog(
-                  titlePadding:EdgeInsets.all(20) ,
-                  contentPadding: EdgeInsets.only(right: 20,left: 20),
-                  title: Text(
-                      Translations.of(context).text('force_alert'),
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 18,color: Colors.black54)),
-                  content: Text(
-                    Translations.of(context).text('force_content'),
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 16,color: Colors.black38),
-                  ),
-                  actions:<Widget>[
-                    FlatButton(
-                      child: Text(Translations.of(context).text('force_sure')),
-                      onPressed: (){
-                        Navigator.of(context).pop();
-                        Application.router
-                            .navigateTo(context, "/task/password/"+"1", transition: TransitionType.fadeIn);
-                      },
-                    ),
-                  ],
-                  // 设置成 圆角
-                  shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                );
-            },
-          );
-
-        }
+//        }else{
+////            强度不够跳转到密码修改界面
+//          showDialog(
+//            context: context,
+//            barrierDismissible: true, // user must tap button!
+//            builder: (BuildContext context) {
+//              return
+//                AlertDialog(
+//                  titlePadding:EdgeInsets.all(20) ,
+//                  contentPadding: EdgeInsets.only(right: 20,left: 20),
+//                  title: Text(
+//                      Translations.of(context).text('force_alert'),
+//                      textAlign: TextAlign.center,
+//                      style: TextStyle(fontSize: 18,color: Colors.black54)),
+//                  content: Text(
+//                    Translations.of(context).text('force_content'),
+//                    textAlign: TextAlign.center,
+//                    style: TextStyle(fontSize: 16,color: Colors.black38),
+//                  ),
+//                  actions:<Widget>[
+//                    FlatButton(
+//                      child: Text(Translations.of(context).text('force_sure')),
+//                      onPressed: (){
+//                        Navigator.of(context).pop();
+//                        Application.router
+//                            .navigateTo(context, "/task/password/"+"1", transition: TransitionType.fadeIn);
+//                      },
+//                    ),
+//                  ],
+//                  // 设置成 圆角
+//                  shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+//                );
+//            },
+//          );
+//
+//        }
       });
     } else {
       _loadingDialog.hide();

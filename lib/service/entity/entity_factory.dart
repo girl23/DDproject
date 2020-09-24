@@ -13,6 +13,8 @@ import 'package:lop/model/version_model.dart';
 import 'package:lop/model/base_response_model.dart';
 import 'package:lop/model/change_password_model.dart';
 import 'package:lop/model/message_unread_model.dart';
+import 'package:lop/model/dd/dd_list_model.dart';
+import 'package:lop/model/dd/dd_public_model.dart';
 
 class EntityFactory{
   static T generateOBJ<T>(json){
@@ -72,6 +74,12 @@ class EntityFactory{
     }
     if(T.toString() == 'NetJcModuleInfoModel'){
       return NetJcModuleInfoModel.fromJson(json) as T;
+    }
+    if(T.toString() == 'DDListModel'){
+      return DDListModel.fromJson(json) as T;
+    }
+    if(T.toString() == 'DDPublicModel'){
+      return DDPublicModel.fromJson(json) as T;
     }
     return json as T;
   }

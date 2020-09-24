@@ -21,7 +21,6 @@ class NetworkRequest {
     try {
       Response response = await NetWorkClient.instance
           .request(method, path, parameters: params);
-
       errorEntity = _doResponseError(response);
       if(errorEntity == null){
         BaseEntity entity = BaseEntity<T>.fromJson(response.data);
