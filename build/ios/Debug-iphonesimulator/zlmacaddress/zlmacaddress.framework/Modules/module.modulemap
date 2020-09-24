@@ -1,6 +1,0 @@
-framework module zlmacaddress {
-  umbrella header "zlmacaddress-umbrella.h"
-
-  export *
-  module * { export * }
-}
