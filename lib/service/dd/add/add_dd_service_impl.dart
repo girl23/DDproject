@@ -1,4 +1,6 @@
 
+import 'dart:convert' as convert;
+
 import 'package:lop/config/configure.dart';
 import 'package:lop/network/element.dart';
 import 'package:lop/network/network_request.dart';
@@ -51,7 +53,8 @@ class AddDDServiceImpl extends BaseService implements AddDDService{
     params.addAll({Element.CHAPTER_NO3:chapterNo3});
     params.addAll({Element.CHAPTER_NO4:chapterNo4});
     params.addAll({Element.CHAPTER_NO5:chapterNo5});
-    print(params.toString());
+    String json=convert.jsonEncode(params);
+    print('****$json');
 
     NetworkResponse networkResponse = await networkRequest.request<DDPublicModel>(NetworkRequest.networkMethod_POST, NetServicePath. ddAddRequest,params: params);
     return networkResponse;

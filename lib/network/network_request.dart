@@ -5,6 +5,7 @@ import 'network_util.dart';
 import '../service/entity/base_entity.dart';
 import '../service/entity/error_entity.dart';
 import '../service/entity/base_list_entity.dart';
+import 'dart:convert';
 
 class NetworkRequest {
 
@@ -17,6 +18,8 @@ class NetworkRequest {
     print('path====$path');
     NetworkResponse  networkResponse = NetworkResponse();
     networkResponse.isSuccess = false;
+    print('====${params.toString()}');
+
     ErrorEntity errorEntity;
     try {
       Response response = await NetWorkClient.instance
