@@ -11,22 +11,40 @@ class DDListViewModel extends BaseViewModel with ChangeNotifier{
 
   //获取列表数据
   GetDDListService _service = GetDDListServiceImpl();
-  DDListModel _ddList = new DDListModel();
+  List <DDListItemModel>_ddList;
+  int _total;
+  int _page;
+  int _pageCount;
 
-//  MessageListModel get messageList => _messageList ?? null;
-  Future<bool> getList(String ddLB,{bool all,String ddNo, String acReg, String state}) async{
-    NetworkResponse response =  await _service.getList(ddLB);
+
+  List<DDListItemModel> get ddList => _ddList;
+
+  int get total => _total;
+
+  int get page => _page;
+
+  int get pageCount => _pageCount;
+
+  Future<bool> getList(String ddLB,{bool all,String ddNo, String acReg, String state,String page}) async{
+    NetworkResponse response =  await _service.getList(ddLB,page: page);
     if(response.isSuccess){
-      if (response.data.result == 'success') {
-//        _messageList=response.data;
-//        notifyListeners();
-        return true;
+      DDListModel model=response.data;
+      _page=model.page;
+      _pageCount=model.pageCount;
+      _total=model.total;
+      if(this.page==1){
+        _ddList=model.data;
       }else{
-        return false;
+        _ddList.addAll(model.data);
       }
+      notifyListeners();
+      return true;
+
     }else{
       ToastUtil.makeToast(response.errorEntity.message);
       return false;
     }
   }
+
+
 }

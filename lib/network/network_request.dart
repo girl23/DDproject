@@ -18,7 +18,7 @@ class NetworkRequest {
     print('path====$path');
     NetworkResponse  networkResponse = NetworkResponse();
     networkResponse.isSuccess = false;
-    print('====${params.toString()}');
+    print('参数====${params.toString()}');
 
     ErrorEntity errorEntity;
     try {
@@ -56,6 +56,8 @@ class NetworkRequest {
       Response response = await NetWorkClient.instance
           .request(method, path, parameters: params);
       errorEntity = _doResponseError(response);
+       print(response.data);
+
       if(errorEntity == null){
         BaseListEntity entity = BaseListEntity<T>.fromJson(response.data);
         if (entity.errorId != null) {

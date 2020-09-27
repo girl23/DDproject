@@ -83,6 +83,8 @@ class Element {
   static const String CHAPTER_NO3 = "zzmel3";
   static const String CHAPTER_NO4 = "zzmel4";
   static const String CHAPTER_NO5 = "zzmel5";
+  static const String JSON_DATA = "jsondata";
+
 
 
 }

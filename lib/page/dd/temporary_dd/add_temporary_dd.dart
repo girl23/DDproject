@@ -278,16 +278,15 @@ class _AddTemporaryDDState extends State<AddTemporaryDD> {
                 //校验
 //                _checkInput();
                 //清除本地数据库
-//                bool success= await TempDDTools().deleteTempDD('2222');
+                bool success= await TempDDTools().deleteTempDD('2222');
                 //清除Provider
-//                Provider.of<DDCalculateProvide>(context,listen: false).clearTempData();
+                Provider.of<DDCalculateProvide>(context,listen: false).clearTempData();
                 //新增提交数据到后台；
-
                 String keepReason='';
-                if(_checkValueOIOption)keepReason+='${Translations.of(context).text('dd_oi')}; ';
-                if(_checkValueLSOption)keepReason+='${Translations.of(context).text('dd_ls')}; ';
-                if(_checkValueSGOption)keepReason+='${Translations.of(context).text('dd_sg')}; ';
-                if(_checkValueSPOption)keepReason+='${Translations.of(context).text('dd_sp')}; ';
+                if(_checkValueOIOption)keepReason+='OI';
+                if(_checkValueLSOption)keepReason+='LS';
+                if(_checkValueSGOption)keepReason+='SG';
+                if(_checkValueSPOption)keepReason+='SP';
                 addModel.addDD('LB',number:_numberController.text,
                     planeNo: _planeNoController.text,
                     keepPerson: _keepPersonController.text,
@@ -312,14 +311,14 @@ class _AddTemporaryDDState extends State<AddTemporaryDD> {
                     influence:_dropValueForInfluence,
                     parkingTime: _needParkingTimeController.text,
                     workHour:_needWorkHourController.text ,
-                    o:_checkValueOOption.toString(),
-                    other: _checkValueOtherOption.toString(),
+                    o:_checkValueOOption?'1':'0',
+                    other: _checkValueOtherOption?'1':'0',
                     otherDescribe: _otherController.text,
-                    m: _checkValueMOption.toString(),
-                    aMC: _checkValueAMCOption.toString(),
-                    runLimit: _checkValueRunOption.toString(),
+                    m: _checkValueMOption?'1':'0',
+                    aMC: _checkValueAMCOption?'1':'0',
+                    runLimit: _checkValueRunOption?'1':'0',
                     keepReason:keepReason,
-                    evidenceType: _dropValueForEvidence,
+                    evidenceType:_dropValueForEvidence,
                     chapterNo1: _chapterNo1Controller.text,
                     chapterNo2: _chapterNo2Controller.text,
                     chapterNo3: _chapterNo3Controller.text,

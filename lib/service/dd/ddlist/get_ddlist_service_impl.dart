@@ -8,11 +8,14 @@ import 'package:lop/model/dd/dd_list_model.dart';
 
 class GetDDListServiceImpl extends BaseService implements GetDDListService{
   @override
-  Future<NetworkResponse> getList(String ddLB,{bool all=true,String ddNo, String acReg, String state}) async{
+  Future<NetworkResponse> getList(String ddLB,{bool all=true,String ddNo, String acReg, String state,String page,}) async{
     // TODO: implement getList
     Map<String,dynamic> params = new Map();
-
     params.addAll({Element.DD_LB:ddLB});
+    params.addAll({Element.PAGE:page});
+    params.addAll({Element.ROWS:"10"});
+    params.addAll({Element.SORT:''});
+    params.addAll({Element.ORDER:'desc'});
     if(!all){
       params.addAll({Element.DD_NO:ddNo});
       params.addAll({Element.acReg:acReg});

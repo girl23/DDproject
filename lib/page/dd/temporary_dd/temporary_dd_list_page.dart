@@ -1,6 +1,7 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart' as refresh;
+import 'package:lop/model/dd/dd_list_model.dart';
 import 'package:lop/utils/translations.dart';
 import 'package:lop/router/routes.dart';
 import 'package:lop/router/application.dart';
@@ -28,9 +29,83 @@ class _TemporaryDDListPageState extends State<TemporaryDDListPage> {
   String ddState;
   DDListViewModel _listVM;
   var _scaffoldkey = new GlobalKey<ScaffoldState>();
+
   //body
+  //处理状态
+  String dealState(String state){
+
+    if(state=="0"||state=="9"){
+      return "un_close";
+    }else if(state=="1"){
+      return "closed";
+    }else if(state=="2"){
+      return "deleted";
+    } else{
+      return  "un_close";
+    }
+
+  }
   Widget temporaryDDBody(){
-    List stateList=["un_close","closed","deleted"];
+    Widget _createListView(BuildContext context, AsyncSnapshot snapshot) {
+      List listData =snapshot.data;
+      return
+        ListView.builder(
+        shrinkWrap: true,
+        itemBuilder: (context, index){
+
+          DDListItemModel model=listData[index];
+          String stateStr=dealState(model.ddState) ;
+          return
+            DDListItem(temporaryDDNumber:model.zzblno,planeNumber:model.zzmsgrp ,temporaryDDState:'un_close',itemClick: (){
+//            //新建临保
+//            ddState='unClose';
+//            switch(index){
+//              case 0 :
+//                ddState='unClose';
+//                break;
+//              case 1 :
+//                ddState='closed';
+//                break;
+//              case 2 :
+//                ddState='deleted';
+//                break;
+//              default:
+//                ddState='unClose';
+//                break;
+//            }
+//            Application.router.navigateTo(
+//                context,
+//                "/temporaryDDDetailPage/"+ddState,
+//                transition: TransitionType.fadeIn);
+          },
+          );
+      },
+        itemCount: listData.length,
+      );
+    }
+    ///snapshot就是_calculation在时间轴上执行过程的状态快照
+    Widget _buildFuture(BuildContext context, AsyncSnapshot snapshot) {
+
+      switch (snapshot.connectionState) {
+        case ConnectionState.none:
+          print('还没有开始网络请求');
+          return Text('还没有开始网络请求');
+        case ConnectionState.active:
+          print('active');
+          return Text('ConnectionState.active');
+        case ConnectionState.waiting:
+          print('waiting');
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        case ConnectionState.done:
+          print('done');
+          if (snapshot.hasError) return Text('Error: ${snapshot.error}');
+          return _createListView(context, snapshot);
+        default:
+          return null;
+      }
+    }
     Widget _noDataView(){
       return Expanded(
         child:
@@ -57,7 +132,7 @@ class _TemporaryDDListPageState extends State<TemporaryDDListPage> {
           ),
           onRefresh: () async {
             print('刷新');
-
+            _listVM.getList('LB',page: '1');
           },
           onLoad: null,
         ),
@@ -65,31 +140,34 @@ class _TemporaryDDListPageState extends State<TemporaryDDListPage> {
     }
     //封装有数据列表视图
     Widget _hasDataView(){
-      return  Expanded(
-        child:
+      return  Consumer<DDListViewModel>(builder: (context, DDListViewModel model,_) {
+        return  Expanded(child:
         refresh.EasyRefresh(
-          footer: refresh.ClassicalFooter(
-            enableInfiniteLoad: false,
-            completeDuration: const Duration(milliseconds: 1000),
-            loadText: Translations.of(context).text("pull_to_load"),
-            loadReadyText: Translations.of(context).text("release_to_load"),
-            loadingText: Translations.of(context).text("refresh_loading"),
-            loadedText: Translations.of(context).text("load_complected"),
-            noMoreText: Translations.of(context).text("no_more_text"),
-            infoText: Translations.of(context).text("update_at"),
-          ),
-          header:  refresh.ClassicalHeader(
-            refreshText: Translations.of(context).text("pull_to_refresh"),
-            refreshReadyText: Translations.of(context).text("release_to_refresh"),
-            refreshingText: Translations.of(context).text("refresh_refreshing"),
-            refreshedText: Translations.of(context).text("refresh_complected"),
-            infoText: Translations.of(context).text("update_at"),
-          ),
-          child: ListView.builder(
+            footer: refresh.ClassicalFooter(
+              enableInfiniteLoad: false,
+              completeDuration: const Duration(milliseconds: 1000),
+              loadText: Translations.of(context).text("pull_to_load"),
+              loadReadyText: Translations.of(context).text("release_to_load"),
+              loadingText: Translations.of(context).text("refresh_loading"),
+              loadedText: Translations.of(context).text("load_complected"),
+              noMoreText: Translations.of(context).text("no_more_text"),
+              infoText: Translations.of(context).text("update_at"),
+            ),
+            header:  refresh.ClassicalHeader(
+              refreshText: Translations.of(context).text("pull_to_refresh"),
+              refreshReadyText: Translations.of(context).text("release_to_refresh"),
+              refreshingText: Translations.of(context).text("refresh_refreshing"),
+              refreshedText: Translations.of(context).text("refresh_complected"),
+              infoText: Translations.of(context).text("update_at"),
+            ),
+            controller: _refreshController,
+            child:
+            ListView.builder(
               shrinkWrap: true,
-              itemCount: 3,
-              itemBuilder: (BuildContext context,int index){
-                return DDListItem(temporaryDDNumber: 'LN23048751',planeNumber:'B-1244' ,temporaryDDState:stateList[index],itemClick: (){
+              itemBuilder: (context, index,){
+                DDListItemModel model=Provider.of<DDListViewModel>(context).ddList[index];
+                String stateStr=dealState(model.ddState) ;
+                return DDListItem(temporaryDDNumber:model.zzblno,planeNumber:model.zzmsgrp ,temporaryDDState:'un_close',itemClick: (){
                   //新建临保
                   ddState='unClose';
                   switch(index){
@@ -110,35 +188,41 @@ class _TemporaryDDListPageState extends State<TemporaryDDListPage> {
                       context,
                       "/temporaryDDDetailPage/"+ddState,
                       transition: TransitionType.fadeIn);
-                },);
-              }
-          ),
-          onRefresh: () async {
+                },
+                );
+              },
+              itemCount:Provider.of<DDListViewModel>(context).ddList.length,// listData.length,
+            ),
 
-          },
-          onLoad: null,
-        ),
+            onRefresh: () async {
+          //下拉请求新数据
+        _listVM.getList('LB',page: '1');
+        },
+            onLoad:()async{
+              //下拉增加新数据
+              _listVM.getList('LB',page: '1');
+            }// null,
+        ));
+      }
       );
     }
-
   return
-    // (10>5)?_hasDataView():_noDataView();
     Column(
     children: <Widget>[
       SizedBox(height: 15,),
-      _hasDataView(),
-
+      Provider.of<DDListViewModel>(context).ddList.length>0?_hasDataView():_noDataView(),
     ],
   );
   }
-
+  refresh.EasyRefreshController _refreshController;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     _textFieldNodes=[_numberFocusNode,_planeNoFocusNode,_stateNode];
+    _refreshController= refresh.EasyRefreshController();
     _listVM=Provider.of<DDListViewModel>(context,listen: false);
-    _listVM.getList('LB');
+    _listVM.getList('LB',page: '1');
   }
   @override
   Widget build(BuildContext context) {
@@ -175,7 +259,6 @@ class _TemporaryDDListPageState extends State<TemporaryDDListPage> {
           ),
           SizedBox(width: 10),
           ],
-
       ),
       endDrawer:new Drawer(
         child: DDDrawerWidget('LB',textFieldNodes: this._textFieldNodes,numberFocusNode: _numberFocusNode,numberController: _numberController,
