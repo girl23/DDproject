@@ -12,7 +12,8 @@ import 'package:lop/service/dd/add/add_dd_service.dart';
 
 class AddDDServiceImpl extends BaseService implements AddDDService{
   @override
-  Future<NetworkResponse> addDD(String ddLB, {String number, String planeNo, String keepPerson, String phone, String fax, String reportDate, String reportPlace, int spaceDay, String spaceHour, String spaceCycle, String describe, String keepMeasure, String name, String jno, String faultNum, String inStallNum, String releaseNum, String chapter1, String chapter2, String chapter3, String faultCategory, String influence, String parkingTime, String workHour, String o, String other, String otherDescribe, String m, String aMC, String runLimit, String keepReason, String evidenceType, String chapterNo1, String chapterNo2, String chapterNo3, String chapterNo4, String chapterNo5}) async{
+  Future<NetworkResponse> addDD(String ddLB, {String number, String planeNo, String keepPerson, String phone, String fax, String reportDate, String reportPlace, int spaceDay, String spaceHour, String spaceCycle, String describe, String keepMeasure, String name, String jno, String faultNum, String inStallNum, String releaseNum, String chapter1, String chapter2, String chapter3, String faultCategory, String influence, String parkingTime, String workHour, String o, String other, String otherDescribe, String m, String aMC, String runLimit, String keepReason, String evidenceType, String chapterNo1, String chapterNo2, String chapterNo3, String chapterNo4, String chapterNo5
+    ,String mbCode,String workON,String comeFrom,String eng,String startDate,String totalHour, String totalCycle,String endDate,String endHour,String endCycle,String keepFold,String repeatInspection,String applicant,String applyDate}) async{
     // TODO: implement AddDD
     Map<String,dynamic> params = new Map();
     params.addAll({Element.FORM_TYPE:ddLB});
@@ -53,10 +54,27 @@ class AddDDServiceImpl extends BaseService implements AddDDService{
     params.addAll({Element.CHAPTER_NO3:chapterNo3});
     params.addAll({Element.CHAPTER_NO4:chapterNo4});
     params.addAll({Element.CHAPTER_NO5:chapterNo5});
+    if(ddLB=='DD'){
+      params.addAll({Element.MB_CODE:mbCode});
+      params.addAll({Element.WORK_ON:workON});
+      params.addAll({Element.COME_FROM:comeFrom});
+      params.addAll({Element.ENG:eng});
+      params.addAll({Element.START_DATE:startDate});
+      params.addAll({Element.TOTAL_HOUR:totalHour});
+      params.addAll({Element.TOTAL_CYCLE:totalCycle});
+      params.addAll({Element.END_DATE:endDate});
+      params.addAll({Element.END_HOUR:endHour});
+      params.addAll({Element.END_CYCLE:endCycle});
+      params.addAll({Element.KEEP_FOLD:keepFold});
+      params.addAll({Element.REPEAT_INSPECTION:repeatInspection});
+      params.addAll({Element.APPLICANT:applicant});
+      params.addAll({Element.APPLY_DATE:applyDate});
+    }
     String json=convert.jsonEncode(params);
     print('****$json');
     Map<String,dynamic> realParams = new Map();
     realParams.addAll({Element.JSON_DATA:json});
+
     NetworkResponse networkResponse = await networkRequest.request<DDPublicModel>(NetworkRequest.networkMethod_POST, NetServicePath. ddAddRequest,params: realParams);
     return networkResponse;
   }

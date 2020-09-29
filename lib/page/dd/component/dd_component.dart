@@ -82,7 +82,7 @@ class DDComponent{
           SizedBox(height: 10,),
 
           Container(
-              height: 35,
+              height: KSize.textFieldHeight,
               padding: EdgeInsets.only(left: 15),
               decoration: BoxDecoration(
                 border: Border.all(
@@ -91,6 +91,7 @@ class DDComponent{
                 ),
               ),
               child: DropdownButton(
+                itemHeight: KSize.textFieldHeight,
                 style: TextStyle(fontSize: KFont.formContent,color:KColor.textColor_66),
                 hint:(placeHolder!=null)? Text(placeHolder,style: TextStyle(fontSize: KFont.formTitle,color:KColor.textColor_66)):Container(),
                 value:defaultValue,//_dropList[index],
@@ -269,6 +270,7 @@ class DDComponent{
     }
     return Container(
         padding: EdgeInsets.fromLTRB(15, 10, 15, 0),
+
         child:Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
@@ -322,7 +324,7 @@ class DDComponent{
                 ),
                 SizedBox(width: 15,),
                 Expanded(child: Container(
-                  height: 35,
+                  height: KSize.textFieldHeight,
                   padding: EdgeInsets.only(left: 15),
                   decoration: BoxDecoration(
                     border: Border.all(
@@ -331,6 +333,7 @@ class DDComponent{
                     ),
                   ),
                   child: DropdownButton(
+                    itemHeight: KSize.textFieldHeight,
                     style: TextStyle(fontSize: KFont.formContent,color:KColor.textColor_66),
                     hint:(placeHolder!=null)? Text(placeHolder,style: TextStyle(fontSize: KFont.formTitle,color:KColor.textColor_66)):Container(),
                     value:defaultValue,//_dropList[index],
@@ -340,8 +343,9 @@ class DDComponent{
                     onChanged: (value)async{
                       FocusScope.of(context).requestFocus(FocusNode());
                       valueChanged(value);
-                      DDCacheUtil.cacheData(tagName, value);
-
+                      if(tagName=='search_dd_state'){}else{
+                        DDCacheUtil.cacheData(tagName, value);
+                      }
                     },
                   ) ,
                 ),)

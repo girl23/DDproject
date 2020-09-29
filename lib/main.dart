@@ -36,6 +36,7 @@ import 'package:lop/viewmodel/task_info_new_viewmodel.dart';
 import 'package:lop/provide/dd/temporary_dd_transfer_provide.dart';
 import 'package:lop/page/dd/dd_calculate_date_provide.dart';
 import 'package:lop/viewmodel/dd/ddlist_viewmodel.dart';
+import 'package:lop/viewmodel/dd/dd_detail_viewmodel.dart';
 
 void main() {
   //APP初始化全局变量
@@ -91,6 +92,8 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider<DDCalculateProvide>(create: (_) => DDCalculateProvide()),
           //dd列表
           ChangeNotifierProvider<DDListViewModel>(create: (_) => DDListViewModel()),
+          //dd详情
+          ChangeNotifierProvider<DDDetailViewModel>(create: (_) => DDDetailViewModel()),
         ],
         child: Consumer<ThemeProvider>(
             builder: (BuildContext context, themeProvider, Widget child) {

@@ -23,6 +23,7 @@ class DDCalculateProvide with ChangeNotifier{
 
   //=================================================日期动态计算=========================================
   String addOneDay(String day,int space){
+
     DateTime firstDate;
     DateTime startDate;
     firstDate=DateTime.parse(day);
@@ -89,9 +90,12 @@ class DDCalculateProvide with ChangeNotifier{
       DDCacheUtil.cacheData('dd_firstReportDate', _firstReportTime);
     }
     //查看起始日期，计划保留天数，到期是否有数据，有同时更改相应数据
-   if(_startTime.length>0&&_space.length>0&&_endTime.length>0){
-     this.calculateDate(trigger: 'start');
-   }
+    if(_startTime!=null&&_space!=null&&_endTime!=null){
+      if(_startTime.length>0&&_space.length>0&&_endTime.length>0){
+        this.calculateDate(trigger: 'start');
+      }
+    }
+
   }
   void calculateDate({String trigger}){
     DateTime startDate;
@@ -101,6 +105,7 @@ class DDCalculateProvide with ChangeNotifier{
     bool matched1 = exp.hasMatch(_startTime);
     bool matched2 = exp.hasMatch(_space);
     bool matched3 = exp.hasMatch(_endTime);
+
     if(!(matched1==true&&matched2==true&&matched3==true)){
       return;
     }

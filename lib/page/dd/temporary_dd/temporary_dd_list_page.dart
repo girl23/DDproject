@@ -27,13 +27,14 @@ class _TemporaryDDListPageState extends State<TemporaryDDListPage> {
   String _dropValueForState;
   List _textFieldNodes;
   String ddState;
-  DDListViewModel _listVM;
   var _scaffoldkey = new GlobalKey<ScaffoldState>();
+  refresh.EasyRefreshController _refreshController;
+  DDListViewModel _listVM;
+  int currentPage=1;
 
   //body
   //处理状态
   String dealState(String state){
-
     if(state=="0"||state=="9"){
       return "un_close";
     }else if(state=="1"){
@@ -43,69 +44,9 @@ class _TemporaryDDListPageState extends State<TemporaryDDListPage> {
     } else{
       return  "un_close";
     }
-
   }
   Widget temporaryDDBody(){
-    Widget _createListView(BuildContext context, AsyncSnapshot snapshot) {
-      List listData =snapshot.data;
-      return
-        ListView.builder(
-        shrinkWrap: true,
-        itemBuilder: (context, index){
 
-          DDListItemModel model=listData[index];
-          String stateStr=dealState(model.ddState) ;
-          return
-            DDListItem(temporaryDDNumber:model.zzblno,planeNumber:model.zzmsgrp ,temporaryDDState:'un_close',itemClick: (){
-//            //新建临保
-//            ddState='unClose';
-//            switch(index){
-//              case 0 :
-//                ddState='unClose';
-//                break;
-//              case 1 :
-//                ddState='closed';
-//                break;
-//              case 2 :
-//                ddState='deleted';
-//                break;
-//              default:
-//                ddState='unClose';
-//                break;
-//            }
-//            Application.router.navigateTo(
-//                context,
-//                "/temporaryDDDetailPage/"+ddState,
-//                transition: TransitionType.fadeIn);
-          },
-          );
-      },
-        itemCount: listData.length,
-      );
-    }
-    ///snapshot就是_calculation在时间轴上执行过程的状态快照
-    Widget _buildFuture(BuildContext context, AsyncSnapshot snapshot) {
-
-      switch (snapshot.connectionState) {
-        case ConnectionState.none:
-          print('还没有开始网络请求');
-          return Text('还没有开始网络请求');
-        case ConnectionState.active:
-          print('active');
-          return Text('ConnectionState.active');
-        case ConnectionState.waiting:
-          print('waiting');
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        case ConnectionState.done:
-          print('done');
-          if (snapshot.hasError) return Text('Error: ${snapshot.error}');
-          return _createListView(context, snapshot);
-        default:
-          return null;
-      }
-    }
     Widget _noDataView(){
       return Expanded(
         child:
@@ -132,9 +73,15 @@ class _TemporaryDDListPageState extends State<TemporaryDDListPage> {
           ),
           onRefresh: () async {
             print('刷新');
-            _listVM.getList('LB',page: '1');
+            currentPage=1;
+            _listVM.getList('LB',page: '1',ddNo: _numberController.text,acReg: _planeNoController.text,state: _dropValueForState);
           },
-          onLoad: null,
+          onLoad:() async{
+            if(_listVM.pageCount>currentPage){
+              currentPage+=1;
+              _listVM.getList('LB',page: currentPage.toString(),ddNo: _numberController.text,acReg: _planeNoController.text,state: _dropValueForState);
+            }
+          },
         ),
       );
     }
@@ -167,26 +114,11 @@ class _TemporaryDDListPageState extends State<TemporaryDDListPage> {
               itemBuilder: (context, index,){
                 DDListItemModel model=Provider.of<DDListViewModel>(context).ddList[index];
                 String stateStr=dealState(model.ddState) ;
-                return DDListItem(temporaryDDNumber:model.zzblno,planeNumber:model.zzmsgrp ,temporaryDDState:'un_close',itemClick: (){
-                  //新建临保
-                  ddState='unClose';
-                  switch(index){
-                    case 0 :
-                      ddState='unClose';
-                      break;
-                    case 1 :
-                      ddState='closed';
-                      break;
-                    case 2 :
-                      ddState='deleted';
-                      break;
-                    default:
-                      ddState='unClose';
-                      break;
-                  }
+                return DDListItem(temporaryDDNumber:model.zzblno??'',planeNumber:model.zzmsgrp??'' ,temporaryDDState:stateStr,itemClick: (){
+
                   Application.router.navigateTo(
                       context,
-                      "/temporaryDDDetailPage/"+ddState,
+                      "/temporaryDDDetailPage/"+stateStr+"/"+model.ddid.toString(),
                       transition: TransitionType.fadeIn);
                 },
                 );
@@ -195,12 +127,17 @@ class _TemporaryDDListPageState extends State<TemporaryDDListPage> {
             ),
 
             onRefresh: () async {
-          //下拉请求新数据
-        _listVM.getList('LB',page: '1');
-        },
+              //下拉请求新数据
+              currentPage=1;
+              _listVM.getList('LB',page: '1',ddNo: _numberController.text,acReg: _planeNoController.text,state: _dropValueForState);
+
+            },
             onLoad:()async{
-              //下拉增加新数据
-              _listVM.getList('LB',page: '1');
+              //上拉增加新数据
+              if(_listVM.pageCount>currentPage){
+                currentPage+=1;
+                _listVM.getList('LB',page: currentPage.toString(),ddNo: _numberController.text,acReg: _planeNoController.text,state: _dropValueForState);
+              }
             }// null,
         ));
       }
@@ -210,11 +147,11 @@ class _TemporaryDDListPageState extends State<TemporaryDDListPage> {
     Column(
     children: <Widget>[
       SizedBox(height: 15,),
-      Provider.of<DDListViewModel>(context).ddList.length>0?_hasDataView():_noDataView(),
+      ((Provider.of<DDListViewModel>(context).ddList!=null)?(Provider.of<DDListViewModel>(context).ddList.length):0)>0?_hasDataView():_noDataView(),
     ],
   );
   }
-  refresh.EasyRefreshController _refreshController;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -222,7 +159,7 @@ class _TemporaryDDListPageState extends State<TemporaryDDListPage> {
     _textFieldNodes=[_numberFocusNode,_planeNoFocusNode,_stateNode];
     _refreshController= refresh.EasyRefreshController();
     _listVM=Provider.of<DDListViewModel>(context,listen: false);
-    _listVM.getList('LB',page: '1');
+    _listVM.getList('LB',page: currentPage.toString());
   }
   @override
   Widget build(BuildContext context) {

@@ -324,10 +324,7 @@
   "dd_day_hour_cycle_null": "计划保留天数/小时/循环至少填写一个",
   "dd_chapterNo1_null":"MEL/CDL章节号1为空",
 
-  "//":"临保状态",
-  "dd_temporary_closed": "已关闭",
-  "dd_temporary_unclosed": "未关闭",
-  "dd_temporary_deleted": "已删除",
+
 
   "//":"搜索界面",
   "dd_sureButton": "确定",
@@ -380,5 +377,10 @@
 
   "//":"bool字段",
   "dd_true": "是",
-  "dd_false": "否"
+  "dd_false": "否",
+
+  "//":"dd搜索界面",
+  "search_dd_number": "编号",
+  "search_dd_planeNo": "飞机号",
+  "search_dd_state": "飞机号"
 }

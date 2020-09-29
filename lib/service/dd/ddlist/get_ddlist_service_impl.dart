@@ -8,7 +8,7 @@ import 'package:lop/model/dd/dd_list_model.dart';
 
 class GetDDListServiceImpl extends BaseService implements GetDDListService{
   @override
-  Future<NetworkResponse> getList(String ddLB,{bool all=true,String ddNo, String acReg, String state,String page,}) async{
+  Future<NetworkResponse> getList(String ddLB,{bool all,String ddNo, String acReg, String state,String page,}) async{
     // TODO: implement getList
     Map<String,dynamic> params = new Map();
     params.addAll({Element.DD_LB:ddLB});
@@ -22,7 +22,6 @@ class GetDDListServiceImpl extends BaseService implements GetDDListService{
       params.addAll({Element.state:state});
     }
     NetworkResponse networkResponse = await networkRequest.request<DDListModel>(NetworkRequest.networkMethod_GET, NetServicePath.ddListRequest,params: params);
-
     return networkResponse;
   }
 

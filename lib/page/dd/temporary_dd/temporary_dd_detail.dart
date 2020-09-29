@@ -9,20 +9,38 @@ import 'package:lop/config/enum_config.dart';
 import '../operation_button_util.dart';
 import 'package:lop/style/theme/text_theme.dart';
 import 'package:lop/router/application.dart';
+import 'package:lop/viewmodel/dd/dd_detail_viewmodel.dart';
+import 'package:provider/provider.dart';
+import 'package:lop/viewmodel/dd/delete_dd_viewmodel.dart';
+
 // ignore: must_be_immutable
 class TemporaryDDDetail extends StatefulWidget {
   String trans;
-  String stateStr;
   TemporaryDDState state;
-  TemporaryDDDetail(this.trans,this.state);
+  String ddId;
+  String stateStr;
+
+  TemporaryDDDetail({this.trans,this.state,this.ddId});
 
   @override
   _TemporaryDDDetailState createState() => _TemporaryDDDetailState();
 }
 
 class _TemporaryDDDetailState extends State<TemporaryDDDetail> {
+
+
   bool transfer=false;
+  DDDetailViewModel detailVM;
+  DeleteDDViewModel deleteVM;
   Widget createUI(BuildContext context){
+    String eviType;
+    if(detailVM.detailModel?.zzrectype=='0'){
+      eviType='MEL';
+    }else if(detailVM.detailModel?.zzrectype=='1'){
+      eviType='CDL';
+    }else{
+      eviType=Translations.of(context).text('dd_other');
+    }
     return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -34,7 +52,7 @@ class _TemporaryDDDetailState extends State<TemporaryDDDetail> {
               children: <Widget>[
                 Container(
                   alignment: Alignment.centerLeft,
-                  child:Text('FLNO2324',style: TextStyle(fontSize: KFont.bigTitle,color: KColor.zebraColor1)),
+                  child:Text(detailVM.detailModel?.zzblno,style: TextStyle(fontSize: KFont.bigTitle,color: KColor.zebraColor1)),
                 ),
                 Container(
                   alignment: Alignment.centerRight,//Alignment.centerLeft,
@@ -45,79 +63,80 @@ class _TemporaryDDDetailState extends State<TemporaryDDDetail> {
           ),
           DDComponent.zebraTitle('base_info'),
           //编号
-          DDComponent.tagAndTextHorizon('dd_number', '1002',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
+          DDComponent.tagAndTextHorizon('dd_number', detailVM.detailModel?.zzblno,textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
           //飞机号
-          DDComponent.tagAndTextHorizon('dd_planeNo', '1002',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
+          DDComponent.tagAndTextHorizon('dd_planeNo', detailVM.detailModel?.zzmsgrp,textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
           //保留人员
-          DDComponent.tagAndTextHorizon('dd_keepPerson', '1002',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
+          DDComponent.tagAndTextHorizon('dd_keepPerson', detailVM.detailModel?.zzblry,textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
           //联系电话
-          DDComponent.tagAndTextHorizon('dd_phoneNumber', '1002',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
+          DDComponent.tagAndTextHorizon('dd_phoneNumber', detailVM.detailModel?.zzbltel,textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
           //传真
-          DDComponent.tagAndTextHorizon('dd_fax', '1002',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
+          DDComponent.tagAndTextHorizon('dd_fax', detailVM.detailModel?.zzblfax,textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
 
           DDComponent.zebraTitle('report_info'),
           //报告日期
-          DDComponent.tagAndTextHorizon('dd_reportDate', '1002',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
+          DDComponent.tagAndTextHorizon('dd_reportDate', detailVM.detailModel?.zzbgdt,textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
           //报告地点
-          DDComponent.tagAndTextHorizon('dd_reportPlace', '1002', textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
+          DDComponent.tagAndTextHorizon('dd_reportPlace', detailVM.detailModel?.zzddscbgdd, textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
 
           DDComponent.zebraTitle('plan_info'),
           //计划保留天数/小时/循环
-          DDComponent.tagAndTextHorizon('dd_plan_keep_time', '20233/34/44', textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
+          DDComponent.tagAndTextHorizon('dd_plan_keep_time', '${detailVM.detailModel?.zzdefdy}/${detailVM.detailModel?.zzblfxxs}/${detailVM.detailModel?.zzblfxxh}', textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
           //计划保留间隔描述
-          DDComponent.tagAndTextVertical('dd_plan_keep_describe', '其它-——现代一种用于高速计算的电子计算机器，可以进行数值计算，其它-——现代一种用于高速计算的电子计算机器，可以进行数值计算，其它-——现代一种用于高速计算的电子计算机器，可以进行数值计算，',bgColor: KColor.zebraColor3),
+          DDComponent.tagAndTextVertical('dd_plan_keep_describe', detailVM.detailModel?.zzgzms,bgColor: KColor.zebraColor3),
 
           //保留报告及临时措施
-          DDComponent.tagAndTextVertical('dd_keepMeasure', '三角函数一般用于计算三角形中未知长度的边和未知的角度，在导航、工程学以及物理学方面都有广泛的用途。另外，以三角函数为模版，可以定义一类相似的函数，叫做双曲函数。',bgColor: KColor.zebraColor2),
+          DDComponent.tagAndTextVertical('dd_keepMeasure', detailVM.detailModel?.ddreport,bgColor: KColor.zebraColor2),
           DDComponent.zebraTitle('Maintenance_info'),
           //名称
-          DDComponent.tagAndTextVertical('dd_name', '是现代一种用于高速计算的电子计算机器，可以进行数值计算，子设',bgColor: KColor.zebraColor2),
+          DDComponent.tagAndTextVertical('dd_name', detailVM.detailModel?.toolname,bgColor: KColor.zebraColor2),
           //件号
-          DDComponent.tagAndTextVertical('dd_jno', '是现代一种用于高速计算的电子计算机器，可以进行数值计算',bgColor: KColor.zebraColor3),
+          DDComponent.tagAndTextVertical('dd_jno', detailVM.detailModel?.partno,bgColor: KColor.zebraColor3),
           //数量
-          DDComponent.tagAndTextHorizon('dd_Num', '15/22/2234',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
+          DDComponent.tagAndTextHorizon('dd_Num', '${detailVM.detailModel?.falqty}/${detailVM.detailModel?.relqty}/${detailVM.detailModel?.instqty}',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
 
           //ATA章节
-          DDComponent.tagAndTextHorizon('dd_chapter', '10-22-234',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
+          DDComponent.tagAndTextHorizon('dd_chapter', '${detailVM.detailModel?.zzatazj}-${detailVM.detailModel?.zzatazj2}-${detailVM.detailModel?.zztatzj3}',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
           //保留故障分类
-          DDComponent.tagAndTextHorizon('dd_keep_faultCategory', 'CBS_F',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
+          DDComponent.tagAndTextHorizon('dd_keep_faultCategory', detailVM.detailModel?.zzblclf,textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
           //影响服务程度
-          DDComponent.tagAndTextHorizon('dd_influence', '一般',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
+          DDComponent.tagAndTextHorizon('dd_influence', detailVM.detailModel?.zzyxfwcd,textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
           //所需停场时间
-          DDComponent.tagAndTextHorizon('dd_need_parking_time', '2h',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
+          DDComponent.tagAndTextHorizon('dd_need_parking_time', detailVM.detailModel?.zzytsj,textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
           //所需工时
-          DDComponent.tagAndTextHorizon('dd_need_work_time', '3h',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
-          //执管单位DD计划员
-          DDComponent.tagAndTextHorizon('dd_plan_operator', '周周',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
+          DDComponent.tagAndTextHorizon('dd_need_work_time', detailVM.detailModel?.zzsxgs,textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
+          //执管单位DD计划员zzddplanner
+          DDComponent.tagAndTextHorizon('dd_plan_operator', detailVM.detailModel?.zzddplanner,textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
           DDComponent.zebraTitle('restrictions'),
           //使用限制
-          DDComponent.tagAndTextHorizon('dd_use_limit', '其它',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
+          DDComponent.tagAndTextHorizon('dd_use_limit', '${detailVM.detailModel?.zzflgo=='1'?'O项':''} ${detailVM.detailModel?.zzflgoth=='1'?'其它':''}',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
           //其它限制描述
-
-          DDComponent.tagAndTextVertical('dd_use_limit_describe', '现代一种用于高速计算的电子计算机器，可以进行数值计算，子',bgColor: KColor.zebraColor3),
-
+          Offstage(
+            offstage: detailVM.detailModel?.zzflgo!='1',
+            child:DDComponent.tagAndTextVertical('dd_use_limit_describe', detailVM.detailModel.zzgzms,bgColor: KColor.zebraColor3),
+          ),
           //是否有M项要求
-          DDComponent.tagAndTextHorizon('dd_need_m', '是',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
+          DDComponent.tagAndTextHorizon('dd_need_m',(detailVM.detailModel?.zzmind=='1')?'是':'否',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
           //是否有运行限制
-          DDComponent.tagAndTextHorizon('dd_need_run_limit', '是',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
+          DDComponent.tagAndTextHorizon('dd_need_run_limit', (detailVM.detailModel?.operatingLimits=='1')?'是':'否',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
           //需AMC处理标识
-          DDComponent.tagAndTextHorizon('dd_need_amc', '是',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
+          DDComponent.tagAndTextHorizon('dd_need_amc', (detailVM.detailModel?.zzamcfg=='1')?'是':'否',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
 
           DDComponent.zebraTitle('reason_code'),
-          DDComponent.tagAndTextVertical('', 'OI：观察项目，LS：缺航材',bgColor: KColor.zebraColor2),
+          DDComponent.tagAndTextVertical('',detailVM.detailModel?.zzrescode ,bgColor: KColor.zebraColor2),
           DDComponent.zebraTitle('evidence_type'),
           //依据类型
-          DDComponent.tagAndTextHorizon('dd_evidence_type', 'MEL',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
+          DDComponent.tagAndTextHorizon('dd_evidence_type', eviType,textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
           //MEL/CDL章节号1"
-          DDComponent.tagAndTextVertical('dd_chapter_no1', '一种用于高速计算的电子计算机用于高速计算的电子计算机用于高速计算的电子计算机',bgColor: KColor.zebraColor3),
+          DDComponent.tagAndTextVertical('dd_chapter_no1', detailVM.detailModel?.zzmel,bgColor: KColor.zebraColor3),
           //MEL/CDL章节号2"
-          DDComponent.tagAndTextVertical('dd_chapter_no2', '一种用于高速计算的电子计算机',bgColor: KColor.zebraColor2),
+          DDComponent.tagAndTextVertical('dd_chapter_no2', detailVM.detailModel?.zzmel2,bgColor: KColor.zebraColor2),
           //MEL/CDL章节号3"
-          DDComponent.tagAndTextVertical('dd_chapter_no3', '一种用于高速计算的电子计算机',bgColor: KColor.zebraColor3),
+          DDComponent.tagAndTextVertical('dd_chapter_no3', detailVM.detailModel?.zzmel3,bgColor: KColor.zebraColor3),
           //MEL/CDL章节号4"
-          DDComponent.tagAndTextVertical('dd_chapter_no4', '一种用于高速计算的电子计算机',bgColor: KColor.zebraColor2),
+          DDComponent.tagAndTextVertical('dd_chapter_no4', detailVM.detailModel?.zzmel4,bgColor: KColor.zebraColor2),
           //MEL/CDL章节号5
-          DDComponent.tagAndTextVertical('dd_chapter_no5', '一种用于高速计算的电子计算机',bgColor: KColor.zebraColor3),
+          DDComponent.tagAndTextVertical('dd_chapter_no5', detailVM.detailModel?.zzmel,bgColor: KColor.zebraColor3),
           DDComponent.zebraTitle('analysis_results'),
           //性能分析结果
           DDComponent.tagAndTextVertical('', '这是性能分析结果性能分析结果性能分析结果性能分析结果性能分析结果性能分析结果性能分析结果性能分析结果性能分析结果性能分析结果性能分析结果一种用于高速计算的电子计算机',bgColor: KColor.zebraColor2),
@@ -129,8 +148,8 @@ class _TemporaryDDDetailState extends State<TemporaryDDDetail> {
     return Column(children: <Widget>[
       DDComponent.zebraTitle('operation_info'),
       //申请
-      DDComponent.tagAndTextHorizon('dd_applicant', '周周',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
-      DDComponent.tagAndTextHorizon('dd_applicationDate', '2020-12-03',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
+//      DDComponent.tagAndTextHorizon('dd_applicant', detailVM.detailModel?.applyBy,textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
+//      DDComponent.tagAndTextHorizon('dd_applicationDate', detailVM.detailModel?.applyDate,textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
       Offstage(
         offstage: !transfer,
         child:Column(children: <Widget>[
@@ -150,9 +169,12 @@ class _TemporaryDDDetailState extends State<TemporaryDDDetail> {
         children: <Widget>[
           Expanded(
             child:  OperationButton.createButton('temporary_dd_deleteButton',
-                    (){
+                    ()async{
                   //删除临保（是否发送omis）
-                  Navigator.of(context);
+                  bool deleteSuccess=  await deleteVM.delete(detailVM.detailModel.ddid);
+                  if(deleteSuccess){
+                    Navigator.of(context);
+                  }
                 },state:transfer? DDOperateButtonState.enable:DDOperateButtonState.able,size: Size(ScreenUtil.screenWidth,120)),
           ),Expanded(
             child:  OperationButton.createButton('temporary_dd_transferButton',
@@ -167,7 +189,6 @@ class _TemporaryDDDetailState extends State<TemporaryDDDetail> {
                   //跳转到转DD界面
                 },state:transfer? DDOperateButtonState.enable:DDOperateButtonState.able,size: Size(ScreenUtil.screenWidth,120)),
           )
-
 
       ],)
     ],);
@@ -218,7 +239,15 @@ class _TemporaryDDDetailState extends State<TemporaryDDDetail> {
       this.transfer=false;
     }
   }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    deleteVM=new DeleteDDViewModel();
+    detailVM=Provider.of<DDDetailViewModel>(context,listen: false);
+    detailVM.fetchDetail(widget.ddId);
 
+  }
   @override
   Widget build(BuildContext context) {
     dealTransfer();
@@ -251,5 +280,4 @@ class UserInfoModel{
   String name;   //item是否打开
   int age;
   UserInfoModel(this.name, this.age); //item中的索引
-
 }

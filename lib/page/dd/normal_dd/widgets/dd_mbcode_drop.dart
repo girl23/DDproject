@@ -6,14 +6,14 @@ typedef ValueChanged<T> = void Function(T value);
 class MBCode extends StatefulWidget {
   final comeFromPage fromPage;
   final ValueChanged valueChanged;
-  final String defaultValue;
+  String defaultValue;
   MBCode(this.fromPage,{this.valueChanged,this.defaultValue});
 
   @override
   _MBCodeState createState() => _MBCodeState();
 }
 class _MBCodeState extends State<MBCode> {
-  String dropValue;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -32,12 +32,12 @@ class _MBCodeState extends State<MBCode> {
           DropdownMenuItem(child: Text(Translations.of(context).text('dd_MB8')),value: Translations.of(context).text('dd_MB8')),
           DropdownMenuItem(child: Text(Translations.of(context).text('dd_MB9')),value: Translations.of(context).text('dd_MB9')),
           DropdownMenuItem(child: Text(Translations.of(context).text('dd_MB10')),value: Translations.of(context).text('dd_MB10')),
-        ],dropValue,imgStr: 'assets/images/dw.png',valueChanged: (val){
-          dropValue=val;
+        ],widget.defaultValue,imgStr: 'assets/images/dw.png',valueChanged: (val){
+          widget.defaultValue=val;
           widget.valueChanged(val);
           setState(() {
           },);
-        },placeHolder:widget.defaultValue,),
+        }),
       ],
     );
   }

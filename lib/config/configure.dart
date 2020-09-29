@@ -66,10 +66,13 @@
     //dd
     static const String ddListRequest = 'AcrDdlbAction/getAllDdListByApp.do';//dd列表
 
-    static const String ddAddRequest = 'AcrDdlbAction/addDdlbByApp.do';//dd列表
+    static const String ddAddRequest = 'AcrDdlbAction/addDdlbByApp.do';//新增dd
+
+    static const String ddDeleteRequest = 'AcrDdlbAction/delDdlbByApp.do';//删除dd
+    static const String ddTransferRequest = 'AcrDdlbAction/lbToDdByApp.do';//dd转办
+    static const String ddApproveRequest = 'AcrDdlbAction/approveDdByApp.do';//dd批准
+    static const String ddDetailRequest = 'AcrDdlbAction/getDdInfoByApp.do';//dd详情
   }
-
-
 
   enum httpMethod{
     GET,
@@ -77,7 +80,6 @@
     DELETE,
     PUT
   }
-
   const methodValues ={
     httpMethod.GET:"get",
     httpMethod.POST:"post",

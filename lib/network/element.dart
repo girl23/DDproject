@@ -44,7 +44,7 @@ class Element {
   static const String DD_NO = "ddNo";
   static const String acReg = "acReg";
   static const String state = "state";
-  ///新增dd
+  ///新增临保
   static const String FORM_TYPE= "zzbltyp";
   static const String NUMBER= "zzblno";
   static const String PLANE_NO = "zzmsgrp";
@@ -61,11 +61,11 @@ class Element {
   static const String NAME = "toolName";
   static const String JNO = "partNo";
   static const String FAULT_NUM = "falqty";
-  static const String RELEASE_NUM = "srelqty";
+  static const String RELEASE_NUM = "relqty";
   static const String INSTALL_NUM = "instqty";
   static const String CHAPTER1= "zzatazj";
   static const String CHAPTER2 = "zzatazj2";
-  static const String CHAPTER3 = "zzatazj3";
+  static const String CHAPTER3 = "zztatzj3";
   static const String FAULT_CATEGORY = "zzblclf";
   static const String INFLUENCE = "zzyxfwcd";
   static const String PARK_TIME = "zzytsj";
@@ -74,7 +74,7 @@ class Element {
   static const String OTHER = "zzflgoth";
   static const String OTHER_DESCRIBE = "zzotext";
   static const String M = "zzmind";
-  static const String RUN_LIMIT = "state";/////////////
+  static const String RUN_LIMIT = "operatingLimits";
   static const String AMC = "zzamcfg";
   static const String KEEP_REASON = "zzrescode";
   static const String EVIDENCE_TYPE = "zzrecType";
@@ -84,6 +84,26 @@ class Element {
   static const String CHAPTER_NO4 = "zzmel4";
   static const String CHAPTER_NO5 = "zzmel5";
   static const String JSON_DATA = "jsondata";
+  //新增dd
+  static const String MB_CODE = "maintenanceUnit";
+  static const String WORK_ON = "zzwo";
+  static const String COME_FROM = "zzzzhwj";
+  static const String ENG = "sernr";/////
+  static const String START_DATE = "zzstart";
+  static const String TOTAL_HOUR = "zzfjzfxxs";
+  static const String TOTAL_CYCLE = "zzfizfxxh";
+  static const String END_DATE = "zzzzsqx";
+  static const String END_HOUR = "zzfjblzfh";
+  static const String END_CYCLE = "zzfiblzfc";
+  static const String KEEP_FOLD = "zzsffris";
+  static const String REPEAT_INSPECTION = "zzifrchk";
+  static const String APPLICANT = "applyBy";
+  static const String APPLY_DATE = "applyDate";
+  //删除dd
+  static const String DD_ID = "ddid";
+
+
+
 
 
 

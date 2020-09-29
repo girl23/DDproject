@@ -1,3 +1,5 @@
+import 'dart:math';
+
 ///dd列表
 import 'package:flutter/material.dart';
 import 'package:lop/viewmodel/base_viewmodel.dart';
@@ -12,9 +14,9 @@ class DDListViewModel extends BaseViewModel with ChangeNotifier{
   //获取列表数据
   GetDDListService _service = GetDDListServiceImpl();
   List <DDListItemModel>_ddList;
-  int _total;
-  int _page;
-  int _pageCount;
+  int _total=0;
+  int _page=1;
+  int _pageCount=0;
 
 
   List<DDListItemModel> get ddList => _ddList;
@@ -25,8 +27,16 @@ class DDListViewModel extends BaseViewModel with ChangeNotifier{
 
   int get pageCount => _pageCount;
 
-  Future<bool> getList(String ddLB,{bool all,String ddNo, String acReg, String state,String page}) async{
-    NetworkResponse response =  await _service.getList(ddLB,page: page);
+  Future<bool> getList(String ddLB,{bool all=true,String ddNo, String acReg, String state,String page}) async{
+    NetworkResponse response;
+    if(all){
+
+      response=  await _service.getList(ddLB,all:all,page: page);
+    }else{
+
+      response=  await _service.getList(ddLB,all:all,page: page,ddNo: ddNo,acReg: acReg);
+    }
+
     if(response.isSuccess){
       DDListModel model=response.data;
       _page=model.page;

@@ -131,7 +131,7 @@ Handler temporaryDDDetailPageHandler = Handler(
     handlerFunc: ((BuildContext context, Map<String, dynamic> params) {
       TemporaryDDState state;
       String temporaryDDState = (params["temporaryDDState"]?.first);
-      if(temporaryDDState =='unClose'){
+      if(temporaryDDState =='un_close'){
         //未关闭
         state=TemporaryDDState.unClose;
       }else if(temporaryDDState =='closed'){
@@ -142,7 +142,11 @@ Handler temporaryDDDetailPageHandler = Handler(
         state=TemporaryDDState.deleted;
       } else{state=TemporaryDDState.unClose;}
 
-      return TemporaryDDDetail(params["transfer"]?.first,state);
+      String trans=params["transfer"]?.first;
+
+      String ddId=params["ddID"]?.first;
+//      return TemporaryDDDetail(params["transfer"]?.first,state,params["ddID"]?.first);
+      return TemporaryDDDetail(trans:trans,state: state,ddId:ddId,);
     })
 );
 Handler dDListPageHandler = Handler(

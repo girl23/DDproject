@@ -119,7 +119,6 @@ class _AddTemporaryDDState extends State<AddTemporaryDD> {
   List _textFieldTagNames;
   int lastIndex;
   FocusNode lastNode;
-
   TempDDDbModel tempDDDbModel;
   AddDDViewModel addModel;
 

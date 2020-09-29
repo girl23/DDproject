@@ -52,7 +52,7 @@ class Routes{
   //新增临保
   static String addTemporaryDDPage = '/addTemporaryDDPage/:transfer/:temporaryDDState';
   //临保详情
-  static String temporaryDDDetailPage = '/temporaryDDDetailPage/:temporaryDDState';
+  static String temporaryDDDetailPage = '/temporaryDDDetailPage/:temporaryDDState/:ddID';
   //DD列表
   static String dDListPage = '/dDListPage';
   //新增DD

@@ -12,6 +12,7 @@ import 'package:lop/page/dd/dd_textfield_util.dart';
 import 'package:lop/page/dd/dd_date_time_picker_util.dart';
 import 'package:lop/utils/date_util.dart';
 import 'package:lop/router/application.dart';
+import 'package:lop/viewmodel/dd/dd_detail_viewmodel.dart';
 // ignore: must_be_immutable
 class DDDetail extends StatefulWidget {
   String trans;//记录DD准办，DD延期来控制按钮禁用
@@ -30,6 +31,7 @@ class _DDDetailState extends State<DDDetail> {
   FocusNode _resultNode=new FocusNode();
   TextEditingController _resultTextField=new TextEditingController();
   String stateStr;
+
   Widget createUI(BuildContext context){
     return Column(
         crossAxisAlignment: CrossAxisAlignment.start,

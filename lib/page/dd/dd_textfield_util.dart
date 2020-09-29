@@ -157,7 +157,9 @@ class DDTextFieldUtil  {
                   if(nextNode!=null){
                     FocusScope.of(context).requestFocus(nextNode);
                   }
-                  DDCacheUtil.cacheData(tag, controller.text);
+                  if(tag=='search_dd_number'||tag=='search_dd_planeNo'){}else{
+                    DDCacheUtil.cacheData(tag, controller.text);
+                  }
                   //存数据
                   if(completeCallback!=null){
                     completeCallback();

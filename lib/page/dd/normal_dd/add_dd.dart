@@ -34,6 +34,11 @@ import 'package:lop/database/normal_dd_tools.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:lop/page/dd/dd_cache_util.dart';
 import 'package:lop/page/dd/dd_card_decoration.dart';
+import 'package:provider/provider.dart';
+import 'package:lop/viewmodel/dd/add_dd_viewmodel.dart';
+import 'package:lop/viewmodel/user_viewmodel.dart';
+import 'package:lop/viewmodel/dd/dd_detail_viewmodel.dart';
+import 'package:lop/viewmodel/dd/transfer_dd_viewmodel.dart';
 
 class AddDD extends StatefulWidget {
   final comeFromPage fromPage;
@@ -44,10 +49,10 @@ class AddDD extends StatefulWidget {
 class _AddDDState extends State<AddDD> {
   //存储焦点
   //下拉
-  String _dropValueForFaultCategory='';
-  String _dropValueForInfluence='';
-  String _dropValueForEvidence='';
-  String _dropValueForMBCode='';
+  String _dropValueForFaultCategory;
+  String _dropValueForInfluence;
+  String _dropValueForEvidence;
+  String _dropValueForMBCode;
   //复选框
   bool _checkValueOOption=false;
   bool _checkValueOtherOption=false;
@@ -157,6 +162,9 @@ class _AddDDState extends State<AddDD> {
  int lastIndex;
  FocusNode lastNode;
  NormalDDDbModel normalDDDbModel;
+ AddDDViewModel addModel;
+ TransferDDViewModel transferVM;
+ DDDetailViewModel detailVM;
  Widget createUI(BuildContext context){
 
     return Column(
@@ -170,7 +178,7 @@ class _AddDDState extends State<AddDD> {
                 //临保转DD，增加转自临保单号
                 Offstage(
                   offstage:!(widget.fromPage==comeFromPage.fromTemporaryTransfer),
-                  child:DDComponent.tagAndTextHorizon('dd_comeFromTemporaryTransfer', '临保单号',width:330,notBoldTitle:true,color: KColor.textColor_66),),
+                  child:DDComponent.tagAndTextHorizon('dd_comeFromTemporaryTransfer', detailVM.detailModel?.zzblno,width:330,notBoldTitle:true,color: KColor.textColor_66),),
                 //DD转办，增加首办号，即第一份DD编号
                 Offstage(
                   offstage:!(widget.fromPage==comeFromPage.fromDDTransfer||(widget.fromPage==comeFromPage.fromDDDelay)),
@@ -195,7 +203,7 @@ class _AddDDState extends State<AddDD> {
                 Offstage(
                   ////临保转DD|DD转办|延期
                   offstage:!(widget.fromPage==comeFromPage.fromDDTransfer||widget.fromPage==comeFromPage.fromTemporaryTransfer||widget.fromPage==comeFromPage.fromDDDelay),
-                  child:DDComponent.tagAndTextHorizon('dd_planeNo', 'B-1234',width:330,notBoldTitle:true,color: KColor.textColor_66),
+                  child:DDComponent.tagAndTextHorizon('dd_planeNo',  detailVM.detailModel?.zzmsgrp,width:330,notBoldTitle:true,color: KColor.textColor_66),
                 ),
                 Offstage(
                   offstage:!(widget.fromPage==comeFromPage.fromNewAdd),
@@ -271,9 +279,10 @@ class _AddDDState extends State<AddDD> {
                       _dropValueForFaultCategory=val;
                     },defaultValue: _dropValueForFaultCategory,),
                     //影响服务程度
-                    InfluenceDrop(defaultValue:_dropValueForInfluence,valueChanged: (val){
+                    InfluenceDrop(valueChanged: (val){
                       _dropValueForInfluence=val;
-                    },),
+                    },defaultValue: _dropValueForInfluence,),
+
                     //所需停场时间
                     DDComponent.tagAndTextFieldVertical('dd_need_parking_time',_needParkingTimeNode,_needParkingTimeController,_textFieldNodes),
                     //所需工时
@@ -369,18 +378,69 @@ class _AddDDState extends State<AddDD> {
         Container(
           alignment: Alignment.centerRight,
           child: OperationButton.createButton(_sureButtonTitle,
-              (){
+              ()async{
                 FocusScope.of(context).requestFocus(FocusNode());
                 //校验
 //                _checkInput();
                 NormalDDTools().deleteNormalDD('2222', widget.fromPage.toString());
                 if(widget.fromPage==comeFromPage.fromTemporaryTransfer){
+                  //临保转dd
+                 bool transferSuccess= await transferVM.transferDD(detailVM.detailModel.ddid,
+                    mbCode: _dropValueForMBCode,
+                    number:_numberController.text,
+                    workON: _workNoController.text,
+                    comeFrom: _fromController.text,
+                    planeNo: _planeNoController.text,
+                    eng: _engController.text,
+                    reportDate: _reportDateController.text,
+                    reportPlace: _reportPlaceController.text,
+                    startDate: _startDateController.text,
+                    totalHour: _totalHourController.text,
+                    totalCycle: _totalCycleController.text,
+                    spaceDay:int.parse(_dayController.text),
+                    spaceHour:_hourController.text,
+                    spaceCycle: _cycleController.text,
+                    endDate: _endDateController.text,
+                    endHour: _endHourController.text,
+                    endCycle: _endCycleController.text,
+                    describe: _describeController.text,
+                    keepMeasure:_keepMeasureController.text,
+                    name: _nameController.text,
+                    jno: _jnoController.text,
+                    faultNum: _faultNumController.text,
+                    releaseNum: _releaseNumController.text,
+                    inStallNum: _installNumController.text,
+                    chapter1: _chapter1Controller.text,
+                    chapter2: _chapter2Controller.text,
+                    chapter3: _chapter3Controller.text,
+                    faultCategory: _dropValueForFaultCategory,
+                    influence:_dropValueForInfluence,
+                    parkingTime: _needParkingTimeController.text,
+                    workHour:_needWorkHourController.text ,
+                    o:_checkValueOOption?'1':'0',
+                    other: _checkValueOtherOption?'1':'0',
+                    otherDescribe: _otherController.text,
+                    keepFold: _checkValueKeepFoldOption?'1':'0',
+                    repeatInspection: _checkValueRepeatInspectionOption?'1':'0',
+                    m: _checkValueMOption?'1':'0',
+                    aMC: _checkValueAMCOption?'1':'0',
+                    runLimit: _checkValueRunOption?'1':'0',
+                    keepReason:keepReason(),
+                    evidenceType:_dropValueForEvidence,
+                    chapterNo1: _chapterNo1Controller.text,
+                    chapterNo2: _chapterNo2Controller.text,
+                    chapterNo3: _chapterNo3Controller.text,
+                    chapterNo4: _chapterNo4Controller.text,
+                    chapterNo5: _chapterNo5Controller.text,
+                    applyDate: _applyDateController.text,
+                    applicant: Provider.of<UserViewModel>(context, listen: false).info.username,);
                  //访问接口拿取流水号，填写处理结果
-                 ddDialog(context,title: '流水号:30203008085',buttonText: '确认',tagName: 'dd_dealResult',node: _dealResultNode,controller: _dealResultController,onTap: (){
-                 Navigator.pop(context,'1');
-                 //已转未审批，临保界面显示处理结果，并禁用按钮
-               });
-
+                 if(transferSuccess){
+                   ddDialog(context,title: '流水号:30203008085',buttonText: '确认',tagName: 'dd_dealResult',node: _dealResultNode,controller: _dealResultController,onTap: (){
+                     Navigator.pop(context,'1');
+                     //已转未审批，临保界面显示处理结果，并禁用按钮
+                   });
+                 }
                 }else if(widget.fromPage==comeFromPage.fromDDTransfer){
                //访问接口拿取流水号，填写处理结果
                  ddDialog(context,title: '流水号:30203008085',buttonText: '确认',tagName: 'dd_dealResult',node: _dealResultNode,controller: _dealResultController,onTap: (){
@@ -394,14 +454,72 @@ class _AddDDState extends State<AddDD> {
                  });
 
                 }else if(widget.fromPage==comeFromPage.fromNewAdd){
+                  //新增提交数据到后台；
 
+                  addModel.addDD('DD',
+                      mbCode: _dropValueForMBCode,
+                      number:_numberController.text,
+                      workON: _workNoController.text,
+                      comeFrom: _fromController.text,
+                      planeNo: _planeNoController.text,
+                      eng: _engController.text,
+                      reportDate: _reportDateController.text,
+                      reportPlace: _reportPlaceController.text,
+                      startDate: _startDateController.text,
+                      totalHour: _totalHourController.text,
+                      totalCycle: _totalCycleController.text,
+                      spaceDay:int.parse(_dayController.text),
+                      spaceHour:_hourController.text,
+                      spaceCycle: _cycleController.text,
+                      endDate: _endDateController.text,
+                      endHour: _endHourController.text,
+                      endCycle: _endCycleController.text,
+                      describe: _describeController.text,
+                      keepMeasure:_keepMeasureController.text,
+                      name: _nameController.text,
+                      jno: _jnoController.text,
+                      faultNum: _faultNumController.text,
+                      releaseNum: _releaseNumController.text,
+                      inStallNum: _installNumController.text,
+                      chapter1: _chapter1Controller.text,
+                      chapter2: _chapter2Controller.text,
+                      chapter3: _chapter3Controller.text,
+                      faultCategory: _dropValueForFaultCategory,
+                      influence:_dropValueForInfluence,
+                      parkingTime: _needParkingTimeController.text,
+                      workHour:_needWorkHourController.text ,
+                      o:_checkValueOOption?'1':'0',
+                      other: _checkValueOtherOption?'1':'0',
+                      otherDescribe: _otherController.text,
+                      keepFold: _checkValueKeepFoldOption?'1':'0',
+                      repeatInspection: _checkValueRepeatInspectionOption?'1':'0',
+                      m: _checkValueMOption?'1':'0',
+                      aMC: _checkValueAMCOption?'1':'0',
+                      runLimit: _checkValueRunOption?'1':'0',
+                      keepReason:keepReason(),
+                      evidenceType:_dropValueForEvidence,
+                      chapterNo1: _chapterNo1Controller.text,
+                      chapterNo2: _chapterNo2Controller.text,
+                      chapterNo3: _chapterNo3Controller.text,
+                      chapterNo4: _chapterNo4Controller.text,
+                      chapterNo5: _chapterNo5Controller.text,
+                      applyDate: _applyDateController.text,
+                      applicant: Provider.of<UserViewModel>(context, listen: false).info.username,
+                  );
                 }else if(widget.fromPage==comeFromPage.fromTaskListAdd){
-
                 }
               }, size: Size(double.infinity,120),),
         )
       ],
     );
+  }
+  String keepReason(){
+    String reason='';
+    if(_checkValueOIOption)reason+='OI';
+    if(_checkValueLSOption)reason+='LS';
+    if(_checkValueSGOption)reason+='SG';
+    if(_checkValueSPOption)reason+='SP';
+    return reason;
   }
   void _checkInput(){
 //为空校验
@@ -474,12 +592,13 @@ class _AddDDState extends State<AddDD> {
   }
   void dataForTemporaryTransfer(){
    //临保转DD
-    _planeNoController.text='B-1234';
-    _describeController.text='三角函数公式,三角函数是一个重要的知识点,尤其在生活应用中具有举足轻重的作用!三角函数包括ico,ta,cot,以及arcta,arcco,等等。他们之间是如何换算的';
+    _planeNoController.text=detailVM.detailModel?.zzmsgrp;//'B-1234';
+    _describeController.text=detailVM.detailModel?.zzgzms;//'三角函数公式,三角函数是一个重要的知识点,尤其在生活应用中具有举足轻重的作用!三角函数包括ico,ta,cot,以及arcta,arcco,等等。他们之间是如何换算的';
 
   }
   void dataForDDTransfer(){
    //DD转办
+
     _planeNoController.text='B-1234';
     _fromController.text='转录自DD转办';
   }
@@ -509,10 +628,14 @@ class _AddDDState extends State<AddDD> {
     prefs.setString("uiFor","DD");
     prefs.setString("fromPage",widget.fromPage.toString());
   }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    transferVM=new TransferDDViewModel();
+    detailVM=Provider.of<DDDetailViewModel>(context,listen: false);
+    addModel= new AddDDViewModel();
     setUIFor();
     if(widget.fromPage==comeFromPage.fromTemporaryTransfer){
       //临保转办
@@ -664,18 +787,19 @@ class _AddDDState extends State<AddDD> {
       _planeNoController.text = normalDDDbModel.ddPlaneNo;
       _engController.text=normalDDDbModel.ddEng;
       _fromController.text=normalDDDbModel.ddFrom;
-      Provider.of<DDCalculateProvide>(context,listen: false).setFirstReportTime(normalDDDbModel.ddReportDate);
+      DateTime dateNow=new DateTime.now();
+      Provider.of<DDCalculateProvide>(context,listen: false).setFirstReportTime((normalDDDbModel.ddReportDate==''||normalDDDbModel.ddReportDate==null)?DateUtil.formateYMD(dateNow):normalDDDbModel.ddReportDate??'');
       _reportPlaceController.text =normalDDDbModel.ddReportPlace;
-      Provider.of<DDCalculateProvide>(context,listen: false).setStartTime(normalDDDbModel.ddStartDate);
-      Provider.of<DDCalculateProvide>(context,listen: false).setTotalHour(normalDDDbModel.ddStartTime2);
-      Provider.of<DDCalculateProvide>(context,listen: false).setTotalCycle(normalDDDbModel.ddStartTime3);
-      Provider.of<DDCalculateProvide>(context,listen: false).setSpace(normalDDDbModel.ddDay);
-      Provider.of<DDCalculateProvide>(context,listen: false).setSpaceHour(normalDDDbModel.ddHour);
-      Provider.of<DDCalculateProvide>(context,listen: false).setSpaceCycle(normalDDDbModel.ddCycle);
-      Provider.of<DDCalculateProvide>(context,listen: false).setEndTime(normalDDDbModel.ddEndTime1);
-      Provider.of<DDCalculateProvide>(context,listen: false).setEndHour(normalDDDbModel.ddStartTime2);
-      Provider.of<DDCalculateProvide>(context,listen: false).setEndCycle(normalDDDbModel.ddEndTime3);
-      _describeController.text =normalDDDbModel.ddKeepDescribe;
+      Provider.of<DDCalculateProvide>(context,listen: false).setStartTime(normalDDDbModel.ddStartDate??'');
+      Provider.of<DDCalculateProvide>(context,listen: false).setTotalHour(normalDDDbModel.ddStartTime2??'');
+      Provider.of<DDCalculateProvide>(context,listen: false).setTotalCycle(normalDDDbModel.ddStartTime3??'');
+      Provider.of<DDCalculateProvide>(context,listen: false).setSpace(normalDDDbModel.ddDay??'');
+      Provider.of<DDCalculateProvide>(context,listen: false).setSpaceHour(normalDDDbModel.ddHour??'');
+      Provider.of<DDCalculateProvide>(context,listen: false).setSpaceCycle(normalDDDbModel.ddCycle??'');
+      Provider.of<DDCalculateProvide>(context,listen: false).setEndTime(normalDDDbModel.ddEndTime1??'');
+      Provider.of<DDCalculateProvide>(context,listen: false).setEndHour(normalDDDbModel.ddStartTime2??'');
+      Provider.of<DDCalculateProvide>(context,listen: false).setEndCycle(normalDDDbModel.ddEndTime3??'');
+      _describeController.text =(normalDDDbModel.ddKeepDescribe!=null||normalDDDbModel.ddKeepDescribe!='')?normalDDDbModel.ddKeepDescribe:detailVM.detailModel?.zzgzms;
       _keepMeasureController.text =normalDDDbModel.ddKeepMeasure;
       _nameController.text =normalDDDbModel.ddName;
       _jnoController.text =normalDDDbModel.ddJno;
@@ -726,7 +850,7 @@ class _AddDDState extends State<AddDD> {
     // TODO: implement deactivate
     super.deactivate();
     //    清空计算的数据
-    Provider.of<DDCalculateProvide>(context,listen: false).clearData();
+//    Provider.of<DDCalculateProvide>(context,listen: false).clearData();
   }
 @override
 void dispose() {
