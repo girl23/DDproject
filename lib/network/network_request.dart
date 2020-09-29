@@ -13,7 +13,7 @@ class NetworkRequest {
   static const String networkMethod_POST = "post";
 
   Future<NetworkResponse> request<T>(String method, String path,
-      {Map<String, dynamic> params,
+      {Map<String, dynamic> params,data,
       CancelToken cancelToken}) async {
     print('path====$path');
     NetworkResponse  networkResponse = NetworkResponse();
@@ -23,7 +23,7 @@ class NetworkRequest {
     ErrorEntity errorEntity;
     try {
       Response response = await NetWorkClient.instance
-          .request(method, path, parameters: params);
+          .request(method, path, data:data,parameters: params);
       errorEntity = _doResponseError(response);
       if(errorEntity == null){
         BaseEntity entity = BaseEntity<T>.fromJson(response.data);

@@ -58,7 +58,7 @@ class Routes{
   //新增DD
   static String addDDPage = '/addDDPage/:comeFrom';
   //DD详情
-  static String dDDetailPage = '/dDDDetailPage/:transfer/:ddState';
+  static String dDDetailPage = '/dDDDetailPage/:ddState/:ddID';
   //路由配置
 
    static void configureRoutes(Router router){

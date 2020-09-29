@@ -82,14 +82,14 @@ class NetWorkClient {
   }
 
   Future request(String method, String path,
-      {Map<String, dynamic> parameters}) async {
+      {Map<String, dynamic> parameters,data}) async {
     try {
       if (parameters == null) {
         parameters = {};
       }
       _addBasicParameters(parameters);
       Response response = await _dio.request(path,
-          queryParameters: parameters, options: Options(method: method));
+          queryParameters: parameters, data:data,options: Options(method: method));
       return response;
     } on DioError catch (e) {
       throw e;

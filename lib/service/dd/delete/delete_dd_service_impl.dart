@@ -13,7 +13,6 @@ class DeleteDDServiceImpl extends BaseService implements DeleteDDService{
     Map<String,dynamic> params = new Map();
     params.addAll({Element.DD_ID:ddId});
     NetworkResponse networkResponse = await networkRequest.request<DDPublicModel>(NetworkRequest.networkMethod_GET, NetServicePath.ddDeleteRequest,params: params);
-
     return networkResponse;
   }
 }

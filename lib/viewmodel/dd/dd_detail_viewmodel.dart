@@ -19,7 +19,6 @@ class DDDetailViewModel extends BaseViewModel with ChangeNotifier {
 
     if (response.isSuccess) {
       _detailModel=response.data;
-
       notifyListeners();
       return true;
     } else {

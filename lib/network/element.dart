@@ -83,7 +83,7 @@ class Element {
   static const String CHAPTER_NO3 = "zzmel3";
   static const String CHAPTER_NO4 = "zzmel4";
   static const String CHAPTER_NO5 = "zzmel5";
-  static const String JSON_DATA = "jsondata";
+  static const String JSON_DATA = "data";
   //新增dd
   static const String MB_CODE = "maintenanceUnit";
   static const String WORK_ON = "zzwo";
@@ -99,6 +99,9 @@ class Element {
   static const String REPEAT_INSPECTION = "zzifrchk";
   static const String APPLICANT = "applyBy";
   static const String APPLY_DATE = "applyDate";
+  //转DD
+  static const String entryType = "entryType";
+  static const String PROCESSING_RESULT = "processingResult";
   //删除dd
   static const String DD_ID = "ddid";
 

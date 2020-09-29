@@ -9,7 +9,61 @@ class TransferDDViewModel extends BaseViewModel with ChangeNotifier{
 
   TransferDDService _service = TransferDDServiceImpl();
   Future<bool> transferDD(String ddID, {String number, String planeNo, String keepPerson, String phone, String fax, String reportDate, String reportPlace, int spaceDay, String spaceHour, String spaceCycle, String describe, String keepMeasure, String name, String jno, String faultNum, String inStallNum, String releaseNum, String chapter1, String chapter2, String chapter3, String faultCategory, String influence, String parkingTime, String workHour, String o, String other, String otherDescribe, String m, String aMC, String runLimit, String keepReason, String evidenceType, String chapterNo1, String chapterNo2, String chapterNo3, String chapterNo4, String chapterNo5,
-    String mbCode,String workON,String comeFrom,String eng,String startDate,String totalHour, String totalCycle,String endDate,String endHour,String endCycle,String keepFold,String repeatInspection,String applicant,String applyDate }) async{
+    String mbCode,String workON,String comeFrom,String eng,String startDate,String totalHour, String totalCycle,String endDate,String endHour,String endCycle,String keepFold,String repeatInspection,String applicant,String applyDate,String entryType}) async{
+    mbCode='hhh';
+    number='123';
+    workON='3434';
+    planeNo='B123';
+    eng='123141';
+    reportDate='2012-02-02';
+    reportPlace='CFH';
+    startDate='2012-12-12';
+    totalHour='12';
+    totalCycle='12';
+    spaceDay=1;
+    spaceHour='2';
+    spaceCycle='4';
+    endDate='2012-12-12';
+    endHour='2';
+    endCycle='3';
+    describe='hkhaghkag';
+    keepMeasure='hakhgkajglajglag';
+    name='name';
+    jno='jno';
+    faultNum='1';
+    releaseNum='3';
+    inStallNum='4';
+    chapter1='11';
+    chapter2='22';
+    chapter3='33';
+    chapterNo1='1hhga';
+    chapterNo2='1hhga';
+    chapterNo3='1hhga';
+    chapterNo4='1hhga';
+    chapterNo5='1hhga';
+    faultCategory='OI';
+    influence='1';
+    parkingTime='2h';
+    workHour='2';
+    o='1';
+    other='1';
+    otherDescribe='otherDescribe,';
+    m='1';
+    aMC='1';
+    runLimit='1';
+    keepFold='1';
+    repeatInspection='1';
+    keepReason='1gagdag';
+    evidenceType='0';
+    chapterNo1='1gagdag';
+    chapterNo2='1gagdag';
+    chapterNo3='1gagdag';
+    chapterNo4='1gagdag';
+    chapterNo5='1gagdag';
+
+    applyDate='2012-03-03';
+    entryType='APP';
+
 
     NetworkResponse response =  await _service.transferDD(ddID,
           mbCode: mbCode,
@@ -59,7 +113,8 @@ class TransferDDViewModel extends BaseViewModel with ChangeNotifier{
           chapterNo4: chapterNo4,
           chapterNo5: chapterNo5,
           applicant: applicant,
-          applyDate: applyDate
+          applyDate: applyDate,
+          entryType: entryType,
       );
 
     if(response.isSuccess){

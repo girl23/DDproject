@@ -8,7 +8,7 @@ class NetworkConfig{
 
   static String productionServerUrl = 'http://wechattest.ameco.com.cn:8090/xmis/';//服务器生产环境地址
 
-  static int timeOut = 2000;//网络请求超时时间：连接、发送消息、接收消息
+  static int timeOut = 10000;//网络请求超时时间：连接、发送消息、接收消息
 
 
 

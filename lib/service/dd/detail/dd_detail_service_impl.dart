@@ -12,6 +12,7 @@ class DDDetailServiceImpl extends BaseService implements DDDetailService{
     // TODO: implement delete
     Map<String,dynamic> params = new Map();
     params.addAll({Element.DD_ID:ddId});
+
     NetworkResponse networkResponse = await networkRequest.request<DDDetailModel>(NetworkRequest.networkMethod_GET, NetServicePath.ddDetailRequest,params: params);
     return networkResponse;
   }

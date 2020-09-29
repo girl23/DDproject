@@ -185,22 +185,22 @@ Handler dDDetailPageHandler = Handler(
       DDState state;
       String dDState = (params["ddState"]?.first);
 
-      if(dDState =='toAudit'){
+      if(dDState =='to_Audit'){
         //待批准
         state=DDState.toAudit;
-      }else if(dDState =='unClose'){
+      }else if(dDState =='un_close'){
         //未关闭
         state=DDState.unClose;
       }else if(dDState =='forTroubleshooting') {
         //待排故
         state=DDState.forTroubleshooting;
-      }else if(dDState =='forInspection') {
+      }else if(dDState =='for_inspection') {
         //待检验
         state=DDState.forInspection;
-      }else if(dDState =='haveTransfer') {
+      }else if(dDState =='have_transfer') {
         //已转办
         state=DDState.haveTransfer;
-      }else if(dDState =='hasDelay') {
+      }else if(dDState =='has_delay') {
         //已延期
         state=DDState.hasDelay;
       }else if(dDState =='closed') {
@@ -209,11 +209,12 @@ Handler dDDetailPageHandler = Handler(
       }else if(dDState =='deleted') {
         //已删除
         state=DDState.deleted;
-      }else if(dDState =='delayClose') {
+      }else if(dDState =='delay_close') {
         //延期关闭
         state=DDState.delayClose;
       } else{state=state=DDState.unClose;}
 
-      return DDDetail(params["transfer"]?.first,state);
+      String ddId=params["ddID"]?.first;
+      return DDDetail(ddId: ddId,state: state,);
     })
 );

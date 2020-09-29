@@ -39,6 +39,10 @@ import 'package:lop/viewmodel/dd/add_dd_viewmodel.dart';
 import 'package:lop/viewmodel/user_viewmodel.dart';
 import 'package:lop/viewmodel/dd/dd_detail_viewmodel.dart';
 import 'package:lop/viewmodel/dd/transfer_dd_viewmodel.dart';
+import 'package:lop/viewmodel/dd/deal_result_viewmodel.dart';
+import 'package:lop/viewmodel/dd/delay_dd_viewmodel.dart';
+import 'package:lop/viewmodel/dd/transfer_viewmodel.dart';
+import 'package:lop/router/routes.dart';
 
 class AddDD extends StatefulWidget {
   final comeFromPage fromPage;
@@ -163,8 +167,11 @@ class _AddDDState extends State<AddDD> {
  FocusNode lastNode;
  NormalDDDbModel normalDDDbModel;
  AddDDViewModel addModel;
- TransferDDViewModel transferVM;
+ TransferDDViewModel transferDDVM;//临保转DD
+  TransferViewModel transferVM;//DD转DD
  DDDetailViewModel detailVM;
+ DealResultViewModel dealResultVM;
+ DelayDDViewModel delayVM;
  Widget createUI(BuildContext context){
 
     return Column(
@@ -182,7 +189,7 @@ class _AddDDState extends State<AddDD> {
                 //DD转办，增加首办号，即第一份DD编号
                 Offstage(
                   offstage:!(widget.fromPage==comeFromPage.fromDDTransfer||(widget.fromPage==comeFromPage.fromDDDelay)),
-                  child:DDComponent.tagAndTextHorizon('dd_comeFromDDTransfer', '1234145dd',width:330,notBoldTitle:true,color: KColor.textColor_66),),
+                  child:DDComponent.tagAndTextHorizon('dd_comeFromDDTransfer', detailVM.detailModel?.zzfstnm,width:330,notBoldTitle:true,color: KColor.textColor_66),),
                 //维修单位代码
                 MBCode(widget.fromPage,valueChanged: (val){
                   _dropValueForMBCode=val;
@@ -385,7 +392,7 @@ class _AddDDState extends State<AddDD> {
                 NormalDDTools().deleteNormalDD('2222', widget.fromPage.toString());
                 if(widget.fromPage==comeFromPage.fromTemporaryTransfer){
                   //临保转dd
-                 bool transferSuccess= await transferVM.transferDD(detailVM.detailModel.ddid,
+                 bool transferSuccess= await transferDDVM.transferDD(detailVM.detailModel.ddid,
                     mbCode: _dropValueForMBCode,
                     number:_numberController.text,
                     workON: _workNoController.text,
@@ -397,7 +404,7 @@ class _AddDDState extends State<AddDD> {
                     startDate: _startDateController.text,
                     totalHour: _totalHourController.text,
                     totalCycle: _totalCycleController.text,
-                    spaceDay:int.parse(_dayController.text),
+//                    spaceDay:int.parse(_dayController.text),
                     spaceHour:_hourController.text,
                     spaceCycle: _cycleController.text,
                     endDate: _endDateController.text,
@@ -436,22 +443,146 @@ class _AddDDState extends State<AddDD> {
                     applicant: Provider.of<UserViewModel>(context, listen: false).info.username,);
                  //访问接口拿取流水号，填写处理结果
                  if(transferSuccess){
-                   ddDialog(context,title: '流水号:30203008085',buttonText: '确认',tagName: 'dd_dealResult',node: _dealResultNode,controller: _dealResultController,onTap: (){
-                     Navigator.pop(context,'1');
+                   ddDialog(context,title: '流水号:30203008085',buttonText: '确认',tagName: 'dd_dealResult',node: _dealResultNode,controller: _dealResultController,onTap:()async{
+                     //提交处理结果
+                    bool success=await dealResultVM.result(detailVM.detailModel.ddid,_dealResultController.text);
+                    if(success){
+//                      Navigator.pop(context,'1');
+
+                      Navigator.popUntil(context,  ModalRoute.withName(Routes.dDListPage));
+                    }
                      //已转未审批，临保界面显示处理结果，并禁用按钮
                    });
                  }
                 }else if(widget.fromPage==comeFromPage.fromDDTransfer){
                //访问接口拿取流水号，填写处理结果
-                 ddDialog(context,title: '流水号:30203008085',buttonText: '确认',tagName: 'dd_dealResult',node: _dealResultNode,controller: _dealResultController,onTap: (){
-                 Navigator.pop(context,'1');
-                   //已转未审批，临保界面显示处理结果，并禁用按钮
-                 });
+                  bool transferSuccess= await transferVM.transfer(detailVM.detailModel.ddid,
+                    mbCode: _dropValueForMBCode,
+                    number:_numberController.text,
+                    workON: _workNoController.text,
+                    comeFrom: _fromController.text,
+                    planeNo: _planeNoController.text,
+                    eng: _engController.text,
+                    reportDate: _reportDateController.text,
+                    reportPlace: _reportPlaceController.text,
+                    startDate: _startDateController.text,
+                    totalHour: _totalHourController.text,
+                    totalCycle: _totalCycleController.text,
+//                    spaceDay:int.parse(_dayController.text),
+                    spaceHour:_hourController.text,
+                    spaceCycle: _cycleController.text,
+                    endDate: _endDateController.text,
+                    endHour: _endHourController.text,
+                    endCycle: _endCycleController.text,
+                    describe: _describeController.text,
+                    keepMeasure:_keepMeasureController.text,
+                    name: _nameController.text,
+                    jno: _jnoController.text,
+                    faultNum: _faultNumController.text,
+                    releaseNum: _releaseNumController.text,
+                    inStallNum: _installNumController.text,
+                    chapter1: _chapter1Controller.text,
+                    chapter2: _chapter2Controller.text,
+                    chapter3: _chapter3Controller.text,
+                    faultCategory: _dropValueForFaultCategory,
+                    influence:_dropValueForInfluence,
+                    parkingTime: _needParkingTimeController.text,
+                    workHour:_needWorkHourController.text ,
+                    o:_checkValueOOption?'1':'0',
+                    other: _checkValueOtherOption?'1':'0',
+                    otherDescribe: _otherController.text,
+                    keepFold: _checkValueKeepFoldOption?'1':'0',
+                    repeatInspection: _checkValueRepeatInspectionOption?'1':'0',
+                    m: _checkValueMOption?'1':'0',
+                    aMC: _checkValueAMCOption?'1':'0',
+                    runLimit: _checkValueRunOption?'1':'0',
+                    keepReason:keepReason(),
+                    evidenceType:_dropValueForEvidence,
+                    chapterNo1: _chapterNo1Controller.text,
+                    chapterNo2: _chapterNo2Controller.text,
+                    chapterNo3: _chapterNo3Controller.text,
+                    chapterNo4: _chapterNo4Controller.text,
+                    chapterNo5: _chapterNo5Controller.text,
+                    applyDate: _applyDateController.text,
+                    applicant: Provider.of<UserViewModel>(context, listen: false).info.username,);
+                  //访问接口拿取流水号，填写处理结果
+                  if(transferSuccess){
+                    ddDialog(context,title: '流水号:30203008085',buttonText: '确认',tagName: 'dd_dealResult',node: _dealResultNode,controller: _dealResultController,onTap:()async{
+
+                      //提交处理结果
+                      bool success=await dealResultVM.result(detailVM.detailModel.ddid,_dealResultController.text);
+
+                      if(success){
+//                        Navigator.pop(context,'1');
+                        Navigator.popUntil(context,  ModalRoute.withName(Routes.dDListPage));
+                      }
+                      //已转未审批，临保界面显示处理结果，并禁用按钮
+                    });
+                  }
                 }else if(widget.fromPage==comeFromPage.fromDDDelay){
-                 //访问接口拿取流水号，填写处理结果
-                 ddDialog(context,title: '流水号:30203008085',buttonText: '确认',tagName: 'dd_dealResult',node: _dealResultNode,controller: _dealResultController,onTap: (){
-                 Navigator.pop(context,'1');
-                 });
+                  bool transferSuccess= await delayVM.delay(detailVM.detailModel.ddid,
+                    mbCode: _dropValueForMBCode,
+                    number:_numberController.text,
+                    workON: _workNoController.text,
+                    comeFrom: _fromController.text,
+                    planeNo: _planeNoController.text,
+                    eng: _engController.text,
+                    reportDate: _reportDateController.text,
+                    reportPlace: _reportPlaceController.text,
+                    startDate: _startDateController.text,
+                    totalHour: _totalHourController.text,
+                    totalCycle: _totalCycleController.text,
+//                    spaceDay:int.parse(_dayController.text),
+                    spaceHour:_hourController.text,
+                    spaceCycle: _cycleController.text,
+                    endDate: _endDateController.text,
+                    endHour: _endHourController.text,
+                    endCycle: _endCycleController.text,
+                    describe: _describeController.text,
+                    keepMeasure:_keepMeasureController.text,
+                    name: _nameController.text,
+                    jno: _jnoController.text,
+                    faultNum: _faultNumController.text,
+                    releaseNum: _releaseNumController.text,
+                    inStallNum: _installNumController.text,
+                    chapter1: _chapter1Controller.text,
+                    chapter2: _chapter2Controller.text,
+                    chapter3: _chapter3Controller.text,
+                    faultCategory: _dropValueForFaultCategory,
+                    influence:_dropValueForInfluence,
+                    parkingTime: _needParkingTimeController.text,
+                    workHour:_needWorkHourController.text ,
+                    o:_checkValueOOption?'1':'0',
+                    other: _checkValueOtherOption?'1':'0',
+                    otherDescribe: _otherController.text,
+                    keepFold: _checkValueKeepFoldOption?'1':'0',
+                    repeatInspection: _checkValueRepeatInspectionOption?'1':'0',
+                    m: _checkValueMOption?'1':'0',
+                    aMC: _checkValueAMCOption?'1':'0',
+                    runLimit: _checkValueRunOption?'1':'0',
+                    keepReason:keepReason(),
+                    evidenceType:_dropValueForEvidence,
+                    chapterNo1: _chapterNo1Controller.text,
+                    chapterNo2: _chapterNo2Controller.text,
+                    chapterNo3: _chapterNo3Controller.text,
+                    chapterNo4: _chapterNo4Controller.text,
+                    chapterNo5: _chapterNo5Controller.text,
+                    applyDate: _applyDateController.text,
+                    applicant: Provider.of<UserViewModel>(context, listen: false).info.username,);
+                  //访问接口拿取流水号，填写处理结果
+                  if(transferSuccess){
+                    ddDialog(context,title: '流水号:30203008085',buttonText: '确认',tagName: 'dd_dealResult',node: _dealResultNode,controller: _dealResultController,onTap:()async{
+
+                      //提交处理结果
+                      bool success=await dealResultVM.result(detailVM.detailModel.ddid,_dealResultController.text);
+
+                      if(success){
+//                        Navigator.pop(context,'1');
+                        Navigator.popUntil(context,  ModalRoute.withName(Routes.dDListPage));
+                      }
+                      //已转未审批，临保界面显示处理结果，并禁用按钮
+                    });
+                  }
 
                 }else if(widget.fromPage==comeFromPage.fromNewAdd){
                   //新增提交数据到后台；
@@ -523,7 +654,6 @@ class _AddDDState extends State<AddDD> {
   }
   void _checkInput(){
 //为空校验
-
     if((_dropValueForMBCode.length<=0)||_numberController.text.length<=0||_workNoController.text.length<=0||_planeNoController.text.length<=0
         ||_engController.text.length<=0 ||_fromController.text.length<=0||_reportDateController.text.length<=0||_reportPlaceController.text.length<=0
         ||(_startDateController.text.length<=0&&_totalHourController.text.length<=0&&_totalCycleController.text.length<=0)
@@ -588,7 +718,6 @@ class _AddDDState extends State<AddDD> {
       print('延时1s执行');
     });
 
-
   }
   void dataForTemporaryTransfer(){
    //临保转DD
@@ -598,9 +727,8 @@ class _AddDDState extends State<AddDD> {
   }
   void dataForDDTransfer(){
    //DD转办
-
     _planeNoController.text='B-1234';
-    _fromController.text='转录自DD转办';
+    _fromController.text=detailVM.detailModel?.zzblno;
   }
   void dataForDDDelay(){
    //DD延期
@@ -621,7 +749,6 @@ class _AddDDState extends State<AddDD> {
     _releaseNumController.text='2';
     _installNumController.text='3';
 
-
   }
   setUIFor() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -633,9 +760,12 @@ class _AddDDState extends State<AddDD> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    transferVM=new TransferDDViewModel();
+    transferDDVM=new TransferDDViewModel();
+    transferVM=new TransferViewModel();
     detailVM=Provider.of<DDDetailViewModel>(context,listen: false);
     addModel= new AddDDViewModel();
+    dealResultVM=new DealResultViewModel();
+    delayVM=new DelayDDViewModel();
     setUIFor();
     if(widget.fromPage==comeFromPage.fromTemporaryTransfer){
       //临保转办

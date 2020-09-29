@@ -71,11 +71,11 @@ class AddDDServiceImpl extends BaseService implements AddDDService{
       params.addAll({Element.APPLY_DATE:applyDate});
     }
     String json=convert.jsonEncode(params);
-    print('****$json');
-    Map<String,dynamic> realParams = new Map();
-    realParams.addAll({Element.JSON_DATA:json});
+//    print('****$json');
+//    Map<String,dynamic> realParams = new Map();
+//    realParams.addAll({Element.JSON_DATA:json});
 
-    NetworkResponse networkResponse = await networkRequest.request<DDPublicModel>(NetworkRequest.networkMethod_POST, NetServicePath. ddAddRequest,params: realParams);
+    NetworkResponse networkResponse = await networkRequest.request<DDPublicModel>(NetworkRequest.networkMethod_POST, NetServicePath. ddAddRequest,data: json);
     return networkResponse;
   }
 

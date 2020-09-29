@@ -34,9 +34,9 @@ class _TemporaryDDDetailState extends State<TemporaryDDDetail> {
   DeleteDDViewModel deleteVM;
   Widget createUI(BuildContext context){
     String eviType;
-    if(detailVM.detailModel?.zzrectype=='0'){
+    if(Provider.of<DDDetailViewModel>(context).detailModel?.zzrectype=='0'){
       eviType='MEL';
-    }else if(detailVM.detailModel?.zzrectype=='1'){
+    }else if(Provider.of<DDDetailViewModel>(context).detailModel?.zzrectype=='1'){
       eviType='CDL';
     }else{
       eviType=Translations.of(context).text('dd_other');
@@ -52,7 +52,7 @@ class _TemporaryDDDetailState extends State<TemporaryDDDetail> {
               children: <Widget>[
                 Container(
                   alignment: Alignment.centerLeft,
-                  child:Text(detailVM.detailModel?.zzblno,style: TextStyle(fontSize: KFont.bigTitle,color: KColor.zebraColor1)),
+                  child:Text(Provider.of<DDDetailViewModel>(context).detailModel?.zzblno,style: TextStyle(fontSize: KFont.bigTitle,color: KColor.zebraColor1)),
                 ),
                 Container(
                   alignment: Alignment.centerRight,//Alignment.centerLeft,
@@ -63,80 +63,80 @@ class _TemporaryDDDetailState extends State<TemporaryDDDetail> {
           ),
           DDComponent.zebraTitle('base_info'),
           //编号
-          DDComponent.tagAndTextHorizon('dd_number', detailVM.detailModel?.zzblno,textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
+          DDComponent.tagAndTextHorizon('dd_number', Provider.of<DDDetailViewModel>(context).detailModel?.zzblno,textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
           //飞机号
-          DDComponent.tagAndTextHorizon('dd_planeNo', detailVM.detailModel?.zzmsgrp,textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
+          DDComponent.tagAndTextHorizon('dd_planeNo', Provider.of<DDDetailViewModel>(context).detailModel?.zzmsgrp,textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
           //保留人员
-          DDComponent.tagAndTextHorizon('dd_keepPerson', detailVM.detailModel?.zzblry,textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
+          DDComponent.tagAndTextHorizon('dd_keepPerson', Provider.of<DDDetailViewModel>(context).detailModel?.zzblry,textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
           //联系电话
-          DDComponent.tagAndTextHorizon('dd_phoneNumber', detailVM.detailModel?.zzbltel,textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
+          DDComponent.tagAndTextHorizon('dd_phoneNumber', Provider.of<DDDetailViewModel>(context).detailModel?.zzbltel,textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
           //传真
-          DDComponent.tagAndTextHorizon('dd_fax', detailVM.detailModel?.zzblfax,textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
+          DDComponent.tagAndTextHorizon('dd_fax', Provider.of<DDDetailViewModel>(context).detailModel?.zzblfax,textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
 
           DDComponent.zebraTitle('report_info'),
           //报告日期
-          DDComponent.tagAndTextHorizon('dd_reportDate', detailVM.detailModel?.zzbgdt,textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
+          DDComponent.tagAndTextHorizon('dd_reportDate', Provider.of<DDDetailViewModel>(context).detailModel?.zzbgdt,textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
           //报告地点
-          DDComponent.tagAndTextHorizon('dd_reportPlace', detailVM.detailModel?.zzddscbgdd, textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
+          DDComponent.tagAndTextHorizon('dd_reportPlace', Provider.of<DDDetailViewModel>(context).detailModel?.zzddscbgdd, textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
 
           DDComponent.zebraTitle('plan_info'),
           //计划保留天数/小时/循环
-          DDComponent.tagAndTextHorizon('dd_plan_keep_time', '${detailVM.detailModel?.zzdefdy}/${detailVM.detailModel?.zzblfxxs}/${detailVM.detailModel?.zzblfxxh}', textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
+          DDComponent.tagAndTextHorizon('dd_plan_keep_time', '${Provider.of<DDDetailViewModel>(context).detailModel?.zzdefdy}/${Provider.of<DDDetailViewModel>(context).detailModel?.zzblfxxs}/${Provider.of<DDDetailViewModel>(context).detailModel?.zzblfxxh}', textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
           //计划保留间隔描述
-          DDComponent.tagAndTextVertical('dd_plan_keep_describe', detailVM.detailModel?.zzgzms,bgColor: KColor.zebraColor3),
+          DDComponent.tagAndTextVertical('dd_plan_keep_describe', Provider.of<DDDetailViewModel>(context).detailModel?.zzgzms,bgColor: KColor.zebraColor3),
 
           //保留报告及临时措施
-          DDComponent.tagAndTextVertical('dd_keepMeasure', detailVM.detailModel?.ddreport,bgColor: KColor.zebraColor2),
+          DDComponent.tagAndTextVertical('dd_keepMeasure', Provider.of<DDDetailViewModel>(context).detailModel?.ddreport,bgColor: KColor.zebraColor2),
           DDComponent.zebraTitle('Maintenance_info'),
           //名称
-          DDComponent.tagAndTextVertical('dd_name', detailVM.detailModel?.toolname,bgColor: KColor.zebraColor2),
+          DDComponent.tagAndTextVertical('dd_name', Provider.of<DDDetailViewModel>(context).detailModel?.toolname,bgColor: KColor.zebraColor2),
           //件号
-          DDComponent.tagAndTextVertical('dd_jno', detailVM.detailModel?.partno,bgColor: KColor.zebraColor3),
+          DDComponent.tagAndTextVertical('dd_jno', Provider.of<DDDetailViewModel>(context).detailModel?.partno,bgColor: KColor.zebraColor3),
           //数量
-          DDComponent.tagAndTextHorizon('dd_Num', '${detailVM.detailModel?.falqty}/${detailVM.detailModel?.relqty}/${detailVM.detailModel?.instqty}',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
+          DDComponent.tagAndTextHorizon('dd_Num', '${Provider.of<DDDetailViewModel>(context).detailModel?.falqty}/${Provider.of<DDDetailViewModel>(context).detailModel?.relqty}/${Provider.of<DDDetailViewModel>(context).detailModel?.instqty}',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
 
           //ATA章节
-          DDComponent.tagAndTextHorizon('dd_chapter', '${detailVM.detailModel?.zzatazj}-${detailVM.detailModel?.zzatazj2}-${detailVM.detailModel?.zztatzj3}',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
+          DDComponent.tagAndTextHorizon('dd_chapter', '${Provider.of<DDDetailViewModel>(context).detailModel?.zzatazj}-${Provider.of<DDDetailViewModel>(context).detailModel?.zzatazj2}-${Provider.of<DDDetailViewModel>(context).detailModel?.zztatzj3}',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
           //保留故障分类
-          DDComponent.tagAndTextHorizon('dd_keep_faultCategory', detailVM.detailModel?.zzblclf,textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
+          DDComponent.tagAndTextHorizon('dd_keep_faultCategory', Provider.of<DDDetailViewModel>(context).detailModel?.zzblclf,textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
           //影响服务程度
-          DDComponent.tagAndTextHorizon('dd_influence', detailVM.detailModel?.zzyxfwcd,textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
+          DDComponent.tagAndTextHorizon('dd_influence', Provider.of<DDDetailViewModel>(context).detailModel?.zzyxfwcd,textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
           //所需停场时间
-          DDComponent.tagAndTextHorizon('dd_need_parking_time', detailVM.detailModel?.zzytsj,textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
+          DDComponent.tagAndTextHorizon('dd_need_parking_time', Provider.of<DDDetailViewModel>(context).detailModel?.zzytsj,textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
           //所需工时
-          DDComponent.tagAndTextHorizon('dd_need_work_time', detailVM.detailModel?.zzsxgs,textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
+          DDComponent.tagAndTextHorizon('dd_need_work_time', Provider.of<DDDetailViewModel>(context).detailModel?.zzsxgs,textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
           //执管单位DD计划员zzddplanner
-          DDComponent.tagAndTextHorizon('dd_plan_operator', detailVM.detailModel?.zzddplanner,textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
+          DDComponent.tagAndTextHorizon('dd_plan_operator', Provider.of<DDDetailViewModel>(context).detailModel?.zzddplanner,textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
           DDComponent.zebraTitle('restrictions'),
           //使用限制
-          DDComponent.tagAndTextHorizon('dd_use_limit', '${detailVM.detailModel?.zzflgo=='1'?'O项':''} ${detailVM.detailModel?.zzflgoth=='1'?'其它':''}',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
+          DDComponent.tagAndTextHorizon('dd_use_limit', '${Provider.of<DDDetailViewModel>(context).detailModel?.zzflgo=='1'?'O项':''} ${Provider.of<DDDetailViewModel>(context).detailModel?.zzflgoth=='1'?'其它':''}',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
           //其它限制描述
           Offstage(
-            offstage: detailVM.detailModel?.zzflgo!='1',
+            offstage: Provider.of<DDDetailViewModel>(context).detailModel?.zzflgo!='1',
             child:DDComponent.tagAndTextVertical('dd_use_limit_describe', detailVM.detailModel.zzgzms,bgColor: KColor.zebraColor3),
           ),
           //是否有M项要求
-          DDComponent.tagAndTextHorizon('dd_need_m',(detailVM.detailModel?.zzmind=='1')?'是':'否',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
+          DDComponent.tagAndTextHorizon('dd_need_m',(Provider.of<DDDetailViewModel>(context).detailModel?.zzmind=='1')?'是':'否',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
           //是否有运行限制
-          DDComponent.tagAndTextHorizon('dd_need_run_limit', (detailVM.detailModel?.operatingLimits=='1')?'是':'否',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
+          DDComponent.tagAndTextHorizon('dd_need_run_limit', (Provider.of<DDDetailViewModel>(context).detailModel?.operatingLimits=='1')?'是':'否',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
           //需AMC处理标识
-          DDComponent.tagAndTextHorizon('dd_need_amc', (detailVM.detailModel?.zzamcfg=='1')?'是':'否',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
+          DDComponent.tagAndTextHorizon('dd_need_amc', (Provider.of<DDDetailViewModel>(context).detailModel?.zzamcfg=='1')?'是':'否',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
 
           DDComponent.zebraTitle('reason_code'),
-          DDComponent.tagAndTextVertical('',detailVM.detailModel?.zzrescode ,bgColor: KColor.zebraColor2),
+          DDComponent.tagAndTextVertical('',Provider.of<DDDetailViewModel>(context).detailModel?.zzrescode ,bgColor: KColor.zebraColor2),
           DDComponent.zebraTitle('evidence_type'),
           //依据类型
           DDComponent.tagAndTextHorizon('dd_evidence_type', eviType,textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
           //MEL/CDL章节号1"
-          DDComponent.tagAndTextVertical('dd_chapter_no1', detailVM.detailModel?.zzmel,bgColor: KColor.zebraColor3),
+          DDComponent.tagAndTextVertical('dd_chapter_no1', Provider.of<DDDetailViewModel>(context).detailModel?.zzmel,bgColor: KColor.zebraColor3),
           //MEL/CDL章节号2"
-          DDComponent.tagAndTextVertical('dd_chapter_no2', detailVM.detailModel?.zzmel2,bgColor: KColor.zebraColor2),
+          DDComponent.tagAndTextVertical('dd_chapter_no2', Provider.of<DDDetailViewModel>(context).detailModel?.zzmel2,bgColor: KColor.zebraColor2),
           //MEL/CDL章节号3"
-          DDComponent.tagAndTextVertical('dd_chapter_no3', detailVM.detailModel?.zzmel3,bgColor: KColor.zebraColor3),
+          DDComponent.tagAndTextVertical('dd_chapter_no3', Provider.of<DDDetailViewModel>(context).detailModel?.zzmel3,bgColor: KColor.zebraColor3),
           //MEL/CDL章节号4"
-          DDComponent.tagAndTextVertical('dd_chapter_no4', detailVM.detailModel?.zzmel4,bgColor: KColor.zebraColor2),
+          DDComponent.tagAndTextVertical('dd_chapter_no4', Provider.of<DDDetailViewModel>(context).detailModel?.zzmel4,bgColor: KColor.zebraColor2),
           //MEL/CDL章节号5
-          DDComponent.tagAndTextVertical('dd_chapter_no5', detailVM.detailModel?.zzmel,bgColor: KColor.zebraColor3),
+          DDComponent.tagAndTextVertical('dd_chapter_no5', Provider.of<DDDetailViewModel>(context).detailModel?.zzmel,bgColor: KColor.zebraColor3),
           DDComponent.zebraTitle('analysis_results'),
           //性能分析结果
           DDComponent.tagAndTextVertical('', '这是性能分析结果性能分析结果性能分析结果性能分析结果性能分析结果性能分析结果性能分析结果性能分析结果性能分析结果性能分析结果性能分析结果一种用于高速计算的电子计算机',bgColor: KColor.zebraColor2),
@@ -148,8 +148,8 @@ class _TemporaryDDDetailState extends State<TemporaryDDDetail> {
     return Column(children: <Widget>[
       DDComponent.zebraTitle('operation_info'),
       //申请
-//      DDComponent.tagAndTextHorizon('dd_applicant', detailVM.detailModel?.applyBy,textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
-//      DDComponent.tagAndTextHorizon('dd_applicationDate', detailVM.detailModel?.applyDate,textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
+//      DDComponent.tagAndTextHorizon('dd_applicant', Provider.of<DDDetailViewModel>(context).detailModel?.applyBy,textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
+//      DDComponent.tagAndTextHorizon('dd_applicationDate', Provider.of<DDDetailViewModel>(context).detailModel?.applyDate,textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
       Offstage(
         offstage: !transfer,
         child:Column(children: <Widget>[
@@ -184,7 +184,7 @@ class _TemporaryDDDetailState extends State<TemporaryDDDetail> {
                       context,
                       "/addDDPage/"+'fromTemporaryTransfer',
                       transition: TransitionType.fadeIn).then((val){
-                    widget.trans=val;
+                      widget.trans=val;
                   });
                   //跳转到转DD界面
                 },state:transfer? DDOperateButtonState.enable:DDOperateButtonState.able,size: Size(ScreenUtil.screenWidth,120)),

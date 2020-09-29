@@ -127,26 +127,12 @@ class _DDListPageState extends State<DDListPage> {
               itemBuilder: (context, index,){
                 DDListItemModel model=Provider.of<DDListViewModel>(context).ddList[index];
                 String stateStr=dealState(model.ddState) ;
-                return DDListItem(temporaryDDNumber:model.zzblno??'',planeNumber:model.zzmsgrp??'' ,temporaryDDState:'un_close',itemClick: (){
+                return DDListItem(temporaryDDNumber:model.zzblno??'',planeNumber:model.zzmsgrp??'' ,temporaryDDState:stateStr,itemClick: (){
                   //新建临保
-                  ddState='unClose';
-                  switch(index){
-                    case 0 :
-                      ddState='unClose';
-                      break;
-                    case 1 :
-                      ddState='closed';
-                      break;
-                    case 2 :
-                      ddState='deleted';
-                      break;
-                    default:
-                      ddState='unClose';
-                      break;
-                  }
-                  Application.router.navigateTo(
+
+                     Application.router.navigateTo(
                       context,
-                      "/temporaryDDDetailPage/"+ddState,
+                      "/dDDDetailPage/"+stateStr+"/"+model.ddid.toString(),
                       transition: TransitionType.fadeIn);
                 },
                 );

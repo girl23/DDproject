@@ -13,9 +13,10 @@ import 'package:lop/service/dd/transfer/transfer_dd_service.dart';
 class TransferDDServiceImpl extends BaseService implements TransferDDService{
   @override
   Future<NetworkResponse> transferDD(String ddID, {String number, String planeNo, String reportDate, String reportPlace, int spaceDay, String spaceHour, String spaceCycle, String describe, String keepMeasure, String name, String jno, String faultNum, String inStallNum, String releaseNum, String chapter1, String chapter2, String chapter3, String faultCategory, String influence, String parkingTime, String workHour, String o, String other, String otherDescribe, String m, String aMC, String runLimit, String keepReason, String evidenceType, String chapterNo1, String chapterNo2, String chapterNo3, String chapterNo4, String chapterNo5
-    ,String mbCode,String workON,String comeFrom,String eng,String startDate,String totalHour, String totalCycle,String endDate,String endHour,String endCycle,String keepFold,String repeatInspection,String applicant,String applyDate}) async{
+    ,String mbCode,String workON,String comeFrom,String eng,String startDate,String totalHour, String totalCycle,String endDate,String endHour,String endCycle,String keepFold,String repeatInspection,String applicant,String applyDate,String entryType}) async{
     // TODO: implement AddDD
     Map<String,dynamic> params = new Map();
+    params.addAll({Element.FORM_TYPE:'LB'});
     params.addAll({Element.DD_ID:ddID});
     params.addAll({Element.NUMBER:number});
     params.addAll({Element.PLANE_NO:planeNo});
@@ -66,13 +67,14 @@ class TransferDDServiceImpl extends BaseService implements TransferDDService{
     params.addAll({Element.REPEAT_INSPECTION:repeatInspection});
     params.addAll({Element.APPLICANT:applicant});
     params.addAll({Element.APPLY_DATE:applyDate});
+    params.addAll({Element.entryType:entryType});
 
     String json=convert.jsonEncode(params);
-    print('****$json');
-    Map<String,dynamic> realParams = new Map();
+//    print('****$json');
+//    Map<String,dynamic> realParams = new Map();
 
-    realParams.addAll({Element.JSON_DATA:json});
-    NetworkResponse networkResponse = await networkRequest.request<DDPublicModel>(NetworkRequest.networkMethod_GET, NetServicePath. ddTransferRequest,params: realParams);
+//    realParams.addAll({Element.JSON_DATA:json});
+    NetworkResponse networkResponse = await networkRequest.request<DDPublicModel>(NetworkRequest.networkMethod_POST, NetServicePath. ddTransferRequest,data: json);
     return networkResponse;
   }
 

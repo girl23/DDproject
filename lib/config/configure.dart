@@ -69,9 +69,14 @@
     static const String ddAddRequest = 'AcrDdlbAction/addDdlbByApp.do';//新增dd
 
     static const String ddDeleteRequest = 'AcrDdlbAction/delDdlbByApp.do';//删除dd
-    static const String ddTransferRequest = 'AcrDdlbAction/lbToDdByApp.do';//dd转办
+    static const String ddTransferRequest = 'AcrDdlbAction/lbToDdByApp.do';//临保转dd
     static const String ddApproveRequest = 'AcrDdlbAction/approveDdByApp.do';//dd批准
     static const String ddDetailRequest = 'AcrDdlbAction/getDdInfoByApp.do';//dd详情
+    static const String dealResultRequest = 'AcrDdlbAction/saveDdResultByApp.do';//处理结果
+    static const String ddDelayRequest = 'AcrDdlbAction/delayDdByApp.do';//dd延期
+    static const String troubleShootingRequest = 'AcrDdlbAction/requestTroubleShootByApp.do';//dd延期
+    static const String closeDDRequest = 'AcrDdlbAction/closeDdByApp.do';//关闭dd
+    static const String complaintDDRequest = 'AcrDdlbAction/complaintDdByApp.do';//dd转办
   }
 
   enum httpMethod{
