@@ -121,10 +121,10 @@ class DDDetailModel {
   String zziftzlg;
   String zzsecdpg;
   String changer;
-  String operatingLimits;
-  String applyBy;
-  String applyDate;
-  String performanceResult;
+  String operatinglimits;
+  String applyby;
+  String applydate;
+  String performanceresult;
   DDDetailModel(
       {this.zzotext,
         this.zzfjzfxxs,
@@ -248,10 +248,10 @@ class DDDetailModel {
         this.zziftzlg,
         this.zzsecdpg,
         this.changer,
-        this.operatingLimits,
-        this.applyBy,
-        this.applyDate,
-        this.performanceResult,
+        this.operatinglimits,
+        this.applyby,
+        this.applydate,
+        this.performanceresult,
       });
 
   DDDetailModel.fromJson(Map<String, dynamic> json) {
@@ -377,10 +377,10 @@ class DDDetailModel {
     zziftzlg = json['zziftzlg'];
     zzsecdpg = json['zzsecdpg'];
     changer = json['changer'];
-    operatingLimits = json['operatingLimits'];
-    applyBy = json['applyBy'];
-    applyDate = json['applyDate'];
-    performanceResult =json['performanceResult'];
+    operatinglimits = json['operatinglimits'];
+    applyby = json['applyby'];
+    applydate = json['applydate'];
+    performanceresult =json['performanceresult'];
   }
 
   Map<String, dynamic> toJson() {
@@ -507,10 +507,10 @@ class DDDetailModel {
     data['zziftzlg'] = this.zziftzlg;
     data['zzsecdpg'] = this.zzsecdpg;
     data['changer'] = this.changer;
-    data['operatingLimits'] = this.operatingLimits;
-    data['applyBy'] = this.applyBy;
-    data['applyDate'] = this.applyDate;
-    data['performanceResult'] = this.performanceResult;
+    data['operatinglimits'] = this.operatinglimits;
+    data['applyby'] = this.applyby;
+    data['applydate'] = this.applydate;
+    data['performanceresult'] = this.performanceresult;
     return data;
   }
 }

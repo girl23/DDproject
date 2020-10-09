@@ -8,9 +8,10 @@ import 'package:lop/model/dd/dd_public_model.dart';
 
 class ApproveDDServiceImpl extends BaseService implements ApproveDDService{
   @override
-  Future<NetworkResponse> approve(String ddId) async{
+  Future<NetworkResponse> approve(String ddId,String approvedDate) async{
     // TODO: implement delete
     Map<String,dynamic> params = new Map();
+    params.addAll({Element.APPROVE_DATE:approvedDate});
     params.addAll({Element.DD_ID:ddId});
     NetworkResponse networkResponse = await networkRequest.request<DDPublicModel>(NetworkRequest.networkMethod_GET, NetServicePath.ddApproveRequest,params: params);
     return networkResponse;

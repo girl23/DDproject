@@ -5,11 +5,12 @@ import 'package:lop/utils/translations.dart';
 typedef ItemClickCallback = void Function();
 ////列表项
 class DDListItem extends StatefulWidget {
+  final String createDate;
   final ItemClickCallback itemClick;
   final String temporaryDDNumber;
   final String planeNumber;
   final String temporaryDDState;
-  DDListItem({this.temporaryDDNumber, this.planeNumber, this.temporaryDDState,this.itemClick});
+  DDListItem({this.temporaryDDNumber, this.planeNumber, this.temporaryDDState,this.itemClick,this.createDate});
   @override
   _DDListItemState createState() => _DDListItemState();
 }
@@ -17,8 +18,8 @@ class DDListItem extends StatefulWidget {
 class _DDListItemState extends State<DDListItem> {
 
 
-  var day1  = DateTime.parse("2020-09-19");
-  var day2 = DateTime.now();
+
+
   Color fontColor(){
     if(widget.temporaryDDState=='un_close'||widget.temporaryDDState=='to_Audit'||widget.temporaryDDState=='forTroubleShooting'||widget.temporaryDDState=='for_inspection'){
       return Colors.blue;
@@ -30,13 +31,15 @@ class _DDListItemState extends State<DDListItem> {
   @override
   Widget build(BuildContext context) {
 
-  var second=day2.difference(day1).inSeconds;
+    var day1  = DateTime.parse(widget.createDate);
+    var day2 = DateTime.now();
+    var second=day2.difference(day1).inSeconds;
 
     return
 //      Container(color: Colors.red,height: 30,padding: EdgeInsets.all(5),);
       Container(
         //cell间隙
-        padding: EdgeInsets.fromLTRB(10, 0, 10, 5),
+         padding: EdgeInsets.fromLTRB(10, 0, 10, 5),
 
           child:Container(
             //cell蓝色条
@@ -52,7 +55,7 @@ class _DDListItemState extends State<DDListItem> {
           padding: EdgeInsets.only(left: 5),
           child: Container(
             //cell到期颜色控制，及内容间隙
-            color:(widget.temporaryDDState=='已关闭')?Color(0xFFFACD91): Colors.white,
+            color:(second>24*3600)?Color(0xFFFACD91): Colors.white,
             padding: EdgeInsets.only(left: 10,top: 0,right: 10),
             child: Material(
                 color: Colors.transparent,

@@ -123,7 +123,6 @@ class DDListItemModel {
         this.zzddscbgdd,
         this.ddState,
       });
-
   DDListItemModel.fromJson(Map<String, dynamic> json) {
     zzmel3 = json['zzmel3'];
     zzgzms = json['zzgzms'];

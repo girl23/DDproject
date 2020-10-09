@@ -12,6 +12,13 @@ class DateUtil {
     DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(milliseconds);
     return DateFormat("yyyy-MM-dd HH:mm:ss").format(dateTime);
   }
+  static String formateYMD_seconds(int milliseconds) {
+    if(milliseconds == null){
+      return "";
+    }
+    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(milliseconds);
+    return DateFormat("yyyy-MM-dd").format(dateTime);
+  }
 
   static String formateYMDHMS_string(String dateStr) {
     if(dateStr == null || dateStr.length == 0){

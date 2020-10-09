@@ -118,7 +118,7 @@ class _TemporaryDDDetailState extends State<TemporaryDDDetail> {
           //是否有M项要求
           DDComponent.tagAndTextHorizon('dd_need_m',(Provider.of<DDDetailViewModel>(context).detailModel?.zzmind=='1')?'是':'否',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
           //是否有运行限制
-          DDComponent.tagAndTextHorizon('dd_need_run_limit', (Provider.of<DDDetailViewModel>(context).detailModel?.operatingLimits=='1')?'是':'否',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
+          DDComponent.tagAndTextHorizon('dd_need_run_limit', (Provider.of<DDDetailViewModel>(context).detailModel?.operatinglimits=='1')?'是':'否',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
           //需AMC处理标识
           DDComponent.tagAndTextHorizon('dd_need_amc', (Provider.of<DDDetailViewModel>(context).detailModel?.zzamcfg=='1')?'是':'否',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
 
@@ -144,20 +144,33 @@ class _TemporaryDDDetailState extends State<TemporaryDDDetail> {
         ]
     );
   }
+  Widget applyWidget(){
+    return Column(
+      children: <Widget>[
+        DDComponent.tagAndTextHorizon('dd_applicant', Provider.of<DDDetailViewModel>(context).detailModel?.zzblry , textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
+        DDComponent.tagAndTextHorizon('dd_applicationDate', Provider.of<DDDetailViewModel>(context).detailModel?.zzbgdt , textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
+      ],
+    );
+  }
+  //处理结果
+  Widget dealResult(){
+    return Column(
+      children: <Widget>[
+        DDComponent.tagAndTextVertical('dd_dealResult', Provider.of<DDDetailViewModel>(context).detailModel?.processingresult,color: Colors.red,bgColor: KColor.zebraColor2) ,
+        DDComponent.tagAndTextHorizon('dd_dealDate', Provider.of<DDDetailViewModel>(context).detailModel?.zzcldate,textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
+        DDComponent.tagAndTextHorizon('dd_dealPerson', Provider.of<DDDetailViewModel>(context).detailModel?.zzcluser,textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
+      ],
+    );
+  }
+  //未关闭
   Widget uiForUnClose(){
     return Column(children: <Widget>[
       DDComponent.zebraTitle('operation_info'),
       //申请
-//      DDComponent.tagAndTextHorizon('dd_applicant', Provider.of<DDDetailViewModel>(context).detailModel?.applyBy,textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
-//      DDComponent.tagAndTextHorizon('dd_applicationDate', Provider.of<DDDetailViewModel>(context).detailModel?.applyDate,textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
-      Offstage(
+      applyWidget(),
+   Offstage(
         offstage: !transfer,
-        child:Column(children: <Widget>[
-          DDComponent.tagAndTextVertical('dd_dealResult', '是以角度（数学上最常用弧度制，下同）为自变量，角度对应任意角终边与单位圆交点坐标或其比值为因变量的函数。',color: Colors.red,bgColor: KColor.zebraColor2) ,
-          DDComponent.tagAndTextHorizon('dd_dealDate', '2020-12-03',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
-          DDComponent.tagAndTextHorizon('dd_dealPerson', '周周',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
-        ],
-        )
+        child:dealResult(),
       ),
 //      Offstage(
 //        offstage: transfer,
@@ -193,18 +206,17 @@ class _TemporaryDDDetailState extends State<TemporaryDDDetail> {
       ],)
     ],);
   }
+  //已关闭/已删除
   Widget uiForClose(){
     return Column(children: <Widget>[
       DDComponent.zebraTitle('operation_info'),
       //申请
-      DDComponent.tagAndTextHorizon('dd_applicant', '周周',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
-      DDComponent.tagAndTextHorizon('dd_applicationDate', '2020-12-03',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
+      applyWidget(),
       //处理结果
-      DDComponent.tagAndTextVertical('dd_dealResult', '是以角度（数学上最常用弧度制，下同）为自变量，角度对应任意角终边与单位圆交点坐标或其比值为因变量的函数。',color: Colors.red,bgColor: KColor.zebraColor2) ,
-      DDComponent.tagAndTextHorizon('dd_dealDate', '2020-12-03',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
-      DDComponent.tagAndTextHorizon('dd_dealPerson', '周周',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
+      dealResult(),
     ],);
   }
+
   Widget bottomWidget(){
     if(widget.state==TemporaryDDState.unClose){
       //未关闭

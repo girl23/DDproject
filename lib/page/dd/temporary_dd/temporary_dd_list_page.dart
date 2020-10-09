@@ -10,6 +10,7 @@ import 'package:lop/style/theme/text_theme.dart';
 import 'package:lop/page/dd/dd_drawer_widget.dart';
 import 'package:lop/viewmodel/dd/ddlist_viewmodel.dart';
 import 'package:provider/provider.dart';
+import 'package:lop/utils/date_util.dart';
 import 'package:lop/component/no_more_data_widget.dart';
 class TemporaryDDListPage extends StatefulWidget {
   @override
@@ -114,7 +115,9 @@ class _TemporaryDDListPageState extends State<TemporaryDDListPage> {
               itemBuilder: (context, index,){
                 DDListItemModel model=Provider.of<DDListViewModel>(context).ddList[index];
                 String stateStr=dealState(model.ddState) ;
-                return DDListItem(temporaryDDNumber:model.zzblno??'',planeNumber:model.zzmsgrp??'' ,temporaryDDState:stateStr,itemClick: (){
+                String bgdate=DateUtil.formateYMD_seconds(model.zzbgdt);
+
+                return DDListItem(temporaryDDNumber:model.zzblno??'',planeNumber:model.zzmsgrp??'',createDate: bgdate ,temporaryDDState:stateStr,itemClick: (){
 
                   Application.router.navigateTo(
                       context,

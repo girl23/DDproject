@@ -193,7 +193,7 @@ class _AddDDState extends State<AddDD> {
                 //维修单位代码
                 MBCode(widget.fromPage,valueChanged: (val){
                   _dropValueForMBCode=val;
-                },defaultValue: _dropValueForMBCode,),
+                },defaultValue: _dropValueForMBCode,times:detailVM.detailModel.zztimes,),
                 //保留故障编号
                 DDComponent.tagImageAndTextFieldWithNa('dd_number1', _numberFocusNode,_numberController,_textFieldNodes,imgStr: 'assets/images/gz.png'),
                 //工作指令号
@@ -225,6 +225,7 @@ class _AddDDState extends State<AddDD> {
         childWidget: Column(
           children: <Widget>[
             //首次报告日期
+            (widget.fromPage==comeFromPage.fromDDDelay)?DDComponent.tagAndTextHorizon('dd_firstReportDate',detailVM.detailModel.zzbgdt,width:330,notBoldTitle: true,color: KColor.textColor_66):
             TextAndTextFieldWithCalender('dd_firstReportDate',this._textFieldNodes, this._reportDateFocusNode, this._reportDateController,(val){
               _reportDateController.text=val;
             },firstReportTime:true, ),
@@ -731,23 +732,40 @@ class _AddDDState extends State<AddDD> {
     _fromController.text=detailVM.detailModel?.zzblno;
   }
   void dataForDDDelay(){
+   String influenceStr;
+   if(detailVM.detailModel.zzyxfwcd=='0'){
+     influenceStr='严重';
+   }else if(detailVM.detailModel.zzyxfwcd=='1'){
+     influenceStr='一般';
+   }else if(detailVM.detailModel.zzyxfwcd=='2'){
+     influenceStr='不影响';
+   }
+
    //DD延期
-   _dropValueForEvidence='DEL';
-    _planeNoController.text='B-1234';
-    _workNoController.text='c2222';
-    _needParkingTimeController.text='2h';
-    _needWorkHourController.text='2h';
-    _keepMeasureController.text='三角函数公式,三角函数是一个重要的知识点,尤其在生活应用中具有举足轻重的作用!三角函数包括ic';
-    _fromController.text='转录自DD转办';
-    _chapter1Controller.text='22';
-    _chapter2Controller.text='22';
-    _chapter3Controller.text='234';
-    _dropValueForFaultCategory='一般';
-    _dropValueForInfluence='A';
-    _checkValueLSOption=true;
-    _faultNumController.text='2';
-    _releaseNumController.text='2';
-    _installNumController.text='3';
+     _dropValueForEvidence=detailVM.detailModel.zzrectype;//'DEL';
+    _planeNoController.text=detailVM.detailModel.zzmsgrp;
+    _workNoController.text=detailVM.detailModel.zzwo;//'c2222';
+    _needParkingTimeController.text=detailVM.detailModel.zzytsj;//'2h';
+    _needWorkHourController.text=detailVM.detailModel.zzsxgs;//'2h';
+    _keepMeasureController.text=detailVM.detailModel.ddreport;//'三角函数公式,三角函数是一个重要的知识点,尤其在生活应用中具有举足轻重的作用!三角函数包括ic';
+    _fromController.text=detailVM.detailModel.zzzzhwj;//'转录自DD转办';
+    _chapter1Controller.text=detailVM.detailModel.zzatazj;//'22';
+    _chapter2Controller.text=detailVM.detailModel.zzatazj2;//'22';
+    _chapter3Controller.text=detailVM.detailModel.zztatzj3;//'234';
+    _dropValueForFaultCategory=detailVM.detailModel.zzblclf;
+    _dropValueForInfluence=detailVM.detailModel.zzyxfwcd;
+    _faultNumController.text=detailVM.detailModel.falqty;//'2';
+    _releaseNumController.text=detailVM.detailModel.relqty;//'2';
+    _installNumController.text=detailVM.detailModel.instqty;//'3';
+    if(detailVM.detailModel.zzrescode.contains('OI')){
+      _checkValueOIOption=true;
+    }else if(detailVM.detailModel.zzrescode.contains('LS')){
+      _checkValueLSOption=true;
+    }else if(detailVM.detailModel.zzrescode.contains('SG')){
+      _checkValueSGOption=true;
+    }else if(detailVM.detailModel.zzrescode.contains('SP')){
+      _checkValueSPOption=true;
+    }
 
   }
   setUIFor() async{
@@ -755,7 +773,6 @@ class _AddDDState extends State<AddDD> {
     prefs.setString("uiFor","DD");
     prefs.setString("fromPage",widget.fromPage.toString());
   }
-
   @override
   void initState() {
     // TODO: implement initState
@@ -994,7 +1011,6 @@ void dispose() {
         tempController.dispose();
       }
     }
-
  }
   @override
   Widget build(BuildContext context) {

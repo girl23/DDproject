@@ -293,7 +293,7 @@ class _AddTemporaryDDState extends State<AddTemporaryDD> {
                     fax: _faxController.text,
                     reportDate: _reportDateController.text,
                     reportPlace: _reportPlaceController.text,
-                    spaceDay:int.parse(_dayController.text),
+//                    spaceDay:int.parse(_dayController.text),
                     spaceHour:_hourController.text,
                     spaceCycle: _cycleController.text,
                     describe: _describeController.text,

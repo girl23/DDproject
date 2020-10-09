@@ -14,6 +14,7 @@ import 'package:lop/viewmodel/dd/ddlist_viewmodel.dart';
 import 'package:provider/provider.dart';
 import 'package:lop/component/no_more_data_widget.dart';
 import 'package:lop/model/dd/dd_list_model.dart';
+import 'package:lop/utils/date_util.dart';
 class DDListPage extends StatefulWidget {
   @override
   _DDListPageState createState() => _DDListPageState();
@@ -127,7 +128,8 @@ class _DDListPageState extends State<DDListPage> {
               itemBuilder: (context, index,){
                 DDListItemModel model=Provider.of<DDListViewModel>(context).ddList[index];
                 String stateStr=dealState(model.ddState) ;
-                return DDListItem(temporaryDDNumber:model.zzblno??'',planeNumber:model.zzmsgrp??'' ,temporaryDDState:stateStr,itemClick: (){
+                String bgdate=DateUtil.formateYMD_seconds(model.zzbgdt);
+                return DDListItem(temporaryDDNumber:model.zzblno??'',planeNumber:model.zzmsgrp??'',createDate: bgdate ,temporaryDDState:stateStr,itemClick: (){
                   //新建临保
 
                      Application.router.navigateTo(

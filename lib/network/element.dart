@@ -57,9 +57,9 @@ class Element {
   static const String SPACE_HOUR = "zzblfxxs";
   static const String SPACE_CYC = "zzblfxxh";
   static const String DESCRIBE = "zzgzms";
-  static const String KEEP_MEASURE = "ddReport";
-  static const String NAME = "toolName";
-  static const String JNO = "partNo";
+  static const String KEEP_MEASURE = "ddreport";
+  static const String NAME = "toolname";
+  static const String JNO = "partno";
   static const String FAULT_NUM = "falqty";
   static const String RELEASE_NUM = "relqty";
   static const String INSTALL_NUM = "instqty";
@@ -70,6 +70,7 @@ class Element {
   static const String INFLUENCE = "zzyxfwcd";
   static const String PARK_TIME = "zzytsj";
   static const String WORK_HOUR = "zzsxgs";
+  static const String PLANNER = "zzddplanner";
   static const String O = "zzflgo";
   static const String OTHER = "zzflgoth";
   static const String OTHER_DESCRIBE = "zzotext";
@@ -77,15 +78,15 @@ class Element {
   static const String RUN_LIMIT = "operatingLimits";
   static const String AMC = "zzamcfg";
   static const String KEEP_REASON = "zzrescode";
-  static const String EVIDENCE_TYPE = "zzrecType";
+  static const String EVIDENCE_TYPE = "zzrectype";
   static const String CHAPTER_NO1 = "zzmel";
   static const String CHAPTER_NO2 = "zzmel2";
   static const String CHAPTER_NO3 = "zzmel3";
   static const String CHAPTER_NO4 = "zzmel4";
   static const String CHAPTER_NO5 = "zzmel5";
   static const String JSON_DATA = "data";
-  //新增dd
-  static const String MB_CODE = "maintenanceUnit";
+  ///新增dd
+  static const String MB_CODE = "maintenanceunit";
   static const String WORK_ON = "zzwo";
   static const String COME_FROM = "zzzzhwj";
   static const String ENG = "sernr";/////
@@ -97,13 +98,16 @@ class Element {
   static const String END_CYCLE = "zzfiblzfc";
   static const String KEEP_FOLD = "zzsffris";
   static const String REPEAT_INSPECTION = "zzifrchk";
-  static const String APPLICANT = "applyBy";
-  static const String APPLY_DATE = "applyDate";
-  //转DD
-  static const String entryType = "entryType";
-  static const String PROCESSING_RESULT = "processingResult";
-  //删除dd
+  static const String APPLICANT = "applyby";
+  static const String APPLY_DATE = "applydate";
+  ///转DD
+  static const String entryType = "entrytype";
+  static const String PROCESSING_RESULT = "processingresult";
+  ///删除dd
   static const String DD_ID = "ddid";
+  ///批准
+  static const String APPROVE_DATE = "approveddate";
+  static const String DELAY_TIME = "delaytime";
 
 
 

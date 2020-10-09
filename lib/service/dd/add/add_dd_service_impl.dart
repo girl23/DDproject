@@ -12,7 +12,7 @@ import 'package:lop/service/dd/add/add_dd_service.dart';
 
 class AddDDServiceImpl extends BaseService implements AddDDService{
   @override
-  Future<NetworkResponse> addDD(String ddLB, {String number, String planeNo, String keepPerson, String phone, String fax, String reportDate, String reportPlace, int spaceDay, String spaceHour, String spaceCycle, String describe, String keepMeasure, String name, String jno, String faultNum, String inStallNum, String releaseNum, String chapter1, String chapter2, String chapter3, String faultCategory, String influence, String parkingTime, String workHour, String o, String other, String otherDescribe, String m, String aMC, String runLimit, String keepReason, String evidenceType, String chapterNo1, String chapterNo2, String chapterNo3, String chapterNo4, String chapterNo5
+  Future<NetworkResponse> addDD(String ddLB, {String number, String planeNo, String keepPerson, String phone, String fax, String reportDate, String reportPlace, int spaceDay, String spaceHour, String spaceCycle, String describe, String keepMeasure, String name, String jno, String faultNum, String inStallNum, String releaseNum, String chapter1, String chapter2, String chapter3, String faultCategory, String influence, String parkingTime, String workHour,String planner , String o, String other, String otherDescribe, String m, String aMC, String runLimit, String keepReason, String evidenceType, String chapterNo1, String chapterNo2, String chapterNo3, String chapterNo4, String chapterNo5
     ,String mbCode,String workON,String comeFrom,String eng,String startDate,String totalHour, String totalCycle,String endDate,String endHour,String endCycle,String keepFold,String repeatInspection,String applicant,String applyDate}) async{
     // TODO: implement AddDD
     Map<String,dynamic> params = new Map();
@@ -41,6 +41,7 @@ class AddDDServiceImpl extends BaseService implements AddDDService{
     params.addAll({Element.INFLUENCE:influence});
     params.addAll({Element.PARK_TIME:parkingTime});
     params.addAll({Element.WORK_HOUR:workHour});
+    params.addAll({Element.PLANNER:planner});
     params.addAll({Element.O:o});
     params.addAll({Element.OTHER:other});
     params.addAll({Element.OTHER_DESCRIBE:otherDescribe});
