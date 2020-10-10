@@ -34,9 +34,8 @@ class DDListViewModel extends BaseViewModel with ChangeNotifier{
       response=  await _service.getList(ddLB,all:all,page: page);
     }else{
 
-      response=  await _service.getList(ddLB,all:all,page: page,ddNo: ddNo,acReg: acReg);
+      response=  await _service.getList(ddLB,all:all,page: page,ddNo: ddNo,acReg: acReg,state: state);
     }
-
     if(response.isSuccess){
       DDListModel model=response.data;
       _page=model.page;
@@ -49,7 +48,6 @@ class DDListViewModel extends BaseViewModel with ChangeNotifier{
       }
       notifyListeners();
       return true;
-
     }else{
       ToastUtil.makeToast(response.errorEntity.message);
       return false;

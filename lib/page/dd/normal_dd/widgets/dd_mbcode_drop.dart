@@ -18,11 +18,12 @@ class _MBCodeState extends State<MBCode> {
 
   @override
   Widget build(BuildContext context) {
+
     return Column(
       children: <Widget>[
         Offstage(
           offstage:!((widget.fromPage==comeFromPage.fromDDDelay)),
-          child:DDComponent.tagAndTextHorizon('dd_delay_times', '${widget.times.length<=0?'0':widget.times}次',width: 330,color: KColor.textColor_66),),
+          child:DDComponent.tagAndTextHorizon('dd_delay_times', '${(widget.times!=null&&widget.times!="")?widget.times:'0'}次',width: 330,color: KColor.textColor_66),),
         DDComponent.tagImageAndDropButton('dd_MBCode', 330,[
           DropdownMenuItem(child: Text(Translations.of(context).text('dd_MB1')),value: '1'),
           DropdownMenuItem(child: Text(Translations.of(context).text('dd_MB2')),value: '2'),

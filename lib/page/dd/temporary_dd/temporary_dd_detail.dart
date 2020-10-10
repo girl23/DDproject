@@ -12,6 +12,9 @@ import 'package:lop/router/application.dart';
 import 'package:lop/viewmodel/dd/dd_detail_viewmodel.dart';
 import 'package:provider/provider.dart';
 import 'package:lop/viewmodel/dd/delete_dd_viewmodel.dart';
+import 'package:progress_dialog/progress_dialog.dart';
+import 'package:lop/utils/loading_dialog_util.dart';
+
 
 // ignore: must_be_immutable
 class TemporaryDDDetail extends StatefulWidget {
@@ -32,7 +35,9 @@ class _TemporaryDDDetailState extends State<TemporaryDDDetail> {
   bool transfer=false;
   DDDetailViewModel detailVM;
   DeleteDDViewModel deleteVM;
+  ProgressDialog _loadingDialog;
   Widget createUI(BuildContext context){
+    if(Provider.of<DDDetailViewModel>(context).detailModel==null)return Container();
     String eviType;
     if(Provider.of<DDDetailViewModel>(context).detailModel?.zzrectype=='0'){
       eviType='MEL';
@@ -52,7 +57,7 @@ class _TemporaryDDDetailState extends State<TemporaryDDDetail> {
               children: <Widget>[
                 Container(
                   alignment: Alignment.centerLeft,
-                  child:Text(Provider.of<DDDetailViewModel>(context).detailModel?.zzblno,style: TextStyle(fontSize: KFont.bigTitle,color: KColor.zebraColor1)),
+                  child:Text(Provider.of<DDDetailViewModel>(context).detailModel.zzblno,style: TextStyle(fontSize: KFont.bigTitle,color: KColor.zebraColor1)),
                 ),
                 Container(
                   alignment: Alignment.centerRight,//Alignment.centerLeft,
@@ -137,9 +142,18 @@ class _TemporaryDDDetailState extends State<TemporaryDDDetail> {
           DDComponent.tagAndTextVertical('dd_chapter_no4', Provider.of<DDDetailViewModel>(context).detailModel?.zzmel4,bgColor: KColor.zebraColor2),
           //MEL/CDL章节号5
           DDComponent.tagAndTextVertical('dd_chapter_no5', Provider.of<DDDetailViewModel>(context).detailModel?.zzmel,bgColor: KColor.zebraColor3),
-          DDComponent.zebraTitle('analysis_results'),
           //性能分析结果
-          DDComponent.tagAndTextVertical('', '这是性能分析结果性能分析结果性能分析结果性能分析结果性能分析结果性能分析结果性能分析结果性能分析结果性能分析结果性能分析结果性能分析结果一种用于高速计算的电子计算机',bgColor: KColor.zebraColor2),
+          Offstage(
+            offstage: Provider.of<DDDetailViewModel>(context).detailModel.performanceresult.length<=0,
+            child: Column(
+              children: <Widget>[
+                DDComponent.zebraTitle('analysis_results'),
+                //性能分析结果
+                DDComponent.tagAndTextVertical('',Provider.of<DDDetailViewModel>(context).detailModel?.performanceresult,bgColor: KColor.zebraColor2),
+
+              ],
+            ),
+          )
 
         ]
     );
@@ -183,10 +197,19 @@ class _TemporaryDDDetailState extends State<TemporaryDDDetail> {
           Expanded(
             child:  OperationButton.createButton('temporary_dd_deleteButton',
                     ()async{
+                    if (_loadingDialog == null) {
+                      _loadingDialog = LoadingDialogUtil.createProgressDialog(context);
+                    }
+                    await _loadingDialog.show();
                   //删除临保（是否发送omis）
-                  bool deleteSuccess=  await deleteVM.delete(detailVM.detailModel.ddid);
+                  bool deleteSuccess=  await deleteVM.delete(detailVM.detailModel.ddid,ddLB: 'LB');
                   if(deleteSuccess){
-                    Navigator.of(context);
+                    _loadingDialog.hide().whenComplete((){
+                      Navigator.of(context).pop();
+                    });
+                  }else{
+                    //提示失败；在模型中处理失败
+                    _loadingDialog.hide();
                   }
                 },state:transfer? DDOperateButtonState.enable:DDOperateButtonState.able,size: Size(ScreenUtil.screenWidth,120)),
           ),Expanded(
@@ -245,7 +268,7 @@ class _TemporaryDDDetailState extends State<TemporaryDDDetail> {
     }
   }
   void dealTransfer(){
-    if (widget.trans=='1'){
+    if (Provider.of<DDDetailViewModel>(context).detailModel?.ddstate=='9'){
       this.transfer=true;
     }else{
       this.transfer=false;

@@ -1,4 +1,9 @@
+import 'package:lop/utils/date_util.dart';
+import 'package:lop/utils/translations.dart';
+import 'package:lop/config/global.dart';
+import 'package:flutter/material.dart';
 class DDDetailModel {
+  static  BuildContext appContext =Global.navigatorKey.currentContext;
   String zzotext;
   String zzfjzfxxs;
   String zzrescode;
@@ -263,11 +268,36 @@ class DDDetailModel {
     zztzxndt = json['zztzxndt'];
     zzusbintervd = json['zzusbintervd'];
     zzbltyp = json['zzbltyp'];
-    zzcldate = json['zzcldate'];
+    String tempStr4=json['zzcldate'];
+    DateTime tempDate4=DateTime.parse(tempStr4.length>0?tempStr4:'1979-01-01');
+    zzcldate =DateUtil.formateYMD(tempDate4);
     zzblno = json['zzblno'];
     aedat = json['aedat'];
     sernr = json['sernr'];
-    maintenanceunit = json['maintenanceunit'];
+    //维修单位
+    String mbCode;
+    if(json['maintenanceunit']=='1'){
+      mbCode=Translations.of(appContext).text('dd_MB1');
+    }else if(json['maintenanceunit']=='2'){
+      mbCode=Translations.of(appContext).text('dd_MB2');
+    }else if(json['maintenanceunit']=='3'){
+      mbCode=Translations.of(appContext).text('dd_MB3');
+    }else if(json['maintenanceunit']=='4'){
+      mbCode=Translations.of(appContext).text('dd_MB4');
+    }else if(json['maintenanceunit']=='5'){
+      mbCode=Translations.of(appContext).text('dd_MB5');
+    }else if(json['maintenanceunit']=='6'){
+      mbCode=Translations.of(appContext).text('dd_MB6');
+    }else if(json['maintenanceunit']=='7'){
+      mbCode=Translations.of(appContext).text('dd_MB7');
+    }else if(json['maintenanceunit']=='8'){
+      mbCode=Translations.of(appContext).text('dd_MB8');
+    }else if(json['maintenanceunit']=='9'){
+      mbCode=Translations.of(appContext).text('dd_MB9');
+    }else if(json['maintenanceunit']=='10'){
+      mbCode=Translations.of(appContext).text('dd_MB10');
+    }
+    maintenanceunit = mbCode;//json['maintenanceunit'];
     zzlbd = json['zzlbd'];
     aenam = json['aenam'];
     zzscz = json['zzscz'];
@@ -275,7 +305,16 @@ class DDDetailModel {
     zzatazj2 = json['zzatazj2'];
     ddreport = json['ddreport'];
     zzremark = json['zzremark'];
-    zzrectype = json['zzrectype'];
+    //依据类型
+    String tempStr8;
+    if(json['zzrectype']=='0'){
+      tempStr8="MEL";
+    }else if(json['zzrectype']=='1'){
+      tempStr8="CDL";
+    }else if(json['zzrectype']=='2'){
+      tempStr8="其它";
+    }
+    zzrectype = tempStr8;//json['zzrectype'];
     zzftype = json['zzftype'];
     ddid = json['ddid'];
     zzblclf = json['zzblclf'];
@@ -286,7 +325,16 @@ class DDDetailModel {
     zztoamc = json['zztoamc'];
     zzfasys = json['zzfasys'];
     zzdate3 = json['zzdate3'];
-    zzyxfwcd = json['zzyxfwcd'];
+    //影响服务程度
+    String influence;
+    if(json['zzyxfwcd']=='0'){
+      influence=Translations.of(appContext).text('dd_influence_level1');
+    }else if(json['zzyxfwcd']=='1'){
+      influence=Translations.of(appContext).text('dd_influence_level2');
+    }else if(json['zzyxfwcd']=='2'){
+      influence=Translations.of(appContext).text('dd_influence_level3');
+    }
+    zzyxfwcd = influence;//json['zzyxfwcd'];
     zzytsj = json['zzytsj'];
     zzdate1 = json['zzdate1'];
     zzmsgrp = json['zzmsgrp'];
@@ -305,7 +353,10 @@ class DDDetailModel {
     zzblfxxh = json['zzblfxxh'];
     zzzgjdfax = json['zzzgjdfax'];
     inspectionby = json['inspectionby'];
-    approveddate = json['approveddate'];
+    //批准日期
+    String tempStr6=json['approveddate'];
+    DateTime tempDate6=DateTime.parse(tempStr6.length>0?tempStr6:'1979-01-01');//DateTime.parse(json['zzbgdt']);
+    approveddate =DateUtil.formateYMD(tempDate6);
     zzsbintervd = json['zzsbintervd'];
     relqty = json['relqty'];
     partno = json['partno'];
@@ -313,7 +364,10 @@ class DDDetailModel {
     zzsffris = json['zzsffris'];
     zztzqpdt = json['zztzqpdt'];
     deletetime = json['deletetime'];
-    zzbgdt = json['zzbgdt'];
+    //报告日期
+    String tempStr1=json['zzbgdt'];
+    DateTime tempDate1=DateTime.parse(tempStr1.length>0?tempStr1:'1979-01-01');//DateTime.parse(json['zzbgdt']);
+    zzbgdt = DateUtil.formateYMD(tempDate1);
     zzsrcobj = json['zzsrcobj'];
     zzfiblzfc = json['zzfiblzfc'];
     zztzlgdt = json['zztzlgdt'];
@@ -332,7 +386,10 @@ class DDDetailModel {
     zzrepeatind = json['zzrepeatind'];
     zzblry = json['zzblry'];
     falqty = json['falqty'];
-    zzstart = json['zzstart'];
+    String tempStr2=json['zzstart'];
+
+    DateTime tempDate2=DateTime.parse(tempStr2.length>0?tempStr2:'1979-01-01');
+    zzstart = DateUtil.formateYMD(tempDate2);
     zzandor = json['zzandor'];
     zzblst = json['zzblst'];
     zzmel = json['zzmel'];
@@ -365,7 +422,9 @@ class DDDetailModel {
     zzuser2 = json['zzuser2'];
     zzuser1 = json['zzuser1'];
     zzmbno = json['zzmbno'];
-    zzzzsqx = json['zzzzsqx'];
+    String tempStr3=json['zzzzsqx'];
+    DateTime tempDate3=DateTime.parse(tempStr3.length>0?tempStr3:'1979-01-01');//DateTime.parse(json['zzzzsqx']);
+    zzzzsqx =  DateUtil.formateYMD(tempDate3);
     toolname = json['toolname'];
     zznottoamc = json['zznottoamc'];
     zloekz = json['zloekz'];
@@ -379,7 +438,10 @@ class DDDetailModel {
     changer = json['changer'];
     operatinglimits = json['operatinglimits'];
     applyby = json['applyby'];
-    applydate = json['applydate'];
+    //申请日期
+    String tempStr5=json['zzzzsqx'];
+    DateTime tempDate5=DateTime.parse(tempStr5.length>0?tempStr5:'1979-01-01');//DateTime.parse(json['zzzzsqx']);
+    applydate =  DateUtil.formateYMD(tempDate5);
     performanceresult =json['performanceresult'];
   }
 
@@ -387,6 +449,7 @@ class DDDetailModel {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['zzotext'] = this.zzotext;
     data['zzfjzfxxs'] = this.zzfjzfxxs;
+
     data['zzrescode'] = this.zzrescode;
     data['zzifrchk'] = this.zzifrchk;
     data['creater'] = this.creater;

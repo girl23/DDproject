@@ -12,6 +12,8 @@ import 'package:lop/viewmodel/dd/ddlist_viewmodel.dart';
 import 'package:provider/provider.dart';
 import 'package:lop/utils/date_util.dart';
 import 'package:lop/component/no_more_data_widget.dart';
+import 'package:progress_dialog/progress_dialog.dart';
+import 'package:lop/utils/loading_dialog_util.dart';
 class TemporaryDDListPage extends StatefulWidget {
   @override
   _TemporaryDDListPageState createState() => _TemporaryDDListPageState();
@@ -28,13 +30,13 @@ class _TemporaryDDListPageState extends State<TemporaryDDListPage> {
   String _dropValueForState;
   List _textFieldNodes;
   String ddState;
-  var _scaffoldkey = new GlobalKey<ScaffoldState>();
+  var _scaffoldkey = new GlobalKey<ScaffoldState>();//解决抽屉弹出问题
   refresh.EasyRefreshController _refreshController;
   DDListViewModel _listVM;
   int currentPage=1;
-
+  ProgressDialog _loadingDialog;
   //body
-  //处理状态
+  //处理状态，控制列表文字颜色显示，和中英文字显示
   String dealState(String state){
     if(state=="0"||state=="9"){
       return "un_close";
@@ -47,7 +49,6 @@ class _TemporaryDDListPageState extends State<TemporaryDDListPage> {
     }
   }
   Widget temporaryDDBody(){
-
     Widget _noDataView(){
       return Expanded(
         child:
@@ -172,6 +173,7 @@ class _TemporaryDDListPageState extends State<TemporaryDDListPage> {
       appBar: AppBar(
         title:Text(Translations.of(context).text('temporary_dd_list_page'), style: TextThemeStore.textStyleAppBar,),
         actions: <Widget>[
+          //抽屉
           Container(
             width: 35,
             height: 35,
@@ -183,6 +185,7 @@ class _TemporaryDDListPageState extends State<TemporaryDDListPage> {
                 _scaffoldkey.currentState.openEndDrawer();
               },
             ) ,),
+          //新建
           Container(
             width: 35,
             height: 35,
@@ -204,6 +207,22 @@ class _TemporaryDDListPageState extends State<TemporaryDDListPage> {
         child: DDDrawerWidget('LB',textFieldNodes: this._textFieldNodes,numberFocusNode: _numberFocusNode,numberController: _numberController,
         planeNoFocusNode: _planeNoFocusNode,planeNoController: _planeNoController,valueChanged: (val){
             _dropValueForState=val;
+          },sureBtnClick: ()async{
+          //确认搜索
+            if (_loadingDialog == null) {
+              _loadingDialog = LoadingDialogUtil.createProgressDialog(context);
+            }
+            await _loadingDialog.show();
+            //确认搜索
+            _listVM=Provider.of<DDListViewModel>(context,listen: false);
+            bool success=await _listVM.getList('LB',all:false,page:this.currentPage.toString(),ddNo:_numberController.text,acReg: _planeNoController.text,state:_dropValueForState) ;
+            if(success){
+              _loadingDialog.hide().whenComplete((){
+                Navigator.pop(context);
+              });
+            }else{
+              _loadingDialog.hide();
+            }
           },)//temporaryDDDrawer(),
       ),
       body:temporaryDDBody(),

@@ -443,6 +443,7 @@ XYDialog ddDialog(@required BuildContext ctx,
     ..barrierColor = KColor.color_191919.withOpacity(0.6)
     ..backgroundColor = KColor.color_fafafa
     ..gravity = Gravity.center
+    ..barrierDismissible=false
     ..animatedFunc = (child, animation) {
       return FadeTransition(
         child: child,

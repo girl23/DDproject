@@ -19,6 +19,8 @@ import 'package:lop/viewmodel/dd/approve_dd_viewmodel.dart';
 import 'package:lop/viewmodel/dd/trouble_shooting_viewmodel.dart';
 import 'package:lop/viewmodel/dd/close_dd_viewmodel.dart';
 import 'package:lop/viewmodel/dd/delete_dd_viewmodel.dart';
+import 'package:progress_dialog/progress_dialog.dart';
+import 'package:lop/utils/loading_dialog_util.dart';
 
 // ignore: must_be_immutable
 class DDDetail extends StatefulWidget {
@@ -45,8 +47,10 @@ class _DDDetailState extends State<DDDetail> {
   ApproveDDViewModel approveVM;
   TroubleShootingViewModel shootingVM;
   CloseDDViewModel closeVM;
+  ProgressDialog _loadingDialog;
 
   Widget createUI(BuildContext context){
+    if(Provider.of<DDDetailViewModel>(context).detailModel==null)return Container();
     return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -58,7 +62,7 @@ class _DDDetailState extends State<DDDetail> {
               children: <Widget>[
                 Container(
                   alignment: Alignment.centerLeft,
-                  child:Text(Provider.of<DDDetailViewModel>(context).detailModel?.zzblno ,style: TextStyle(fontSize: KFont.bigTitle,color: KColor.zebraColor1)),
+                  child:Text(Provider.of<DDDetailViewModel>(context).detailModel.zzblno ,style: TextStyle(fontSize: KFont.bigTitle,color: KColor.zebraColor1)),
                 ),
                 Container(
                   alignment: Alignment.centerRight,//Alignment.centerLeft,
@@ -139,7 +143,7 @@ class _DDDetailState extends State<DDDetail> {
 
           DDComponent.zebraTitle('evidence_type'),
           //依据类型
-          DDComponent.tagAndTextHorizon('dd_evidence_type', 'MEL',textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
+          DDComponent.tagAndTextHorizon('dd_evidence_type', Provider.of<DDDetailViewModel>(context).detailModel?.zzrectype,textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
           //MEL/CDL章节号1"
           DDComponent.tagAndTextVertical('dd_chapter_no1', Provider.of<DDDetailViewModel>(context).detailModel?.zzmel ,bgColor: KColor.zebraColor3),
           //MEL/CDL章节号2"
@@ -157,7 +161,7 @@ class _DDDetailState extends State<DDDetail> {
             offstage:(Provider.of<DDDetailViewModel>(context).detailModel.performanceresult.length<=0) ,
             child: Column(children: <Widget>[
               DDComponent.zebraTitle('analysis_results'),
-              DDComponent.tagAndTextVertical('', '这是性能分析结果性能分析结果性能分析结果性能分析结果性能分析结果性能分析结果性能分析结果性能分析结果性能分析结果性能分析结果性能分析结果一种用于高速计算的电子计算机',bgColor: KColor.zebraColor2),
+              DDComponent.tagAndTextVertical('',Provider.of<DDDetailViewModel>(context).detailModel.performanceresult,bgColor: KColor.zebraColor2),
 
             ],)
            ),
@@ -179,7 +183,7 @@ class _DDDetailState extends State<DDDetail> {
     return Column(
       children: <Widget>[
         DDComponent.tagAndTextHorizon('dd_auditPerson', Provider.of<DDDetailViewModel>(context).detailModel?.approvedby, textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
-        DDComponent.tagAndTextHorizon('dd_auditDate', Provider.of<DDDetailViewModel>(context).detailModel?.applydate,textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
+        DDComponent.tagAndTextHorizon('dd_auditDate', Provider.of<DDDetailViewModel>(context).detailModel?.approveddate,textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
 
       ],
     );
@@ -259,10 +263,13 @@ class _DDDetailState extends State<DDDetail> {
     );
   }
   //处理结果
-  Widget dealResult(){
+  Widget dealResult({bool hideResult=false}){
     return Column(
       children: <Widget>[
-        DDComponent.tagAndTextVertical('dd_dealResult', Provider.of<DDDetailViewModel>(context).detailModel?.processingresult,color: Colors.red,bgColor: KColor.zebraColor2) ,
+        Offstage(
+          offstage: hideResult,
+          child: DDComponent.tagAndTextVertical('dd_dealResult', Provider.of<DDDetailViewModel>(context).detailModel?.processingresult,color: Colors.red,bgColor: KColor.zebraColor2) ,),
+
         DDComponent.tagAndTextHorizon('dd_dealDate', Provider.of<DDDetailViewModel>(context).detailModel?.zzcldate,textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
         DDComponent.tagAndTextHorizon('dd_dealPerson', Provider.of<DDDetailViewModel>(context).detailModel?.zzcluser,textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
       ],
@@ -314,9 +321,15 @@ class _DDDetailState extends State<DDDetail> {
       SizedBox(height: 10,),
       OperationButton.createButton('dd_audit_btn',
                 ()async{
+                  if (_loadingDialog == null) {
+                    _loadingDialog = LoadingDialogUtil.createProgressDialog(context);
+                  }
+                  await _loadingDialog.show();
                 bool success= await approveVM.approve(detailVM.detailModel.ddid,_dateTextField.text);
                 if(success){
-                  Navigator.of(context).pop();
+                  _loadingDialog.hide().whenComplete((){
+                    Navigator.of(context).pop();
+                  });
                 }
 
             },size: Size(double.infinity, 120)),
@@ -347,9 +360,17 @@ class _DDDetailState extends State<DDDetail> {
           Expanded(child: OperationButton.createButton('temporary_dd_deleteButton',
                   ()async{
                 //删除DD（是否发送omis）
-                  bool deleteSuccess=  await deleteVM.delete(detailVM.detailModel.ddid);
+                    if (_loadingDialog == null) {
+                      _loadingDialog = LoadingDialogUtil.createProgressDialog(context);
+                    }
+                    await _loadingDialog.show();
+                  bool deleteSuccess=  await deleteVM.delete(detailVM.detailModel.ddid,ddLB: 'DD');
                   if(deleteSuccess){
-                    Navigator.of(context).pop();
+                    _loadingDialog.hide().whenComplete((){
+                      Navigator.of(context).pop();
+                    });
+                  }else{
+                    _loadingDialog.hide();
                   }
               },state:transfer? DDOperateButtonState.enable:DDOperateButtonState.able,size: Size(ScreenUtil.screenWidth/3.0-10,120)),),
           Expanded(child: OperationButton.createButton('dd_delay_btn',
@@ -438,7 +459,7 @@ class _DDDetailState extends State<DDDetail> {
       //批准
       approveWidget(),
       //处理结果
-      dealResult(),
+      dealResult(hideResult: true),
     ],);
   }
   Widget bottomWidget(){

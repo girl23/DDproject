@@ -15,6 +15,8 @@ import 'package:provider/provider.dart';
 import 'package:lop/component/no_more_data_widget.dart';
 import 'package:lop/model/dd/dd_list_model.dart';
 import 'package:lop/utils/date_util.dart';
+import 'package:progress_dialog/progress_dialog.dart';
+import 'package:lop/utils/loading_dialog_util.dart';
 class DDListPage extends StatefulWidget {
   @override
   _DDListPageState createState() => _DDListPageState();
@@ -33,9 +35,10 @@ class _DDListPageState extends State<DDListPage> {
   String ddState;
   var _scaffoldkey = new GlobalKey<ScaffoldState>();
   refresh.EasyRefreshController _refreshController;
-  DDListViewModel _listVM;
-  int currentPage=1;
-  //处理状态
+  DDListViewModel _listVM;//列表模型
+  int currentPage=1;//当前页面
+  ProgressDialog _loadingDialog;
+  //处理dd状态
   String dealState(String state){
     if(state=="0"||state=="9"){
       return "un_close";
@@ -61,7 +64,6 @@ class _DDListPageState extends State<DDListPage> {
   }
   //body
   Widget temporaryDDBody(){
-
     Widget _noDataView(){
       return Expanded(
         child:
@@ -131,7 +133,6 @@ class _DDListPageState extends State<DDListPage> {
                 String bgdate=DateUtil.formateYMD_seconds(model.zzbgdt);
                 return DDListItem(temporaryDDNumber:model.zzblno??'',planeNumber:model.zzmsgrp??'',createDate: bgdate ,temporaryDDState:stateStr,itemClick: (){
                   //新建临保
-
                      Application.router.navigateTo(
                       context,
                       "/dDDDetailPage/"+stateStr+"/"+model.ddid.toString(),
@@ -176,18 +177,15 @@ class _DDListPageState extends State<DDListPage> {
     _refreshController= refresh.EasyRefreshController();
     _listVM=Provider.of<DDListViewModel>(context,listen: false);
     _listVM.getList('DD',page: currentPage.toString());
-
   }
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       key: _scaffoldkey,
       appBar: AppBar(
         title:Text(Translations.of(context).text('dd_list_page'), style: TextThemeStore.textStyleAppBar,),
         actions: <Widget>[
           Container(
-
             width: 35,
             height: 35,
             child: IconButton(
@@ -219,6 +217,15 @@ class _DDListPageState extends State<DDListPage> {
         child: DDDrawerWidget('DD',textFieldNodes: this._textFieldNodes,numberFocusNode: _numberFocusNode,numberController: _numberController,
           planeNoFocusNode: _planeNoFocusNode,planeNoController: _planeNoController,valueChanged: (val){
             _dropValueForState=val;
+          },sureBtnClick: ()async{
+            if (_loadingDialog == null) {
+              _loadingDialog = LoadingDialogUtil.createProgressDialog(context);
+            }
+            await _loadingDialog.show();
+            //确认搜索
+            _listVM=Provider.of<DDListViewModel>(context,listen: false);
+            _listVM.getList('DD',all:false,page:this.currentPage.toString(),ddNo:_numberController.text,acReg: _planeNoController.text,state:_dropValueForState);
+            Navigator.pop(context);
           },)//temporaryDDDrawer(),
       ),
       body:temporaryDDBody(),

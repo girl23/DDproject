@@ -43,6 +43,8 @@ import 'package:lop/viewmodel/dd/deal_result_viewmodel.dart';
 import 'package:lop/viewmodel/dd/delay_dd_viewmodel.dart';
 import 'package:lop/viewmodel/dd/transfer_viewmodel.dart';
 import 'package:lop/router/routes.dart';
+import 'package:progress_dialog/progress_dialog.dart';
+import 'package:lop/utils/loading_dialog_util.dart';
 
 class AddDD extends StatefulWidget {
   final comeFromPage fromPage;
@@ -172,6 +174,7 @@ class _AddDDState extends State<AddDD> {
  DDDetailViewModel detailVM;
  DealResultViewModel dealResultVM;
  DelayDDViewModel delayVM;
+ ProgressDialog _loadingDialog;
  Widget createUI(BuildContext context){
 
     return Column(
@@ -193,7 +196,7 @@ class _AddDDState extends State<AddDD> {
                 //维修单位代码
                 MBCode(widget.fromPage,valueChanged: (val){
                   _dropValueForMBCode=val;
-                },defaultValue: _dropValueForMBCode,times:detailVM.detailModel.zztimes,),
+                },defaultValue: _dropValueForMBCode,times:detailVM.detailModel?.zztimes,),
                 //保留故障编号
                 DDComponent.tagImageAndTextFieldWithNa('dd_number1', _numberFocusNode,_numberController,_textFieldNodes,imgStr: 'assets/images/gz.png'),
                 //工作指令号
@@ -390,7 +393,11 @@ class _AddDDState extends State<AddDD> {
                 FocusScope.of(context).requestFocus(FocusNode());
                 //校验
 //                _checkInput();
-                NormalDDTools().deleteNormalDD('2222', widget.fromPage.toString());
+//                NormalDDTools().deleteNormalDD('2222', widget.fromPage.toString());
+                if (_loadingDialog == null) {
+                  _loadingDialog = LoadingDialogUtil.createProgressDialog(context);
+                }
+                await _loadingDialog.show();
                 if(widget.fromPage==comeFromPage.fromTemporaryTransfer){
                   //临保转dd
                  bool transferSuccess= await transferDDVM.transferDD(detailVM.detailModel.ddid,
@@ -444,18 +451,26 @@ class _AddDDState extends State<AddDD> {
                     applicant: Provider.of<UserViewModel>(context, listen: false).info.username,);
                  //访问接口拿取流水号，填写处理结果
                  if(transferSuccess){
-                   ddDialog(context,title: '流水号:30203008085',buttonText: '确认',tagName: 'dd_dealResult',node: _dealResultNode,controller: _dealResultController,onTap:()async{
+                   ddDialog(context,title: '流水号:30203008085',buttonText: Translations.of(context).text('confirm'),tagName: 'dd_dealResult',node: _dealResultNode,controller: _dealResultController,onTap:()async{
                      //提交处理结果
                     bool success=await dealResultVM.result(detailVM.detailModel.ddid,_dealResultController.text);
                     if(success){
-//                      Navigator.pop(context,'1');
-
-                      Navigator.popUntil(context,  ModalRoute.withName(Routes.dDListPage));
+                    _loadingDialog.hide().whenComplete((){
+                      for(int i=0; i<2; i++){
+                        Navigator.pop(context);
+                      }
+                    });
+                    }
+                    else{
+                      _loadingDialog.hide();
                     }
                      //已转未审批，临保界面显示处理结果，并禁用按钮
                    });
+                 }else{
+                   _loadingDialog.hide();
                  }
-                }else if(widget.fromPage==comeFromPage.fromDDTransfer){
+                }
+                else if(widget.fromPage==comeFromPage.fromDDTransfer){
                //访问接口拿取流水号，填写处理结果
                   bool transferSuccess= await transferVM.transfer(detailVM.detailModel.ddid,
                     mbCode: _dropValueForMBCode,
@@ -508,20 +523,31 @@ class _AddDDState extends State<AddDD> {
                     applicant: Provider.of<UserViewModel>(context, listen: false).info.username,);
                   //访问接口拿取流水号，填写处理结果
                   if(transferSuccess){
-                    ddDialog(context,title: '流水号:30203008085',buttonText: '确认',tagName: 'dd_dealResult',node: _dealResultNode,controller: _dealResultController,onTap:()async{
-
+                    ddDialog(context,title: '流水号:30203008085',buttonText: Translations.of(context).text('confirm'),tagName: 'dd_dealResult',node: _dealResultNode,controller: _dealResultController,onTap:()async{
                       //提交处理结果
                       bool success=await dealResultVM.result(detailVM.detailModel.ddid,_dealResultController.text);
-
                       if(success){
-//                        Navigator.pop(context,'1');
-                        Navigator.popUntil(context,  ModalRoute.withName(Routes.dDListPage));
+//                      Navigator.pop(context,'1');
+
+//                      Navigator.popUntil(context, ModalRoute.withName(Routes.dDListPage));
+                        _loadingDialog.hide().whenComplete((){
+                          for(int i=0; i<2; i++){
+                            Navigator.pop(context);
+                          }
+                        });
+
+                      }
+                      else{
+                        _loadingDialog.hide();
                       }
                       //已转未审批，临保界面显示处理结果，并禁用按钮
                     });
+                  }else{
+                    _loadingDialog.hide();
                   }
-                }else if(widget.fromPage==comeFromPage.fromDDDelay){
-                  bool transferSuccess= await delayVM.delay(detailVM.detailModel.ddid,
+                }
+                else if(widget.fromPage==comeFromPage.fromDDDelay){
+                  bool success= await delayVM.delay(detailVM.detailModel.ddid,
                     mbCode: _dropValueForMBCode,
                     number:_numberController.text,
                     workON: _workNoController.text,
@@ -571,24 +597,35 @@ class _AddDDState extends State<AddDD> {
                     applyDate: _applyDateController.text,
                     applicant: Provider.of<UserViewModel>(context, listen: false).info.username,);
                   //访问接口拿取流水号，填写处理结果
-                  if(transferSuccess){
-                    ddDialog(context,title: '流水号:30203008085',buttonText: '确认',tagName: 'dd_dealResult',node: _dealResultNode,controller: _dealResultController,onTap:()async{
-
+                  if(success){
+                    ddDialog(context,title: '流水号:30203008085',buttonText: Translations.of(context).text('confirm'),tagName: 'dd_dealResult',node: _dealResultNode,controller: _dealResultController,onTap:()async{
                       //提交处理结果
                       bool success=await dealResultVM.result(detailVM.detailModel.ddid,_dealResultController.text);
-
                       if(success){
-//                        Navigator.pop(context,'1');
-                        Navigator.popUntil(context,  ModalRoute.withName(Routes.dDListPage));
+//                      Navigator.pop(context,'1');
+
+//                      Navigator.popUntil(context, ModalRoute.withName(Routes.dDListPage));
+                        _loadingDialog.hide().whenComplete((){
+                          for(int i=0; i<2; i++){
+                            Navigator.pop(context);
+                          }
+                        });
+
+                      }
+                      else{
+                        _loadingDialog.hide();
                       }
                       //已转未审批，临保界面显示处理结果，并禁用按钮
                     });
+                  }else{
+                    _loadingDialog.hide();
                   }
 
-                }else if(widget.fromPage==comeFromPage.fromNewAdd){
+                }
+                else if(widget.fromPage==comeFromPage.fromNewAdd){
                   //新增提交数据到后台；
 
-                  addModel.addDD('DD',
+                  bool success= await  addModel.addDD('DD',
                       mbCode: _dropValueForMBCode,
                       number:_numberController.text,
                       workON: _workNoController.text,
@@ -600,7 +637,7 @@ class _AddDDState extends State<AddDD> {
                       startDate: _startDateController.text,
                       totalHour: _totalHourController.text,
                       totalCycle: _totalCycleController.text,
-                      spaceDay:int.parse(_dayController.text),
+//                      spaceDay:int.parse(_dayController.text),
                       spaceHour:_hourController.text,
                       spaceCycle: _cycleController.text,
                       endDate: _endDateController.text,
@@ -638,6 +675,14 @@ class _AddDDState extends State<AddDD> {
                       applyDate: _applyDateController.text,
                       applicant: Provider.of<UserViewModel>(context, listen: false).info.username,
                   );
+                  if(success){
+                    _loadingDialog.hide().whenComplete((){
+                        Navigator.pop(context);
+                    });
+
+                  }else{
+                    _loadingDialog.hide();
+                  }
                 }else if(widget.fromPage==comeFromPage.fromTaskListAdd){
                 }
               }, size: Size(double.infinity,120),),
@@ -724,7 +769,6 @@ class _AddDDState extends State<AddDD> {
    //临保转DD
     _planeNoController.text=detailVM.detailModel?.zzmsgrp;//'B-1234';
     _describeController.text=detailVM.detailModel?.zzgzms;//'三角函数公式,三角函数是一个重要的知识点,尤其在生活应用中具有举足轻重的作用!三角函数包括ico,ta,cot,以及arcta,arcco,等等。他们之间是如何换算的';
-
   }
   void dataForDDTransfer(){
    //DD转办
@@ -732,17 +776,76 @@ class _AddDDState extends State<AddDD> {
     _fromController.text=detailVM.detailModel?.zzblno;
   }
   void dataForDDDelay(){
-   String influenceStr;
-   if(detailVM.detailModel.zzyxfwcd=='0'){
-     influenceStr='严重';
-   }else if(detailVM.detailModel.zzyxfwcd=='1'){
-     influenceStr='一般';
-   }else if(detailVM.detailModel.zzyxfwcd=='2'){
-     influenceStr='不影响';
+    //DD延期
+   //影响程度
+    String tempStr;
+    if(detailVM.detailModel.zzyxfwcd=='严重'){
+      tempStr="0";
+    }else if(detailVM.detailModel.zzyxfwcd=='一般'){
+      tempStr="1";
+    }else if(detailVM.detailModel.zzyxfwcd=='不影响'){
+      tempStr="2";
+    }
+    //依据类型
+    String tempStr2;
+   if(detailVM.detailModel.zzrectype=='MEL'){
+     tempStr2='0';
+   }else if(detailVM.detailModel.zzrectype=='CDL'){
+     tempStr2='1';
+   }else if(detailVM.detailModel.zzrectype=='其它'){
+     tempStr2='2';
    }
-
-   //DD延期
-     _dropValueForEvidence=detailVM.detailModel.zzrectype;//'DEL';
+//   查看本地是否有数据，有不再存储，没有先本地缓存
+    DDCacheUtil.cacheData('dd_influence',tempStr);
+    DDCacheUtil.cacheData('dd_evidence_type',tempStr2);
+    DDCacheUtil.cacheData('dd_keep_faultCategory',detailVM.detailModel.zzblclf);
+    if(detailVM.detailModel.zzrescode.contains('OI')){
+      DDCacheUtil.cacheData('dd_oi','1');
+      _checkValueOIOption=true;
+    }else if(detailVM.detailModel.zzrescode.contains('LS')){
+      DDCacheUtil.cacheData('dd_ls','1');
+      _checkValueLSOption=true;
+    }else if(detailVM.detailModel.zzrescode.contains('SG')){
+      DDCacheUtil.cacheData('dd_sg','1');
+      _checkValueSGOption=true;
+    }else if(detailVM.detailModel.zzrescode.contains('SP')){
+      DDCacheUtil.cacheData('dd_sp','1');
+      _checkValueSPOption=true;
+    }
+//    if(normalDDDbModel.ddInfluence==null){
+//      DDCacheUtil.cacheData('dd_influence',tempStr);
+//    }
+//    if(normalDDDbModel.ddEvidence==null){
+//      DDCacheUtil.cacheData('dd_evidence_type',tempStr2);
+//    }
+//    if(normalDDDbModel.ddFaultCategory==null){
+//      DDCacheUtil.cacheData('dd_keep_faultCategory',detailVM.detailModel.zzblclf);
+//    }
+//    if(detailVM.detailModel.zzrescode.contains('OI')){
+//      if(normalDDDbModel.ddOI==null){
+//        DDCacheUtil.cacheData('dd_oi','1');
+//      }
+//
+//      _checkValueOIOption=true;
+//    }else if(detailVM.detailModel.zzrescode.contains('LS')){
+//      if(normalDDDbModel.ddLS==null){
+//        DDCacheUtil.cacheData('dd_ls','1');
+//      }
+//      _checkValueLSOption=true;
+//    }else if(detailVM.detailModel.zzrescode.contains('SG')){
+//      if(normalDDDbModel.ddSG==null){
+//        DDCacheUtil.cacheData('dd_sg','1');
+//      }
+//      _checkValueSGOption=true;
+//    }else if(detailVM.detailModel.zzrescode.contains('SP')){
+//      if(normalDDDbModel.ddSP==null){
+//        DDCacheUtil.cacheData('dd_sp','1');
+//      }
+//      _checkValueSPOption=true;
+//    }
+    //     _dropValueForEvidence=tempStr2;//'DEL';
+//    _dropValueForFaultCategory=detailVM.detailModel.zzblclf;
+//    _dropValueForInfluence="1";//tempStr;
     _planeNoController.text=detailVM.detailModel.zzmsgrp;
     _workNoController.text=detailVM.detailModel.zzwo;//'c2222';
     _needParkingTimeController.text=detailVM.detailModel.zzytsj;//'2h';
@@ -752,20 +855,10 @@ class _AddDDState extends State<AddDD> {
     _chapter1Controller.text=detailVM.detailModel.zzatazj;//'22';
     _chapter2Controller.text=detailVM.detailModel.zzatazj2;//'22';
     _chapter3Controller.text=detailVM.detailModel.zztatzj3;//'234';
-    _dropValueForFaultCategory=detailVM.detailModel.zzblclf;
-    _dropValueForInfluence=detailVM.detailModel.zzyxfwcd;
     _faultNumController.text=detailVM.detailModel.falqty;//'2';
     _releaseNumController.text=detailVM.detailModel.relqty;//'2';
     _installNumController.text=detailVM.detailModel.instqty;//'3';
-    if(detailVM.detailModel.zzrescode.contains('OI')){
-      _checkValueOIOption=true;
-    }else if(detailVM.detailModel.zzrescode.contains('LS')){
-      _checkValueLSOption=true;
-    }else if(detailVM.detailModel.zzrescode.contains('SG')){
-      _checkValueSGOption=true;
-    }else if(detailVM.detailModel.zzrescode.contains('SP')){
-      _checkValueSPOption=true;
-    }
+    fetchNormalDDModel();
 
   }
   setUIFor() async{
@@ -777,13 +870,15 @@ class _AddDDState extends State<AddDD> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    transferDDVM=new TransferDDViewModel();
-    transferVM=new TransferViewModel();
+    setUIFor();//告诉缓存是临保还是DD
     detailVM=Provider.of<DDDetailViewModel>(context,listen: false);
-    addModel= new AddDDViewModel();
-    dealResultVM=new DealResultViewModel();
-    delayVM=new DelayDDViewModel();
-    setUIFor();
+    transferDDVM=new TransferDDViewModel();//临保转DD
+    transferVM=new TransferViewModel();//DD转办
+    delayVM=new DelayDDViewModel();//DD延期
+    addModel= new AddDDViewModel();//新增DD
+    dealResultVM=new DealResultViewModel();//处理结果，用于临保转办延期
+    //查看是否有缓存数据
+    fetchNormalDDModel();
     if(widget.fromPage==comeFromPage.fromTemporaryTransfer){
       //临保转办
       dataForTemporaryTransfer();
@@ -842,7 +937,7 @@ class _AddDDState extends State<AddDD> {
       null,'dd_other_describe',null,'dd_chapter_no1','dd_chapter_no2','dd_chapter_no3','dd_chapter_no4','dd_chapter_no5',_titleForDateSelect,null
     ];
     addListener();
-    fetchNormalDDModel();
+
 }
   void addListener(){
    this._textFieldNodes.forEach((node){
@@ -924,6 +1019,7 @@ class _AddDDState extends State<AddDD> {
       }
     }
   }
+  //获取本地缓存数据
   Future<void> fetchNormalDDModel() async {
     normalDDDbModel = await NormalDDTools().queryNormalDD('2222',widget.fromPage.toString());//await NormalDDTools().queryNormalDD('2222',widget.fromPage.toString());
 
@@ -972,6 +1068,7 @@ class _AddDDState extends State<AddDD> {
       _checkValueAMCOption=normalDDDbModel.ddNeedAmc==1?true:false;
       _checkValueKeepFoldOption=normalDDDbModel.ddNeedKeepToFold==1?true:false;
       _checkValueRepeatInspectionOption=normalDDDbModel.ddNeedKeepRepeatInspection==1?true:false;
+      //延期不从本地获取的数据
       _dropValueForEvidence=normalDDDbModel.ddEvidence;
       _chapterNo1Controller.text =normalDDDbModel.ddChapterNo1;
       _chapterNo2Controller.text =normalDDDbModel.ddChapterNo2;
@@ -1014,7 +1111,6 @@ void dispose() {
  }
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
         appBar: AppBar(
         leading: IconButton(

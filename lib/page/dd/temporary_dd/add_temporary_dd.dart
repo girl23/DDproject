@@ -29,7 +29,8 @@ import 'package:lop/page/dd/dd_card_decoration.dart';
 import 'package:lop/page/dd/dd_calculate_date_provide.dart';
 import 'package:provider/provider.dart';
 import 'package:lop/viewmodel/dd/add_dd_viewmodel.dart';
-
+import 'package:progress_dialog/progress_dialog.dart';
+import 'package:lop/utils/loading_dialog_util.dart';
 class AddTemporaryDD extends StatefulWidget {
   @override
   _AddTemporaryDDState createState() => _AddTemporaryDDState();
@@ -113,15 +114,15 @@ class _AddTemporaryDDState extends State<AddTemporaryDD> {
  TextEditingController _chapterNo4Controller = new TextEditingController();
  TextEditingController _chapterNo5Controller = new TextEditingController();
  //时间选择器
- DateTimePicker _ddTimePicker=new DateTimePicker();
- List _textFieldNodes;
+  DateTimePicker _ddTimePicker=new DateTimePicker();
+  List _textFieldNodes;
   List _controllers;
   List _textFieldTagNames;
   int lastIndex;
   FocusNode lastNode;
   TempDDDbModel tempDDDbModel;
   AddDDViewModel addModel;
-
+  ProgressDialog _loadingDialog;
  Widget createUI(BuildContext context){
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -273,20 +274,21 @@ class _AddTemporaryDDState extends State<AddTemporaryDD> {
           alignment: Alignment.centerRight,
           child: OperationButton.createButton('dd_add',
               ()async{
+
                 FocusScope.of(context).requestFocus(FocusNode());
                 //校验
 //                _checkInput();
                 //清除本地数据库
-                bool success= await TempDDTools().deleteTempDD('2222');
+//                bool success= await TempDDTools().deleteTempDD('2222');
                 //清除Provider
-                Provider.of<DDCalculateProvide>(context,listen: false).clearTempData();
+//                Provider.of<DDCalculateProvide>(context,listen: false).clearTempData();
                 //新增提交数据到后台；
                 String keepReason='';
                 if(_checkValueOIOption)keepReason+='OI';
                 if(_checkValueLSOption)keepReason+='LS';
                 if(_checkValueSGOption)keepReason+='SG';
                 if(_checkValueSPOption)keepReason+='SP';
-                addModel.addDD('LB',number:_numberController.text,
+                bool addSuccess= await addModel.addDD('LB',number:_numberController.text,
                     planeNo: _planeNoController.text,
                     keepPerson: _keepPersonController.text,
                     phone: _phoneNumberController.text,
@@ -322,7 +324,10 @@ class _AddTemporaryDDState extends State<AddTemporaryDD> {
                     chapterNo2: _chapterNo2Controller.text,
                     chapterNo3: _chapterNo3Controller.text,
                     chapterNo4: _chapterNo4Controller.text,
-                    chapterNo5: _chapterNo5Controller.text);
+                    chapterNo5: _chapterNo5Controller.text,);
+                if(addSuccess){
+                 Navigator.of(context).pop();
+                }
               }, size: Size(double.infinity,120),),
         )
       ],

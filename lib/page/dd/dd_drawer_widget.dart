@@ -6,6 +6,7 @@ import 'package:lop/page/dd/operation_button_util.dart';
 import 'package:lop/viewmodel/dd/ddlist_viewmodel.dart';
 import 'package:provider/provider.dart';
 typedef ValueChanged<T> = void Function(T value);
+typedef SureBtnClick = void Function();
 class DDDrawerWidget extends StatefulWidget {
   final String type;
   final ValueChanged valueChanged;
@@ -14,9 +15,10 @@ class DDDrawerWidget extends StatefulWidget {
   final TextEditingController numberController;
   final FocusNode planeNoFocusNode;
   final TextEditingController planeNoController;
+  final SureBtnClick  sureBtnClick;
 
   DDDrawerWidget(this.type,{this.valueChanged, this.textFieldNodes, this.numberFocusNode,
-    this.numberController, this.planeNoFocusNode, this.planeNoController});
+    this.numberController, this.planeNoFocusNode, this.planeNoController,this.sureBtnClick});
   @override
   _DDDrawerWidgetState createState() => _DDDrawerWidgetState();
 }
@@ -71,10 +73,11 @@ class _DDDrawerWidgetState extends State<DDDrawerWidget> {
           },imgStr: 'assets/images/ss3.png',),
           SizedBox(height: 20,),
             OperationButton.createButton('dd_sureButton', (){
+              widget.sureBtnClick();
               //确认搜索
-              _listVM=Provider.of<DDListViewModel>(context,listen: false);
-              _listVM.getList(widget.type,all:false,page:'1',ddNo:widget.numberController.text,acReg: widget.planeNoController.text,state:dropValue);
-              Navigator.pop(context);
+//              _listVM=Provider.of<DDListViewModel>(context,listen: false);
+//              _listVM.getList(widget.type,all:false,page:'1',ddNo:widget.numberController.text,acReg: widget.planeNoController.text,state:dropValue);
+//              Navigator.pop(context);
             },size: Size(double.infinity,120)),
         ],
       ),

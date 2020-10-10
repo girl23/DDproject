@@ -41,8 +41,8 @@ class Element {
 
   ///临保/dd列表
   static const String DD_LB = "ddlb";
-  static const String DD_NO = "ddNo";
-  static const String acReg = "acReg";
+  static const String DD_NO = "ddno";
+  static const String acReg = "acreg";
   static const String state = "state";
   ///新增临保
   static const String FORM_TYPE= "zzbltyp";
@@ -57,9 +57,9 @@ class Element {
   static const String SPACE_HOUR = "zzblfxxs";
   static const String SPACE_CYC = "zzblfxxh";
   static const String DESCRIBE = "zzgzms";
-  static const String KEEP_MEASURE = "ddreport";
-  static const String NAME = "toolname";
-  static const String JNO = "partno";
+  static const String KEEP_MEASURE = "ddReport";//
+  static const String NAME = "toolName";//
+  static const String JNO = "partNo";//
   static const String FAULT_NUM = "falqty";
   static const String RELEASE_NUM = "relqty";
   static const String INSTALL_NUM = "instqty";
@@ -78,7 +78,7 @@ class Element {
   static const String RUN_LIMIT = "operatingLimits";
   static const String AMC = "zzamcfg";
   static const String KEEP_REASON = "zzrescode";
-  static const String EVIDENCE_TYPE = "zzrectype";
+  static const String EVIDENCE_TYPE = "zzrecType";
   static const String CHAPTER_NO1 = "zzmel";
   static const String CHAPTER_NO2 = "zzmel2";
   static const String CHAPTER_NO3 = "zzmel3";
@@ -86,7 +86,7 @@ class Element {
   static const String CHAPTER_NO5 = "zzmel5";
   static const String JSON_DATA = "data";
   ///新增dd
-  static const String MB_CODE = "maintenanceunit";
+  static const String MB_CODE = "maintenanceUnit";
   static const String WORK_ON = "zzwo";
   static const String COME_FROM = "zzzzhwj";
   static const String ENG = "sernr";/////
@@ -98,11 +98,11 @@ class Element {
   static const String END_CYCLE = "zzfiblzfc";
   static const String KEEP_FOLD = "zzsffris";
   static const String REPEAT_INSPECTION = "zzifrchk";
-  static const String APPLICANT = "applyby";
-  static const String APPLY_DATE = "applydate";
+  static const String APPLICANT = "applyBy";
+  static const String APPLY_DATE = "applyDate";
   ///转DD
-  static const String entryType = "entrytype";
-  static const String PROCESSING_RESULT = "processingresult";
+  static const String entryType = "entryType";
+  static const String PROCESSING_RESULT = "result";
   ///删除dd
   static const String DD_ID = "ddid";
   ///批准

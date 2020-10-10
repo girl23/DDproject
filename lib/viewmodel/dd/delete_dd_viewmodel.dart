@@ -15,10 +15,11 @@ class DeleteDDViewModel extends BaseViewModel with ChangeNotifier {
   DDListViewModel ddListVM=Provider.of<DDListViewModel>(BaseViewModel.appContext,listen: false);
   DeleteDDService _service = DeleteDDServiceImpl();
 
-  Future<bool> delete(String ddId) async {
+  Future<bool> delete(String ddId,{String ddLB}) async {
     NetworkResponse response = await _service.delete(ddId);
     if (response.isSuccess) {
-      ddListVM.getList('DD',page:'1');
+
+      ddListVM.getList(ddLB,page:'1');
       return true;
     } else {
       ToastUtil.makeToast(response.errorEntity.message);

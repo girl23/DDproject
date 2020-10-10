@@ -16,10 +16,7 @@ class DDListItem extends StatefulWidget {
 }
 
 class _DDListItemState extends State<DDListItem> {
-
-
-
-
+  //状态文字颜色
   Color fontColor(){
     if(widget.temporaryDDState=='un_close'||widget.temporaryDDState=='to_Audit'||widget.temporaryDDState=='forTroubleShooting'||widget.temporaryDDState=='for_inspection'){
       return Colors.blue;

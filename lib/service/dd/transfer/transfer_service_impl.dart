@@ -65,7 +65,7 @@ class TransferServiceImpl extends BaseService implements TransferService{
     params.addAll({Element.END_CYCLE:endCycle});
     params.addAll({Element.KEEP_FOLD:keepFold});
     params.addAll({Element.REPEAT_INSPECTION:repeatInspection});
-    params.addAll({Element.APPLICANT:applicant});
+//    params.addAll({Element.APPLICANT:applicant});
     params.addAll({Element.APPLY_DATE:applyDate});
     params.addAll({Element.entryType:entryType});
 

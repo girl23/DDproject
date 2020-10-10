@@ -5,21 +5,23 @@ import 'package:lop/utils/toast_util.dart';
 import 'package:lop/service/dd/add/add_dd_service.dart';
 import 'package:lop/service/dd/add/add_dd_service_impl.dart';
 import 'package:lop/viewmodel/dd/ddlist_viewmodel.dart';
+import 'package:provider/provider.dart';
 class AddDDViewModel extends BaseViewModel with ChangeNotifier{
   DDListViewModel ddListVM=new DDListViewModel();
   //获取列表数据
   AddDDService _service = AddDDServiceImpl();
   Future<bool> addDD(String ddLB, {String number, String planeNo, String keepPerson, String phone, String fax, String reportDate, String reportPlace, int spaceDay, String spaceHour, String spaceCycle, String describe, String keepMeasure, String name, String jno, String faultNum, String inStallNum, String releaseNum, String chapter1, String chapter2, String chapter3, String faultCategory, String influence, String parkingTime, String workHour,String planner ,String o, String other, String otherDescribe, String m, String aMC, String runLimit, String keepReason, String evidenceType, String chapterNo1, String chapterNo2, String chapterNo3, String chapterNo4, String chapterNo5,
-    String mbCode,String workON,String comeFrom,String eng,String startDate,String totalHour, String totalCycle,String endDate,String endHour,String endCycle,String keepFold,String repeatInspection,String applicant,String applyDate }) async{
+    String mbCode,String workON,String comeFrom,String eng,String startDate,String totalHour, String totalCycle,String endDate,String endHour,String endCycle,String keepFold,String repeatInspection,String applicant,String applyDate,DDListViewModel listVM }) async{
     NetworkResponse response;
-
+    DDListViewModel _listVM;
+    _listVM=Provider.of<DDListViewModel>(BaseViewModel.appContext,listen: false);
     if(ddLB=='LB'){
-      number='临保编号123';
-      planeNo='B-1234';
+      number='666';
+      planeNo='B-16666';
       keepPerson='保留人员周周';
       phone='15187772765';
       fax='028-88888888';
-      reportDate='2020-09-30';
+      reportDate='2020-10-10';
       reportPlace='CFH';
       spaceDay=1;
       spaceHour='2';
@@ -96,14 +98,14 @@ class AddDDViewModel extends BaseViewModel with ChangeNotifier{
 
    }else{
       mbCode='1';
-      number='DD-1231414';
-      workON='指令-1234';
+      number='DD-7777';
+      workON='指令-777';
       comeFrom='comefrom123';
-      planeNo='B-1235';
+      planeNo='B-777';
       eng='APU123141';
-      reportDate='2012-02-02';
+      reportDate='2020-10-10';
       reportPlace='CFH';
-      startDate='2020-09-30';
+      startDate='2020-10-11';
       totalHour='10';
       totalCycle='10';
       spaceDay=1;
@@ -141,6 +143,8 @@ class AddDDViewModel extends BaseViewModel with ChangeNotifier{
       chapterNo3='chapterNo3';
       chapterNo4='chapterNo4';
       chapterNo5='chapterNo5';
+      applicant='zhouzhou';
+      applyDate='2020-10-09';
      response =  await _service.addDD('DD',
          mbCode: mbCode,
          number:number,
@@ -195,7 +199,12 @@ class AddDDViewModel extends BaseViewModel with ChangeNotifier{
 
     if(response.isSuccess){
       if (response.data.result == 'success') {
-        ddListVM.getList('DD',page:'1');
+        if(ddLB=='LB'){
+          _listVM.getList('LB',page: '1');
+        }else{
+
+          _listVM.getList('DD',page: '1');
+        }
         return true;
       }else{
         return false;

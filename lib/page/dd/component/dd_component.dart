@@ -188,7 +188,7 @@ class DDComponent{
           textAlignment=='spaceBetween'?Container(): SizedBox(width: 15,),
           Container(
             alignment: Alignment.centerRight,//Alignment.centerLeft,
-            child:Text(value,style: TextStyle(fontSize: KFont.formTitle,color: color)),
+            child:Text((value!=null)?value:'',style: TextStyle(fontSize: KFont.formTitle,color: color)),
           ),
 
         ],
