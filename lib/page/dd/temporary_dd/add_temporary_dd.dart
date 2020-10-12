@@ -31,6 +31,7 @@ import 'package:provider/provider.dart';
 import 'package:lop/viewmodel/dd/add_dd_viewmodel.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:lop/utils/loading_dialog_util.dart';
+import 'package:lop/viewmodel/user_viewmodel.dart';
 class AddTemporaryDD extends StatefulWidget {
   @override
   _AddTemporaryDDState createState() => _AddTemporaryDDState();
@@ -277,17 +278,28 @@ class _AddTemporaryDDState extends State<AddTemporaryDD> {
 
                 FocusScope.of(context).requestFocus(FocusNode());
                 //校验
-//                _checkInput();
-                //清除本地数据库
-//                bool success= await TempDDTools().deleteTempDD('2222');
-                //清除Provider
-//                Provider.of<DDCalculateProvide>(context,listen: false).clearTempData();
+                _checkInput();
+                if (_loadingDialog == null) {
+                  _loadingDialog = LoadingDialogUtil.createProgressDialog(context);
+                }
+                await _loadingDialog.show();
+
                 //新增提交数据到后台；
                 String keepReason='';
                 if(_checkValueOIOption)keepReason+='OI';
                 if(_checkValueLSOption)keepReason+='LS';
                 if(_checkValueSGOption)keepReason+='SG';
                 if(_checkValueSPOption)keepReason+='SP';
+                //
+                String spaceDay;
+                RegExp exp = RegExp(
+                    r"^[0-9]+$");
+                bool matched = exp.hasMatch(_dayController.text);
+                  if(matched){
+                    spaceDay=_dayController.text;
+                  }else{
+                    spaceDay='0';
+                  }
                 bool addSuccess= await addModel.addDD('LB',number:_numberController.text,
                     planeNo: _planeNoController.text,
                     keepPerson: _keepPersonController.text,
@@ -295,7 +307,7 @@ class _AddTemporaryDDState extends State<AddTemporaryDD> {
                     fax: _faxController.text,
                     reportDate: _reportDateController.text,
                     reportPlace: _reportPlaceController.text,
-//                    spaceDay:int.parse(_dayController.text),
+                    spaceDay:int.parse(spaceDay),
                     spaceHour:_hourController.text,
                     spaceCycle: _cycleController.text,
                     describe: _describeController.text,
@@ -326,7 +338,16 @@ class _AddTemporaryDDState extends State<AddTemporaryDD> {
                     chapterNo4: _chapterNo4Controller.text,
                     chapterNo5: _chapterNo5Controller.text,);
                 if(addSuccess){
-                 Navigator.of(context).pop();
+                  _loadingDialog.hide().whenComplete(()async{
+                    //清除本地数据库==(用户ID)
+                    String userId=Provider.of<UserViewModel>(context, listen: false).info.userId;
+                   bool success= await TempDDTools().deleteTempDD(userId);
+                    //清除Provider
+                   Provider.of<DDCalculateProvide>(context,listen: false).clearTempData();
+                    Navigator.of(context).pop();
+                  });
+                }else{
+                  _loadingDialog.hide();
                 }
               }, size: Size(double.infinity,120),),
         )
@@ -356,6 +377,10 @@ class _AddTemporaryDDState extends State<AddTemporaryDD> {
       ToastUtil.makeToast(Translations.of(context).text('dd_keepPerson_null'));
       return;
     }
+    if(_keepMeasureController.text.length<=0){
+      ToastUtil.makeToast(Translations.of(context).text('dd_keepMeasure_null'));
+      return;
+    }
     if(_faultNumController.text.length<=0){
       ToastUtil.makeToast(Translations.of(context).text('dd_faultNum_null'));
       return;
@@ -380,46 +405,50 @@ class _AddTemporaryDDState extends State<AddTemporaryDD> {
       ToastUtil.makeToast(Translations.of(context).text('dd_useLimit_null'));
       return;
     }
+    if(_checkValueOtherOption==true&&_describeController.text.length<=0){
+      ToastUtil.makeToast(Translations.of(context).text('dd_useLimit_describe_null'));
+      return;
+    }
     if((_dropValueForFaultCategory=='A'||_dropValueForFaultCategory=='B'||_dropValueForFaultCategory=='C'||_dropValueForFaultCategory=='D')&&
         _dayController.text.length<=0&&_hourController.text.length<=0&&_hourController.text.length<=0){
       ToastUtil.makeToast(Translations.of(context).text('dd_day_hour_cycle_null'));
       return;
     }
+    if((_dropValueForEvidence=='0'||_dropValueForEvidence=='1')&&_chapterNo1Controller.text.length<=0){
+      ToastUtil.makeToast(Translations.of(context).text('dd_chapterNo1_null'));
+      return;
+    }
     //错误校验
-    if(_keepPersonController.text.length<18){
-      ToastUtil.makeToast(Translations.of(context).text('dd_keepPerson_error'));
-      return;
-    }
-    if(_phoneNumberController.text.length<=0){
-      ToastUtil.makeToast(Translations.of(context).text('dd_phoneNumber_error'));
-      return;
-    }
-    if(_faxController.text.length<=0){
-      ToastUtil.makeToast(Translations.of(context).text('dd_fax_error'));
-      return;
-    }
-    if(_keepMeasureController.text.length<=0){
-      ToastUtil.makeToast(Translations.of(context).text('dd_keepMeasure_error'));
-      return;
-    }
-    if(_nameController.text.length<=0){
-      ToastUtil.makeToast(Translations.of(context).text('dd_name_error'));
-      return;
-    }
-    if(_jnoController.text.length<=0){
-      ToastUtil.makeToast(Translations.of(context).text('dd_jno_error'));
-      return;
-    }
+//    if(_keepPersonController.text.length<18){
+//      ToastUtil.makeToast(Translations.of(context).text('dd_keepPerson_error'));
+//      return;
+//    }
+//    if(_phoneNumberController.text.length<=0){
+//      ToastUtil.makeToast(Translations.of(context).text('dd_phoneNumber_error'));
+//      return;
+//    }
+//    if(_faxController.text.length<=0){
+//      ToastUtil.makeToast(Translations.of(context).text('dd_fax_error'));
+//      return;
+//    }
+//    if(_keepMeasureController.text.length<=0){
+//      ToastUtil.makeToast(Translations.of(context).text('dd_keepMeasure_error'));
+//      return;
+//    }
+//    if(_nameController.text.length<=0){
+//      ToastUtil.makeToast(Translations.of(context).text('dd_name_error'));
+//      return;
+//    }
+//    if(_jnoController.text.length<=0){
+//      ToastUtil.makeToast(Translations.of(context).text('dd_jno_error'));
+//      return;
+//    }
     //使用限制如果选择了其它，判断复选框长度；
     if(_checkValueRunOption){
-      if(_otherController.text.length<=0){
+      if(_otherController.text.length<=100){
         ToastUtil.makeToast(Translations.of(context).text('dd_other_error'));
         return;
       }
-    }
-    if(_describeController.text.length<=0){
-      ToastUtil.makeToast(Translations.of(context).text('dd_plan_keep_describe_error'));
-      return;
     }
     if(_describeController.text.length<=0){
       ToastUtil.makeToast(Translations.of(context).text('dd_plan_keep_describe_error'));
@@ -499,6 +528,29 @@ class _AddTemporaryDDState extends State<AddTemporaryDD> {
             Provider.of<DDCalculateProvide>(context,listen: false).setCycle(_cycleController.text);
           }
           //数据存储在数据库中
+          //飞机号处理
+          if(lastNode==_planeNoFocusNode){
+            String tempStr=tempController.text;
+            bool hasB= tempStr.startsWith('B-');
+            if(!hasB&&tempController.text.length>0){
+              tempController.text='B-${tempController.text}';
+            }
+          }
+          //添加单位
+          if(tempController.text.length>0&&(lastNode==_needParkingTimeNode ||lastNode==_needWorkHourNode)){
+            //所需停场/工时
+            tempController.text='${tempController.text}H';
+          }
+          //验证是否为三字吗
+          //^[a-zA-Z]$
+          if(lastNode==_reportPlaceFocusNode){
+            RegExp exp1 = RegExp(r"^[A-Za-z]+$");
+            bool matched1 = exp1.hasMatch(tempController.text);
+            if(!matched1){
+              ToastUtil.makeToast(Translations.of(context).text('dd_report_place_error'));
+              tempController.text='';
+            }
+          }
           DDCacheUtil.cacheData(tempTagName, tempController.text);
         }
         if (this.lastNode != tempNode) {
@@ -506,13 +558,11 @@ class _AddTemporaryDDState extends State<AddTemporaryDD> {
           lastIndex=i;
         }
       }
-
     }
-
   }
   Future<void> fetchTempDDModel() async {
-     tempDDDbModel = await TempDDTools().queryTempDD('2222');
-
+    String userId=Provider.of<UserViewModel>(context, listen: false).info.userId;
+     tempDDDbModel = await TempDDTools().queryTempDD(userId);
     if (tempDDDbModel != null) {
         _numberController.text = tempDDDbModel.ddNumber??"";
         _planeNoController.text = tempDDDbModel.ddPlaneNo;
@@ -540,9 +590,6 @@ class _AddTemporaryDDState extends State<AddTemporaryDD> {
         _checkValueSGOption=tempDDDbModel.ddSG==1?true:false;
         _checkValueSPOption=tempDDDbModel.ddSP==1?true:false;
 
-//        _dayController.text =tempDDDbModel.ddDay;
-//        _hourController.text =tempDDDbModel.ddHour;
-//        _cycleController.text =tempDDDbModel.ddCycle;
 
         Provider.of<DDCalculateProvide>(context,listen: false).setDay(tempDDDbModel.ddDay);
         Provider.of<DDCalculateProvide>(context,listen: false).setHour(tempDDDbModel.ddHour);

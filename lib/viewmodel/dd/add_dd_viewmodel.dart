@@ -16,8 +16,8 @@ class AddDDViewModel extends BaseViewModel with ChangeNotifier{
     DDListViewModel _listVM;
     _listVM=Provider.of<DDListViewModel>(BaseViewModel.appContext,listen: false);
     if(ddLB=='LB'){
-      number='666';
-      planeNo='B-16666';
+      number='111';
+      planeNo='B-111';
       keepPerson='保留人员周周';
       phone='15187772765';
       fax='028-88888888';
@@ -101,11 +101,11 @@ class AddDDViewModel extends BaseViewModel with ChangeNotifier{
       number='DD-7777';
       workON='指令-777';
       comeFrom='comefrom123';
-      planeNo='B-777';
+      planeNo='B-0000';
       eng='APU123141';
-      reportDate='2020-10-10';
+      reportDate='2020-10-12';
       reportPlace='CFH';
-      startDate='2020-10-11';
+      startDate='2020-10-13';
       totalHour='10';
       totalCycle='10';
       spaceDay=1;

@@ -18,12 +18,12 @@ import 'package:lop/utils/loading_dialog_util.dart';
 
 // ignore: must_be_immutable
 class TemporaryDDDetail extends StatefulWidget {
-  String trans;
+
   TemporaryDDState state;
   String ddId;
   String stateStr;
 
-  TemporaryDDDetail({this.trans,this.state,this.ddId});
+  TemporaryDDDetail({this.state,this.ddId});
 
   @override
   _TemporaryDDDetailState createState() => _TemporaryDDDetailState();
@@ -159,6 +159,7 @@ class _TemporaryDDDetailState extends State<TemporaryDDDetail> {
     );
   }
   Widget applyWidget(){
+    if(Provider.of<DDDetailViewModel>(context).detailModel==null)return Container();
     return Column(
       children: <Widget>[
         DDComponent.tagAndTextHorizon('dd_applicant', Provider.of<DDDetailViewModel>(context).detailModel?.zzblry , textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
@@ -167,15 +168,20 @@ class _TemporaryDDDetailState extends State<TemporaryDDDetail> {
     );
   }
   //处理结果
-  Widget dealResult(){
+  Widget dealResult({bool hideResult=false}){
+    if(Provider.of<DDDetailViewModel>(context).detailModel==null)return Container();
     return Column(
       children: <Widget>[
-        DDComponent.tagAndTextVertical('dd_dealResult', Provider.of<DDDetailViewModel>(context).detailModel?.processingresult,color: Colors.red,bgColor: KColor.zebraColor2) ,
+        Offstage(
+          offstage: hideResult,
+          child: DDComponent.tagAndTextVertical('dd_dealResult', Provider.of<DDDetailViewModel>(context).detailModel?.processingresult,color: Colors.red,bgColor: KColor.zebraColor2) ,),
+
         DDComponent.tagAndTextHorizon('dd_dealDate', Provider.of<DDDetailViewModel>(context).detailModel?.zzcldate,textAlignment: 'spaceBetween',bgColor: KColor.zebraColor3),
         DDComponent.tagAndTextHorizon('dd_dealPerson', Provider.of<DDDetailViewModel>(context).detailModel?.zzcluser,textAlignment: 'spaceBetween',bgColor: KColor.zebraColor2),
       ],
     );
   }
+
   //未关闭
   Widget uiForUnClose(){
     return Column(children: <Widget>[
@@ -220,7 +226,6 @@ class _TemporaryDDDetailState extends State<TemporaryDDDetail> {
                       context,
                       "/addDDPage/"+'fromTemporaryTransfer',
                       transition: TransitionType.fadeIn).then((val){
-                      widget.trans=val;
                   });
                   //跳转到转DD界面
                 },state:transfer? DDOperateButtonState.enable:DDOperateButtonState.able,size: Size(ScreenUtil.screenWidth,120)),
@@ -231,6 +236,7 @@ class _TemporaryDDDetailState extends State<TemporaryDDDetail> {
   }
   //已关闭/已删除
   Widget uiForClose(){
+
     return Column(children: <Widget>[
       DDComponent.zebraTitle('operation_info'),
       //申请
@@ -239,6 +245,17 @@ class _TemporaryDDDetailState extends State<TemporaryDDDetail> {
       dealResult(),
     ],);
   }
+  Widget uiForDelete(){
+
+    return Column(children: <Widget>[
+      DDComponent.zebraTitle('operation_info'),
+      //申请
+      applyWidget(),
+      //处理结果
+      dealResult(hideResult: true),
+    ],);
+  }
+
 
   Widget bottomWidget(){
     if(widget.state==TemporaryDDState.unClose){
@@ -252,7 +269,7 @@ class _TemporaryDDDetailState extends State<TemporaryDDDetail> {
     }else{
       //已删除
 //      widget.stateStr='已删除';
-      return Container();
+      return uiForDelete();
     }
   }
   void stateStr(){

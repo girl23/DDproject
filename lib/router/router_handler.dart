@@ -146,7 +146,7 @@ Handler temporaryDDDetailPageHandler = Handler(
 
       String ddId=params["ddID"]?.first;
 //      return TemporaryDDDetail(params["transfer"]?.first,state,params["ddID"]?.first);
-      return TemporaryDDDetail(trans:trans,state: state,ddId:ddId,);
+      return TemporaryDDDetail(state: state,ddId:ddId,);
     })
 );
 Handler dDListPageHandler = Handler(
@@ -191,7 +191,7 @@ Handler dDDetailPageHandler = Handler(
       }else if(dDState =='un_close'){
         //未关闭
         state=DDState.unClose;
-      }else if(dDState =='forTroubleshooting') {
+      }else if(dDState =='forTroubleShooting') {
         //待排故
         state=DDState.forTroubleshooting;
       }else if(dDState =='for_inspection') {
@@ -215,6 +215,7 @@ Handler dDDetailPageHandler = Handler(
       } else{state=state=DDState.unClose;}
 
       String ddId=params["ddID"]?.first;
+
       return DDDetail(ddId: ddId,state: state,);
     })
 );

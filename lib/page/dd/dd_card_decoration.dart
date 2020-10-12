@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lop/style/font.dart';
 import 'package:lop/utils/translations.dart';
+import 'package:lop/style/theme/theme_config.dart';
 class DDCardDecoration extends StatefulWidget {
   final Widget childWidget;
   final String title;
@@ -35,7 +36,7 @@ class _DDCardDecorationState extends State<DDCardDecoration> {
                   Container(
                     width:double.infinity,
                     height: 40,
-                    color: Colors.blue,
+                    color: Theme.of(context).primaryColor,
                     child: Container(
                       padding: EdgeInsets.only(left: 15),
                       alignment: Alignment.centerLeft,

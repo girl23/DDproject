@@ -9,8 +9,6 @@ class TempDDTools{
     Database db = await DatabaseUtil.instance.openDb();
     String sql = "INSERT INTO tempDD(dd_userId,$key) VALUES(?,?)";
     int insertId = await db.rawInsert(sql,[userId,value]);
-    TempDDDbModel model =await queryTempDD('2222');
-
     return insertId > 0;
   }
   //删除

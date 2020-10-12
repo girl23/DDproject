@@ -11,6 +11,7 @@ import 'package:lop/database/temp_dd_model.dart';
 import 'package:lop/database/normal_dd_tools.dart';
 import 'package:lop/database/normal_dd_model.dart';
 import 'dart:async';
+import 'package:lop/viewmodel/user_viewmodel.dart';
 
 typedef CalendarClick = void Function(String result);
 class TextAndTextFieldWithCalender extends StatefulWidget {
@@ -40,6 +41,7 @@ class _TextAndTextFieldWithCalenderState extends State<TextAndTextFieldWithCalen
   DateTimePicker _ddTimePicker=new DateTimePicker();
   @override
   Widget build(BuildContext context) {
+    String userId=Provider.of<UserViewModel>(context, listen: false).info.userId;
     return  Consumer<DDCalculateProvide>(builder: (context,calculate,_){
 
       if(widget.firstReportTime??false){
@@ -63,11 +65,11 @@ class _TextAndTextFieldWithCalenderState extends State<TextAndTextFieldWithCalen
             TempDDDbModel model=await fetchTempDDModel();
             if (model == null) {
               //添加一条数据
-              String userId='2222';// Provider.of<UserViewModel>(context, listen: false).info.userId;
+
               await TempDDTools().addTempDD(userId,widget.tagName,DateUtil.formateYMD(val));
             }else{
               //更新数据
-              bool success= await TempDDTools().updateTempDD(widget.tagName,DateUtil.formateYMD(val),'2222');
+              bool success= await TempDDTools().updateTempDD(widget.tagName,DateUtil.formateYMD(val),userId);
             }
           }else{
             //DD
@@ -75,11 +77,10 @@ class _TextAndTextFieldWithCalenderState extends State<TextAndTextFieldWithCalen
             NormalDDDbModel model=await fetchNormalDDModel(fromPage);
             if (model == null) {
               //添加一条数据
-              String userId='2222';
               await NormalDDTools().addNormalDD(userId,widget.tagName,DateUtil.formateYMD(val),fromPage);
             }else{
               //更新数据
-              bool success= await NormalDDTools().updateNormalDD(widget.tagName,DateUtil.formateYMD(val),'2222',fromPage);
+              bool success= await NormalDDTools().updateNormalDD(widget.tagName,DateUtil.formateYMD(val),userId,fromPage);
             }
           }
         },

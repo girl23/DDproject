@@ -14,21 +14,45 @@ typedef CompleteCallback = void Function();
 class DDTextFieldUtil  {
   static Widget ddTextField(BuildContext context,{String tag,double height, List textFieldNodes, FocusNode node,TextEditingController controller,bool hasSuffix,Widget suffix,bool suffixIsIcon=false,bool multiline=false,CompleteCallback completeCallback})
  {
+   bool readOnly=false;
    int lengthLimit;
    double lineHeight;
    TextInputType inputType;
    //文本长度限制
    void limit(){
-     if(tag=='dd_chapter1'||tag=='dd_chapter2'){
+     if(tag=='dd_number'||tag=='dd_number1'){
+       //LB编号/DD编号
+       lengthLimit=12;
+     } else if(tag=='dd_planeNo'){
+       //飞机号
+       lengthLimit=6;//B-自动加入占两位
+     } else if(tag=='dd_keepPerson'){
+       //保留人员
+       lengthLimit=10000;
+     } else if(tag=='dd_phoneNumber'||tag=='dd_fax'){
+       //电话｜传真
+       lengthLimit=15;
+     } else if(tag=='dd_WorkNO'){
+       //电话｜传真
+       lengthLimit=20;
+     }
+     else if(tag=='dd_ENG'){
+       lengthLimit=18;
+     }
+     else if(tag=='dd_faultNum'||tag=='dd_releaseNum'||tag=='dd_installNum'){
+       //数量
+       lengthLimit=13;
+     } else if(tag=='dd_chapter1'||tag=='dd_chapter2'){
        //章节前两数据长度限制
        lengthLimit=2;
      } else if(tag=='dd_chapter3'){
        //章节最后一个字符数据长度限制
        lengthLimit=4;
      }else if(tag=='dd_reportPlace'||tag=='dd_firstReportPlace'){
-
        //临保/dd首次报告地点
        lengthLimit=3;
+     }else if(tag=='dd_other_describe'){
+       lengthLimit=255;
      }
      else if(tag=='dd_plan_keep_time1'||tag=='dd_plan_keep_time3'){
        //天数/循环
@@ -78,7 +102,17 @@ class DDTextFieldUtil  {
      }
 
    }
+   //文本框只读
+   void limitReadOnly(){
+     if(tag=='dd_reportDate'){
+       readOnly=true;
+     }else{
+       readOnly=false;
+     }
+   }
+   limitReadOnly();
    limit();
+
    dealLineHeight();
    limitKeyboard();
    return Container(
@@ -88,7 +122,7 @@ class DDTextFieldUtil  {
         //文本框和操作按钮
         Align(
             child: TextField(
-
+                readOnly: readOnly,
                 focusNode: node,
                 autofocus: false,
                 controller: controller,
@@ -138,7 +172,7 @@ class DDTextFieldUtil  {
                   //添加单位
                   if(controller.text.length>0&&(tag=='dd_need_parking_time'||tag=='dd_need_work_time')){
                     //所需停场/工时
-                    controller.text='${controller.text}h';
+                    controller.text='${controller.text}H';
                   }
                   //验证是否为三字吗
   //                ^[a-zA-Z]$

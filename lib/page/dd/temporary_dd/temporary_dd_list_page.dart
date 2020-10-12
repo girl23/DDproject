@@ -218,6 +218,9 @@ class _TemporaryDDListPageState extends State<TemporaryDDListPage> {
             bool success=await _listVM.getList('LB',all:false,page:this.currentPage.toString(),ddNo:_numberController.text,acReg: _planeNoController.text,state:_dropValueForState) ;
             if(success){
               _loadingDialog.hide().whenComplete((){
+                _numberController.text='';
+                _planeNoController.text='';
+                _dropValueForState='';
                 Navigator.pop(context);
               });
             }else{

@@ -16,7 +16,7 @@ class CirclePainter extends CustomPainter {
   Paint _paint1;
   double _startAngle;
   CirclePainter(this.colors,this.percent,this.canvasSize,{this.cardLanguage=JobCardLanguage.cn, this.filled=false, this.strokeWidth=15.0,double startAngle=pi/2,this.center=const Offset(150.0,150.0),this.radius=100}){
-//    print('filled2222$filled');
+
     _startAngle=startAngle;
   }
   @override

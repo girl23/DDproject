@@ -19,7 +19,7 @@ class _DDListItemState extends State<DDListItem> {
   //状态文字颜色
   Color fontColor(){
     if(widget.temporaryDDState=='un_close'||widget.temporaryDDState=='to_Audit'||widget.temporaryDDState=='forTroubleShooting'||widget.temporaryDDState=='for_inspection'){
-      return Colors.blue;
+      return Theme.of(context).primaryColor;//Colors.blue;
     }else{
       return KColor.textColor_66;
     }
@@ -41,7 +41,7 @@ class _DDListItemState extends State<DDListItem> {
           child:Container(
             //cell蓝色条
             decoration: BoxDecoration(
-              color: Colors.blue,
+              color: Theme.of(context).primaryColor,//Colors.blue,
               boxShadow:[
                 BoxShadow(
                     color:Color.fromRGBO(0, 0, 0, 0.35),// Colors.black.opacity,

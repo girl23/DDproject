@@ -4,9 +4,9 @@ import 'package:lop/network/network_response.dart';
 import 'package:lop/utils/toast_util.dart';
 import 'package:lop/service/dd/transfer/transfer_dd_service.dart';
 import 'package:lop/service/dd/transfer/transfer_dd_service_impl.dart';
-
+import 'package:lop/model/dd/dd_public_model.dart';
 class TransferDDViewModel extends BaseViewModel with ChangeNotifier{
-
+  String serialNumber;
   TransferDDService _service = TransferDDServiceImpl();
   Future<bool> transferDD(String ddID, {String number, String planeNo, String keepPerson, String phone, String fax, String reportDate, String reportPlace, int spaceDay, String spaceHour, String spaceCycle, String describe, String keepMeasure, String name, String jno, String faultNum, String inStallNum, String releaseNum, String chapter1, String chapter2, String chapter3, String faultCategory, String influence, String parkingTime, String workHour, String o, String other, String otherDescribe, String m, String aMC, String runLimit, String keepReason, String evidenceType, String chapterNo1, String chapterNo2, String chapterNo3, String chapterNo4, String chapterNo5,
     String mbCode,String workON,String comeFrom,String eng,String startDate,String totalHour, String totalCycle,String endDate,String endHour,String endCycle,String keepFold,String repeatInspection,String applicant,String applyDate,String entryType}) async{
@@ -16,7 +16,7 @@ class TransferDDViewModel extends BaseViewModel with ChangeNotifier{
     comeFrom='comefrom123';
     planeNo='B-1234';
     eng='APU123141';
-    reportDate='2012-02-02';
+    reportDate='2020-10-11';
     reportPlace='CFH';
     startDate='2020-10-09';
     totalHour='10';
@@ -114,8 +114,9 @@ class TransferDDViewModel extends BaseViewModel with ChangeNotifier{
       );
 
     if(response.isSuccess){
-      if (response.data.result == 'success') {
 
+      if (response.data.result == 'success') {
+        serialNumber=response.data.serialnumber;
         return true;
       }else{
         return false;

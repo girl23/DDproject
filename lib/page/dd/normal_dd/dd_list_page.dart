@@ -132,7 +132,7 @@ class _DDListPageState extends State<DDListPage> {
                 String stateStr=dealState(model.ddState) ;
                 String bgdate=DateUtil.formateYMD_seconds(model.zzbgdt);
                 return DDListItem(temporaryDDNumber:model.zzblno??'',planeNumber:model.zzmsgrp??'',createDate: bgdate ,temporaryDDState:stateStr,itemClick: (){
-                  //新建临保
+
                      Application.router.navigateTo(
                       context,
                       "/dDDDetailPage/"+stateStr+"/"+model.ddid.toString(),
@@ -224,8 +224,17 @@ class _DDListPageState extends State<DDListPage> {
             await _loadingDialog.show();
             //确认搜索
             _listVM=Provider.of<DDListViewModel>(context,listen: false);
-            _listVM.getList('DD',all:false,page:this.currentPage.toString(),ddNo:_numberController.text,acReg: _planeNoController.text,state:_dropValueForState);
-            Navigator.pop(context);
+            bool success=await  _listVM.getList('DD',all:false,page:this.currentPage.toString(),ddNo:_numberController.text,acReg: _planeNoController.text,state:_dropValueForState);
+            if(success){
+              _loadingDialog.hide().whenComplete((){
+                _numberController.text='';
+                _planeNoController.text='';
+                _dropValueForState='';
+                Navigator.pop(context);
+              });
+            }else{
+              _loadingDialog.hide();
+            }
           },)//temporaryDDDrawer(),
       ),
       body:temporaryDDBody(),

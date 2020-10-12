@@ -7,7 +7,6 @@ class NormalDDTools{
     Database db = await DatabaseUtil.instance.openDb();
     String sql = "INSERT INTO normalDD(dd_userId,$key,dd_from_page) VALUES(?,?,?)";
     int insertId = await db.rawInsert(sql,[userId,value,fromPage]);
-//    NormalDDDbModel model =await queryNormalDD('2222',fromPage);
     return insertId > 0;
   }
   //删除

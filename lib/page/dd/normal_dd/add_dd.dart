@@ -45,6 +45,7 @@ import 'package:lop/viewmodel/dd/transfer_viewmodel.dart';
 import 'package:lop/router/routes.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:lop/utils/loading_dialog_util.dart';
+import 'package:lop/model/dd/dd_public_model.dart';
 
 class AddDD extends StatefulWidget {
   final comeFromPage fromPage;
@@ -451,7 +452,8 @@ class _AddDDState extends State<AddDD> {
                     applicant: Provider.of<UserViewModel>(context, listen: false).info.username,);
                  //访问接口拿取流水号，填写处理结果
                  if(transferSuccess){
-                   ddDialog(context,title: '流水号:30203008085',buttonText: Translations.of(context).text('confirm'),tagName: 'dd_dealResult',node: _dealResultNode,controller: _dealResultController,onTap:()async{
+
+                   ddDialog(context,title:'流水号:${transferDDVM.serialNumber}',buttonText: Translations.of(context).text('confirm'),tagName: 'dd_dealResult',node: _dealResultNode,controller: _dealResultController,onTap:()async{
                      //提交处理结果
                     bool success=await dealResultVM.result(detailVM.detailModel.ddid,_dealResultController.text);
                     if(success){
@@ -523,7 +525,7 @@ class _AddDDState extends State<AddDD> {
                     applicant: Provider.of<UserViewModel>(context, listen: false).info.username,);
                   //访问接口拿取流水号，填写处理结果
                   if(transferSuccess){
-                    ddDialog(context,title: '流水号:30203008085',buttonText: Translations.of(context).text('confirm'),tagName: 'dd_dealResult',node: _dealResultNode,controller: _dealResultController,onTap:()async{
+                    ddDialog(context,title: '流水号:${transferVM.serialNumber}',buttonText: Translations.of(context).text('confirm'),tagName: 'dd_dealResult',node: _dealResultNode,controller: _dealResultController,onTap:()async{
                       //提交处理结果
                       bool success=await dealResultVM.result(detailVM.detailModel.ddid,_dealResultController.text);
                       if(success){
@@ -598,7 +600,7 @@ class _AddDDState extends State<AddDD> {
                     applicant: Provider.of<UserViewModel>(context, listen: false).info.username,);
                   //访问接口拿取流水号，填写处理结果
                   if(success){
-                    ddDialog(context,title: '流水号:30203008085',buttonText: Translations.of(context).text('confirm'),tagName: 'dd_dealResult',node: _dealResultNode,controller: _dealResultController,onTap:()async{
+                    ddDialog(context,title:'流水号:${delayVM.serialNumber}',buttonText: Translations.of(context).text('confirm'),tagName: 'dd_dealResult',node: _dealResultNode,controller: _dealResultController,onTap:()async{
                       //提交处理结果
                       bool success=await dealResultVM.result(detailVM.detailModel.ddid,_dealResultController.text);
                       if(success){
@@ -847,7 +849,7 @@ class _AddDDState extends State<AddDD> {
 //    _dropValueForFaultCategory=detailVM.detailModel.zzblclf;
 //    _dropValueForInfluence="1";//tempStr;
     _planeNoController.text=detailVM.detailModel.zzmsgrp;
-    _workNoController.text=detailVM.detailModel.zzwo;//'c2222';
+    _workNoController.text=detailVM.detailModel.zzwo;//
     _needParkingTimeController.text=detailVM.detailModel.zzytsj;//'2h';
     _needWorkHourController.text=detailVM.detailModel.zzsxgs;//'2h';
     _keepMeasureController.text=detailVM.detailModel.ddreport;//'三角函数公式,三角函数是一个重要的知识点,尤其在生活应用中具有举足轻重的作用!三角函数包括ic';
@@ -1009,7 +1011,16 @@ class _AddDDState extends State<AddDD> {
             Provider.of<DDCalculateProvide>(context,listen: false).setEndCycle(tempController.text);
             Provider.of<DDCalculateProvide>(context,listen: false).calculateCycle(trigger: 'end');
           }
+          //飞机号处理
+          if(lastNode==_planeNoFocusNode){
+            String tempStr=tempController.text;
+            bool hasB= tempStr.startsWith('B-');
+            if(!hasB&&tempController.text.length>0){
+              tempController.text='B-${tempController.text}';
+            }
+          }
         }
+
         if(lastNode!=tempNode){
           this.lastNode = tempNode;
           this.lastIndex=i;
@@ -1021,8 +1032,8 @@ class _AddDDState extends State<AddDD> {
   }
   //获取本地缓存数据
   Future<void> fetchNormalDDModel() async {
-    normalDDDbModel = await NormalDDTools().queryNormalDD('2222',widget.fromPage.toString());//await NormalDDTools().queryNormalDD('2222',widget.fromPage.toString());
-
+    String userId=Provider.of<UserViewModel>(context, listen: false).info.userId;
+    normalDDDbModel = await NormalDDTools().queryNormalDD(userId,widget.fromPage.toString());
     if (normalDDDbModel != null) {
       _dropValueForMBCode=normalDDDbModel.ddMBCode;
       _numberController.text = normalDDDbModel.ddNumber1??"";

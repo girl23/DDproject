@@ -9,7 +9,7 @@ import 'package:lop/viewmodel/dd/ddlist_viewmodel.dart';
 import 'package:provider/provider.dart';
 
 class TransferViewModel extends BaseViewModel with ChangeNotifier{
-
+  String serialNumber;
   DDListViewModel ddListVM=Provider.of<DDListViewModel>(BaseViewModel.appContext,listen: false);//new DDListViewModel();
   TransferService _service = TransferServiceImpl();
   Future<bool> transfer(String ddID, {String number, String planeNo, String keepPerson, String phone, String fax, String reportDate, String reportPlace, int spaceDay, String spaceHour, String spaceCycle, String describe, String keepMeasure, String name, String jno, String faultNum, String inStallNum, String releaseNum, String chapter1, String chapter2, String chapter3, String faultCategory, String influence, String parkingTime, String workHour, String o, String other, String otherDescribe, String m, String aMC, String runLimit, String keepReason, String evidenceType, String chapterNo1, String chapterNo2, String chapterNo3, String chapterNo4, String chapterNo5,
@@ -122,6 +122,8 @@ class TransferViewModel extends BaseViewModel with ChangeNotifier{
     );
     if(response.isSuccess){
       if (response.data.result == 'success') {
+
+        serialNumber=response.data.serialnumber;
         ddListVM.getList('DD',page:'1');
         return true;
       }else{

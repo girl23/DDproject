@@ -4,13 +4,22 @@ import 'package:lop/database/temp_dd_model.dart';
 import 'package:lop/database/normal_dd_tools.dart';
 import 'package:lop/database/normal_dd_model.dart';
 import 'dart:async';
+import 'package:lop/viewmodel/user_viewmodel.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter/material.dart';
+import 'package:lop/config/global.dart';
+
 class DDCacheUtil{
+  static  BuildContext appContext =Global.navigatorKey.currentContext;
+  static String userId=Provider.of<UserViewModel>(appContext, listen: false).info.userId;
   static Future<TempDDDbModel>  fetchTempDDModel() async {
-    TempDDDbModel tempDDDbModel = await TempDDTools().queryTempDD('2222');
+//    String userId=Provider.of<UserViewModel>(appContext, listen: false).info.userId;
+    TempDDDbModel tempDDDbModel = await TempDDTools().queryTempDD(userId);
     return tempDDDbModel;
   }
   static Future<NormalDDDbModel>  fetchNormalDDModel(String fromPage ) async {
-    NormalDDDbModel normalDDDbModel = await NormalDDTools().queryNormalDD('2222',fromPage);
+//    String userId=Provider.of<UserViewModel>(appContext, listen: false).info.userId;
+    NormalDDDbModel normalDDDbModel = await NormalDDTools().queryNormalDD(userId,fromPage);
     return normalDDDbModel;
   }
   static void cacheData(String key,dynamic value){
@@ -22,13 +31,13 @@ class DDCacheUtil{
         TempDDDbModel model=await fetchTempDDModel();
         if (model == null) {
           //添加一条数据
-          String userId='2222';// Provider.of<UserViewModel>(context, listen: false).info.userId;
+
 
           await TempDDTools().addTempDD(userId,key,value);
 
         }else{
           //更新数据
-          bool success= await TempDDTools().updateTempDD(key,value,'2222');
+          bool success= await TempDDTools().updateTempDD(key,value,userId);
         }
       }else{
         //DD
@@ -37,11 +46,10 @@ class DDCacheUtil{
 
         if (model == null) {
           //添加一条数据
-          String userId='2222';
           await NormalDDTools().addNormalDD(userId,key,value,fromPage);
         }else{
           //更新数据
-          bool success= await NormalDDTools().updateNormalDD(key,value,'2222',fromPage);
+          bool success= await NormalDDTools().updateNormalDD(key,value,userId,fromPage);
         }
       }
       return pre;
